@@ -7,7 +7,7 @@
                 <div class="sb-sidenav-menu-heading">Features</div>
                 <a class="nav-link" href="/admin">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Dashboard
+                    Bãi d? xe
                 </a>
 
                 <a class="nav-link" href="/admin/user">

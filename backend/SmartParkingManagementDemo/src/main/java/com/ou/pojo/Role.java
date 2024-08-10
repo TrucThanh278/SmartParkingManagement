@@ -7,8 +7,10 @@ package com.ou.pojo;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +43,7 @@ public class Role implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "roleId")
+    @OneToMany(mappedBy = "roleId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> userList;
 
     public Role() {

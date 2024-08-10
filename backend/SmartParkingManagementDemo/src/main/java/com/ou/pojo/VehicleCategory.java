@@ -7,8 +7,10 @@ package com.ou.pojo;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +42,7 @@ public class VehicleCategory implements Serializable {
     private Integer id;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "vehicleCategoryId")
+    @OneToMany(mappedBy = "vehicleCategoryId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Vehicle> vehicleList;
 
     public VehicleCategory() {

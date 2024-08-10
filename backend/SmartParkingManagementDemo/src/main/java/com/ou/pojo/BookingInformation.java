@@ -7,8 +7,10 @@ package com.ou.pojo;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,7 +53,7 @@ public class BookingInformation implements Serializable {
     private Date endTime;
     @Column(name = "payment_status")
     private Boolean paymentStatus;
-    @OneToOne(mappedBy = "bookingInfoId")
+    @OneToOne(mappedBy = "bookingInfoId",fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
     private Report report;
     @JoinColumn(name = "parking_spot_id", referencedColumnName = "id")
     @ManyToOne

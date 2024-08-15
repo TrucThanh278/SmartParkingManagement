@@ -4,16 +4,15 @@
  */
 package com.ou.configs;
 
-import javax.ejb.TransactionManagement;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 /**
  *
@@ -21,9 +20,11 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableWebMvc
-@TransactionManagement
+@EnableTransactionManagement
 @ComponentScan(basePackages = {
-    "com.ou.controllers"
+    "com.ou.controllers",
+    "com.ou.services",
+    "com.ou.repositories"
 })
 public class WebAppContextConfigs implements WebMvcConfigurer {
 
@@ -43,10 +44,11 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
 //        return r;
 //    }
     
-    @Override
+@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/css/**", "/js/**")
-            .addResourceLocations("classpath:/static/css/", "classpath:/static/js/");
-}
+        registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+    }
+
 
 }

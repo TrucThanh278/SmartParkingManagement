@@ -11226,3 +11226,8 @@ body {
     font-size: 0.75rem;
     border-radius: 0.375rem !important;
 }
+
+.input-custom-width{
+    max-width: 400px;
+    width: 100%;
+}

@@ -6,6 +6,8 @@ package com.ou.repository.impl;
 
 import com.ou.pojo.ParkingLot;
 import com.ou.smartparkingmanagementdemo.SmartParkingMangementDemoUtils;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -88,6 +90,23 @@ public class ParkingLotImpl {
             s.update(currentParkingLot);
             transaction.commit();
             return currentParkingLot;
+        }
+    }
+    
+    public ParkingLot createParkingLot(String name, String address, Integer total_spots, Float pricePerHour, String description, LocalDateTime startTime, LocalDateTime endTime){
+        try(Session s = SmartParkingMangementDemoUtils.getFactory().openSession()){
+            Transaction transaction = s.beginTransaction();
+            ParkingLot newParkingLot = new ParkingLot();
+            newParkingLot.setName(name);
+            newParkingLot.setAddress(address);
+            newParkingLot.setDescription(description);
+            newParkingLot.setTotalSpots(total_spots);
+            newParkingLot.setPricePerHour(pricePerHour);
+            newParkingLot.setStartTime(startTime);
+            newParkingLot.setEndTime(endTime);
+            s.save(newParkingLot);
+            transaction.commit();
+            return newParkingLot;
         }
     }
     

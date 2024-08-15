@@ -5,9 +5,9 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Features</div>
-                <a class="nav-link" href="/admin">
+                <a class="nav-link" href="<c:url value="/parkingLot"/>">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Bãi d? xe
+                    Parking Lot
                 </a>
 
                 <a class="nav-link" href="/admin/user">
@@ -17,12 +17,12 @@
 
                 <a class="nav-link" href="/admin/product">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Product
+                    Contact
                 </a>
 
                 <a class="nav-link" href="/admin/order">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Order
+                    Bill
                 </a>
             </div>
         </div>

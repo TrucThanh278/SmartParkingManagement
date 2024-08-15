@@ -6,7 +6,6 @@ package com.ou.pojo;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -21,8 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -63,7 +60,7 @@ public class ParkingLot implements Serializable {
     @Column(name = "description")
     private String description;
     @Column(name = "start_time")
-    
+ 
     private LocalDateTime startTime;
     @Column(name = "end_time")
     

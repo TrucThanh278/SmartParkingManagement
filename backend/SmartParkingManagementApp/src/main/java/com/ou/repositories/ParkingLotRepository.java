@@ -1,0 +1,23 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
+package com.ou.repositories;
+
+import com.ou.pojo.ParkingLot;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+
+/**
+ *
+ * @author trucn
+ */
+public interface ParkingLotRepository {
+     public List<ParkingLot> getParkingLots();
+     public List<ParkingLot> getParkingLotsByName(Map<String, String> params);
+     public ParkingLot getParkingLotDetail(Integer id);
+     public ParkingLot updateParkingLotInfo(Integer id, ParkingLot updatedParkingLot);
+     public ParkingLot createParkingLot(String name, String address, Integer total_spots, Float pricePerHour, String description, LocalDateTime startTime, LocalDateTime endTime);
+     public boolean deleteParkingLot(Integer id);
+}

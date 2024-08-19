@@ -12,5 +12,7 @@ import java.util.List;
  * @author trucn
  */
 public interface UserService {
-    List<User> getUsers();
+    public List<User> getUsers();
+    public User getUserDetail(int id);
+    public void addOrUpdate(User u);
 }

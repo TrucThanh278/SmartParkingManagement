@@ -4,10 +4,13 @@
  */
 package com.ou.services;
 
+import com.ou.pojo.Vehicle;
+import java.util.List;
+
 /**
  *
  * @author trucn
  */
 public interface VehicleService {
-    
+    public List<Vehicle> getVehicleWithUserID(int id);
 }

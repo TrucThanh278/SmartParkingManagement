@@ -11231,3 +11231,7 @@ body {
     max-width: 400px;
     width: 100%;
 }
+
+.vehicle-list{
+    width: 50%;
+}

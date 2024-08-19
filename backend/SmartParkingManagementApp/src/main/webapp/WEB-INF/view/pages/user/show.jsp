@@ -43,9 +43,9 @@
                     <td>${u.phone}</td>
                     <td>${u.email}</td>
                     <td>
-                        <a  href="<c:url value="/user/${p.id}" />"
+                        <a  href="<c:url value="/user/${u.id}" />"
                             class="btn btn-success"><i class="fa fa-eye"></i></a>
-                        <a  href="<c:url value="/user/${p.id}" />"
+                        <a  href="<c:url value="/user/${u.id}" />"
                             class="btn btn-warning"><i class='fas fa-edit'></i></a>
                         <a
                             class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>

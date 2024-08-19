@@ -20,8 +20,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -41,23 +46,31 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @NotNull(message = "Fist name cannot be empty")
+    @Size(min = 3, message = "Last name must have at least 3 characters")
     @Column(name = "last_name")
     private String lastName;
+    @NotNull(message = "Fist name cannot be empty")
+    @Size(min = 3, message = "First name must have at least 3 characters")
     @Column(name = "first_name")
     private String firstName;
+    @NotNull(message = "Email cannot be empty")
+    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     @Column(name = "email")
     private String email;
+    @NotNull(message = "Password cannot be empty")
+    @Size(min = 3, message = "Password must have at least 3 characters")
     @Column(name = "password")
     private String password;
     @Column(name = "address")
     private String address;
+    @NotNull
     @Column(name = "phone")
     private String phone;
     @Column(name = "avatar")
@@ -67,6 +80,9 @@ public class User implements Serializable {
     private Role roleId;
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Vehicle> vehicleList;
+    
+    @Transient
+    private MultipartFile file;
 
     public User() {
     }
@@ -179,6 +195,20 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.ou.pojo.User[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }

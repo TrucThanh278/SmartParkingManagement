@@ -2,17 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.ou.repositories;
+package com.ou.services;
 
-import com.ou.pojo.User;
+import com.ou.pojo.Role;
 import java.util.List;
 
 /**
  *
  * @author trucn
  */
-public interface UserRepository {
-    public List<User> getUsers();
-    public User getUserDetail(int id);
-    public void addOrUpdateUser(User u);
+public interface RoleService {
+    public List<Role> getRoles();
 }

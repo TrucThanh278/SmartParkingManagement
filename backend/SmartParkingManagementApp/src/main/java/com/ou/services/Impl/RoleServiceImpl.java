@@ -4,9 +4,9 @@
  */
 package com.ou.services.Impl;
 
-import com.ou.pojo.Vehicle;
-import com.ou.repositories.VehicleRepository;
-import com.ou.services.VehicleService;
+import com.ou.pojo.Role;
+import com.ou.repositories.RoleRepository;
+import com.ou.services.RoleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
  * @author trucn
  */
 @Service
-public class VehicleServiceIml implements VehicleService{
+public class RoleServiceImpl implements RoleService{
     
     @Autowired
-    private VehicleRepository vehicleRepository;
+    private RoleRepository roleRepository;
 
     @Override
-    public List<Vehicle> getVehicleWithUserID(int id) {
-        return this.vehicleRepository.getVehicleWithUserID(id);
+    public List<Role> getRoles() {
+        return this.roleRepository.getRoles();
     }
     
 }

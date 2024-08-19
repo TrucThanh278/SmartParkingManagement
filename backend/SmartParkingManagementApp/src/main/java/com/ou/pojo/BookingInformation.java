@@ -4,6 +4,7 @@
  */
 package com.ou.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -53,11 +54,14 @@ public class BookingInformation implements Serializable {
     private Date endTime;
     @Column(name = "payment_status")
     private Boolean paymentStatus;
+    @JsonIgnore
     @OneToOne(mappedBy = "bookingInfoId",fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
     private Report report;
+    @JsonIgnore
     @JoinColumn(name = "parking_spot_id", referencedColumnName = "id")
     @ManyToOne
     private ParkingSpot parkingSpotId;
+    @JsonIgnore
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     @ManyToOne
     private Vehicle vehicleId;

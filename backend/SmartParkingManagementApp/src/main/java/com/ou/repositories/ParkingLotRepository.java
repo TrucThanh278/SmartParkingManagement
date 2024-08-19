@@ -18,6 +18,6 @@ public interface ParkingLotRepository {
      public List<ParkingLot> getParkingLotsByName(Map<String, String> params);
      public ParkingLot getParkingLotDetail(Integer id);
      public ParkingLot updateParkingLotInfo(Integer id, ParkingLot updatedParkingLot);
-     public ParkingLot createParkingLot(String name, String address, Integer total_spots, Float pricePerHour, String description, LocalDateTime startTime, LocalDateTime endTime);
+     public ParkingLot createParkingLot(ParkingLot p);
      public boolean deleteParkingLot(Integer id);
 }

@@ -1,6 +1,6 @@
 <%-- 
     Document   : show
-    Created on : Aug 12, 2024, 8:56:52 AM
+    Created on : Aug 19, 2024, 5:58:10 PM
     Author     : trucn
 --%>
 
@@ -19,37 +19,33 @@
     </div>
     
     <div class="d-flex justify-content-end">
-        <a class="btn btn-primary" href="<c:url value="/parkingLot/create"/>">Add parking lot</a>
+        <a class="btn btn-primary" href="<c:url value="/user/create"/>">Add user</a>
     </div>
       
     <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Address</th>
-                <th scope="col">Total Spots</th>
-                <th scope="col">Price Per Hour</th>
-                <th scope="col">Start time</th>
-                <th scope="col">End time</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Email</th>
                 <th scope="col">Actions</th>
 
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="p" items="${parkingLots}">
+            <c:forEach var="u" items="${users}">
                 <tr>
-                    <td>${p.id}</td>                    
-                    <td>${p.name}</td>
-                    <td>${p.address}</td>
-                    <td>${p.totalSpots}</td>
-                    <td>${p.pricePerHour}</td>
-                    <td>${p.startTime}</td>
-                    <td>${p.endTime}</td>
+                    <td>${u.id}</td>                    
+                    <td>${u.firstName}</td>
+                    <td>${u.lastName}</td>
+                    <td>${u.phone}</td>
+                    <td>${u.email}</td>
                     <td>
-                        <a  href="<c:url value="/parkingLot/${p.id}" />"
+                        <a  href="<c:url value="/user/${p.id}" />"
                             class="btn btn-success"><i class="fa fa-eye"></i></a>
-                        <a  href="<c:url value="/parkingSpot/${p.id}" />"
+                        <a  href="<c:url value="/user/${p.id}" />"
                             class="btn btn-warning"><i class='fas fa-edit'></i></a>
                         <a
                             class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
@@ -61,3 +57,4 @@
     </table>
 
 </div>
+

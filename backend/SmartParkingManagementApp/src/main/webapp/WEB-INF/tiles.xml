@@ -22,8 +22,16 @@
         <put-attribute name="title" value="Parking Lot Detail"/>
         <put-attribute name="content" value="/WEB-INF/view/pages/parkingLot/detail.jsp"/>
     </definition>
+    <definition name="createParkingLot" extends="baseLayout">
+        <put-attribute name="title" value="Create Parking Lot"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/parkingLot/create.jsp"/>
+    </definition>
     <definition name="showParkingSpots" extends="baseLayout">
         <put-attribute name="title" value="Parking Spot List"/>
         <put-attribute name="content" value="/WEB-INF/view/pages/parkingSpot/show.jsp"/>
+    </definition>
+    <definition name="showUsers" extends="baseLayout">
+        <put-attribute name="title" value="User List"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/user/show.jsp"/>
     </definition>
 </tiles-definitions>

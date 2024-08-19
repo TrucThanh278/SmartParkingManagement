@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <div class="container">
     <h2>List parking Spots of ${parkingLot.name}</h2>
     <!-- Calendar Navigation -->
@@ -30,6 +31,8 @@
     <!-- Script to Initialize Calendar -->
     <script>
         $(document).ready(function() {
+            console.log(${bookingListJSON})
+            var bookingList = ${bookingListJSON}
             var currentDate = new Date(); // Lấy ngày hiện tại
             var currentPage = 0; // Trang hiện tại (dành cho phân trang chỗ đỗ xe)
             var spotsPerPage = 5; // Số chỗ đỗ xe mỗi trang
@@ -47,7 +50,7 @@
                     slotDuration: '00:30:00', // Khoảng thời gian giữa các slot
                     resources: getParkingSpots(),
                     events: getEvents(), // Tạo sự kiện mẫu
-                    height: 650, // Chiều cao lịch
+                    height: 650 // Chiều cao lịch
                 });
                 calendar.render();
                 updateCurrentDay();
@@ -77,10 +80,17 @@
 
             // Hàm để tạo sự kiện mẫu (bạn có thể thay thế bằng dữ liệu thực)
             function getEvents() {
-                return [
-                    { id: '1', resourceId: '1', start: currentDate.toISOString().slice(0, 10) + 'T07:40:00', end: currentDate.toISOString().slice(0, 10) + 'T09:00:00', title: '${parkingLot.name}' },
-                    { id: '2', resourceId: '2', start: currentDate.toISOString().slice(0, 10) + 'T11:00:00', end: currentDate.toISOString().slice(0, 10) + 'T13:00:00', title: 'Car B' }
-                ];
+                return bookingList.map( (item) => {
+                    return {
+                        
+                        
+                    }
+                } )
+                    
+//                [
+//                    { id: '1', resourceId: '4', start: currentDate.toISOString().slice(0, 10) + 'T07:40:00', end: currentDate.toISOString().slice(0, 10) + 'T09:00:00', title: '${parkingLot.name}' },
+//                    { id: '2', resourceId: '2', start: currentDate.toISOString().slice(0, 10) + 'T11:00:00', end: currentDate.toISOString().slice(0, 10) + 'T13:00:00', title: 'Car B' }
+//                ];
             }
 
             // Xử lý nút ngày trước

@@ -5,12 +5,12 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Features</div>
-                <a class="nav-link" href="<c:url value="/parkingLot"/>">
+                <a class="nav-link" href="<c:url value="/"/>">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Parking Lot
                 </a>
 
-                <a class="nav-link" href="/admin/user">
+                <a class="nav-link" href="<c:url value="/users"/>">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     User
                 </a>

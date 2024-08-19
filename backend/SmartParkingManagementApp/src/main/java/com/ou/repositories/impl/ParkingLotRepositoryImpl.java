@@ -101,17 +101,10 @@ public class ParkingLotRepositoryImpl implements ParkingLotRepository {
     }
 
     @Override
-    public ParkingLot createParkingLot(String name, String address, Integer total_spots, Float pricePerHour, String description, LocalDateTime startTime, LocalDateTime endTime) {
+    public ParkingLot createParkingLot(ParkingLot newParkingLot) {
         Session s = this.factory.getObject().getCurrentSession();
 
-        ParkingLot newParkingLot = new ParkingLot();
-        newParkingLot.setName(name);
-        newParkingLot.setAddress(address);
-        newParkingLot.setDescription(description);
-        newParkingLot.setTotalSpots(total_spots);
-        newParkingLot.setPricePerHour(pricePerHour);
-        newParkingLot.setStartTime(startTime);
-        newParkingLot.setEndTime(endTime);
+        
         s.save(newParkingLot);
         return newParkingLot;
 

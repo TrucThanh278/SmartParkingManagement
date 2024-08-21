@@ -64,17 +64,17 @@ public class UserController {
         return "createUser";
     }
 
-    @PostMapping("/user/create")
-    public String createUser(Model model, @ModelAttribute(value = "newUser") @Valid User user, BindingResult rs) {
-        if (rs.hasErrors()) {
-             List<FieldError> errors = rs.getFieldErrors();
-         for (FieldError error : errors) {
-         System.out.println(">>>>>>" + error.getField() + " - " +
-         error.getDefaultMessage());
-         }
-            return "createUser";
-        }
-        this.userService.addOrUpdate(user);
-        return "redirect:/users";
-    }
+//    @PostMapping("/user/create")
+//    public String createUser(Model model, @ModelAttribute(value = "newUser") @Valid User user, BindingResult rs) {
+//        if (rs.hasErrors()) {
+//             List<FieldError> errors = rs.getFieldErrors();
+//         for (FieldError error : errors) {
+//         System.out.println(">>>>>>" + error.getField() + " - " +
+//         error.getDefaultMessage());
+//         }
+//            return "createUser";
+//        }
+//        this.userService.addOrUpdate(user);
+//        return "redirect:/users";
+//    }
 }

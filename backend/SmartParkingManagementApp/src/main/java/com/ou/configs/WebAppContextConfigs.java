@@ -10,12 +10,14 @@ import com.ou.formatters.RoleFormatters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -50,16 +52,6 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
         registry.addFormatter(new RoleFormatters());
     }
 
-    @Bean
-    public Cloudinary cloudinary() {
-        Cloudinary cloudinary
-                = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", "djyggobeq",
-                        "api_key", "446637785899928",
-                        "api_secret", "7EAQ1bjCVEaO2tYArfZbYo58tXo",
-                        "secure", true));
-        return cloudinary;
-    }
 
 //    @Bean
 //    public InternalResourceViewResolver viewResolver(){

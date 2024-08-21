@@ -14,5 +14,6 @@ import java.util.List;
 public interface UserRepository {
     public List<User> getUsers();
     public User getUserDetail(int id);
-    public void addOrUpdateUser(User u);
+    public User getUserByEmail(String email);
+//    public void addOrUpdateUser(User u);
 }

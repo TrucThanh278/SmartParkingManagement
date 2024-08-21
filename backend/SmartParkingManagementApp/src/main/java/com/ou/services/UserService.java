@@ -6,13 +6,15 @@ package com.ou.services;
 
 import com.ou.pojo.User;
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  *
  * @author trucn
  */
-public interface UserService {
+public interface UserService extends UserDetailsService{
     public List<User> getUsers();
     public User getUserDetail(int id);
-    public void addOrUpdate(User u);
+    public User getUserByEmail(String email);
+//    public void addOrUpdate(User u);
 }

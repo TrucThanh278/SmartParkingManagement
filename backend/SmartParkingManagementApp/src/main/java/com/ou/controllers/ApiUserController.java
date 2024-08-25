@@ -185,6 +185,9 @@ public class ApiUserController {
             LOGGER.info("Received token for confirmation: {}", token);
 
             VerificationToken verificationToken = userService.getVerificationToken(token);
+            
+            System.out.println(">>>>>>>> Verification Token Object: " + verificationToken.toString());
+            
             if (verificationToken == null) {
                 LOGGER.warn("Token not found: {}", token);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token.");
@@ -195,20 +198,21 @@ public class ApiUserController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token expired.");
             }
 
-            User user = verificationToken.getUser();
-            if (user == null) {
-                LOGGER.warn("User not found for token: {}", token);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found.");
-            }
-
-            user.setEnabled(true);
-            userService.saveUser(user);
-            LOGGER.info("User successfully activated: {}", user.getUsername());
+            verificationToken.getUser().setEnabled(true);
+            boolean test = verificationToken.getUser().isEnabled();
+//            if (user == null) {
+//                LOGGER.warn("User not found for token: {}", token);
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found.");
+//            }
+//
+//            user.setEnabled(true);
+//            this.userService.saveUser(user);
+//            LOGGER.info("User successfully activated: {}", user.getUsername());
 
             return ResponseEntity.ok("User successfully activated.");
         } catch (Exception e) {
             LOGGER.error("Error confirming user with token: {}", token, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while confirming the user 21312312.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 

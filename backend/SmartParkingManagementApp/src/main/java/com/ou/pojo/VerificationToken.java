@@ -2,7 +2,9 @@ package com.ou.pojo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import lombok.ToString;
 
+@ToString
 @Entity
 public class VerificationToken {
 
@@ -69,9 +71,5 @@ public class VerificationToken {
 
     public void setExpiryDate(LocalDateTime expiryDate) {
         this.expiryDate = expiryDate;
-    }
-
-    public VerificationToken orElse(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

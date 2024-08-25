@@ -199,7 +199,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public VerificationToken getVerificationToken(String token) {
-        return tokenRepo.findByToken(token).orElse(null);
+        return tokenRepo.findByToken(token);
     }
 
     @Override
@@ -254,7 +254,7 @@ public boolean confirmUser(String token) {
         }
 
         User user = userOpt.get();
-        user.setActive(true);
+        user.setEnabled(true);
 
         // Lưu thông tin User đã cập nhật
         userRepo.save(user);

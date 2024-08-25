@@ -9,8 +9,10 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional
 public class VerificationTokenRepositoryImpl implements VerificationTokenRepository {
         private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
 
@@ -24,6 +26,7 @@ public class VerificationTokenRepositoryImpl implements VerificationTokenReposit
             TypedQuery<VerificationToken> query = entityManager.createQuery(
                     "SELECT vt FROM VerificationToken vt WHERE vt.token = :token", VerificationToken.class);
             query.setParameter("token", token);
+            query.getSingleResult().getUser().setEnabled(true);
             return query.getSingleResult();
         } catch (NoResultException e) {
             LOGGER.warning("No verification token found for token: " + token);

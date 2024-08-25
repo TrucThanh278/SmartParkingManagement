@@ -183,7 +183,7 @@ public class User implements Serializable {
     }
 
     public boolean isEnabled() {
-        return enabled;
+        return this.enabled;
     }
 
     public void setEnabled(boolean enabled) {
@@ -207,10 +207,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.ou.pojo.User[ id=" + id + " ]";
-    }
-
-    public void setActive(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

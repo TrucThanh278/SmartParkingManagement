@@ -18,8 +18,9 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-        <script src="${pageContext.request.contextPath}/js/scripts.js"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css">
+<script src="${pageContext.request.contextPath}/resources/js/scripts.js"></script>
+
 
     </head>
     <body class="sb-nav-fixed">

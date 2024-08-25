@@ -143,7 +143,7 @@ DROP TABLE IF EXISTS `role`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` enum('USER','ADMIN') NOT NULL,
+  `name` enum('ROLE_USER','ROLE_ADMIN') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -155,7 +155,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'USER'),(2,'ADMIN');
+INSERT INTO `role` VALUES (1,'ROLE_USER'),(2,'ROLE_ADMIN');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,6 +170,7 @@ CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `last_name` varchar(50) DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
+  `username` varchar(50) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
@@ -189,7 +190,13 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Smith','John','john@email.com','password123','123 Oak St','555-1234','avatar1.jpg',1),(2,'Johnson','Emily','emily@email.com','securepass','456 Elm St','555-5678','avatar2.jpg',1),(3,'Brown','Michael','michael@email.com','pass1234','789 Pine St','555-9012','avatar3.jpg',2),(4,'Davis','Sarah','sarah@email.com','safepass','101 Maple Ave','555-3456','avatar4.jpg',1),(5,'Wilson','David','david@email.com','strongpass','202 Cedar Ln','555-7890','avatar5.jpg',1);
+INSERT INTO `user` (`id`, `last_name`, `first_name`, `username`, `email`, `password`, `address`, `phone`, `avatar`, `role_id`) VALUES
+(1, 'Smith', 'John', 'johnsmith', 'john@email.com', 'password123', '123 Oak St', '555-1234', 'avatar1.jpg', 1),
+(2, 'Johnson', 'Emily', 'emilyj', 'emily@email.com', 'securepass', '456 Elm St', '555-5678', 'avatar2.jpg', 1),
+(3, 'Brown', 'Michael', 'mikebrown', 'michael@email.com', 'pass1234', '789 Pine St', '555-9012', 'avatar3.jpg', 2),
+(4, 'Davis', 'Sarah', 'sarahd', 'sarah@email.com', 'safepass', '101 Maple Ave', '555-3456', 'avatar4.jpg', 1),
+(5, 'Wilson', 'David', 'davidw', 'david@email.com', 'strongpass', '202 Cedar Ln', '555-7890', 'avatar5.jpg', 1);
+
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 

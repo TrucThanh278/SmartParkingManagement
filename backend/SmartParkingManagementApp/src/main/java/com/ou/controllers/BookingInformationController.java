@@ -4,12 +4,16 @@
  */
 package com.ou.controllers;
 
+import com.ou.editors.LocalDateTimeEditor;
 import com.ou.pojo.BookingInformation;
 import com.ou.services.BookingInformationService;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 /**
  *
@@ -17,6 +21,11 @@ import org.springframework.ui.Model;
  */
 @Controller
 public class BookingInformationController {
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(LocalDateTime.class, new LocalDateTimeEditor());
+    }
 
     @Autowired
     private BookingInformationService bookingInformationService;

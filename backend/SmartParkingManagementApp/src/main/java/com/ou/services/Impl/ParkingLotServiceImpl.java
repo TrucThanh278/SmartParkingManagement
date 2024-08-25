@@ -7,7 +7,6 @@ package com.ou.services.Impl;
 import com.ou.pojo.ParkingLot;
 import com.ou.repositories.ParkingLotRepository;
 import com.ou.services.ParkingLotService;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +17,11 @@ import org.springframework.stereotype.Service;
  * @author trucn
  */
 @Service
-public class ParkingLotServiceImpl implements ParkingLotService{
+public class ParkingLotServiceImpl implements ParkingLotService {
+
     @Autowired
     private ParkingLotRepository parkingLotRepository;
-    
+
     @Override
     public List<ParkingLot> getParkingLots() {
         return this.parkingLotRepository.getParkingLots();
@@ -48,8 +48,8 @@ public class ParkingLotServiceImpl implements ParkingLotService{
     }
 
     @Override
-    public boolean deleteParkingLot(Integer id) {
-        return this.parkingLotRepository.deleteParkingLot(id);
+    public void deleteParkingLot(Integer id) {
+        this.parkingLotRepository.deleteParkingLot(id);
     }
-    
+
 }

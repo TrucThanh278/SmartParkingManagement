@@ -56,4 +56,12 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotsRepository{
         return query.getResultList();
     }
 
+    @Override
+    public void addParkingSpot(int num) {
+        Session s = this.factory.getObject().getCurrentSession();
+        for(int i = 0; i < num; i++){
+            
+        }
+    }
+
 }

@@ -12,5 +12,6 @@ import java.util.List;
  * @author trucn
  */
 public interface RoleRepository {
-    public List<Role> getRoles();
+    List<Role> getRoles();
+    Role getRoleByName(String name);
 }

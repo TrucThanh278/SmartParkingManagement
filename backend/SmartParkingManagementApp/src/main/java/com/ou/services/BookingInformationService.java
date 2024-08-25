@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface BookingInformationService {
     public List<BookingInformation> getBookingListWithPakingSpotId(Integer id);
+    public List<BookingInformation> getBookingListOfParkingLot(Integer id);
 }

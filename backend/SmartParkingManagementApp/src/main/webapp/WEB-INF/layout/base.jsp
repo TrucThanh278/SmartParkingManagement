@@ -29,6 +29,8 @@
 
     <!-- FullCalendar Scheduler JS -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.10.1/main.min.js'></script>
+    
+    
         
         <link rel="stylesheet" href="<c:url value="/css/styles.css"/>"/>
         <script src="<c:url value="/js/scripts.js"/>" ></script>

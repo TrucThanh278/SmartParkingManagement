@@ -24,4 +24,9 @@ public class BookingInformationServiceImpl implements BookingInformationService{
     public List<BookingInformation> getBookingListWithPakingSpotId(Integer id){
         return this.bookingInformationRepository.getBookingListWithParkingSpotId(id);
     }
+
+    @Override
+    public List<BookingInformation> getBookingListOfParkingLot(Integer id) {
+        return this.bookingInformationRepository.getBookingListOfParkingLot(id);
+    }
 }

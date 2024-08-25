@@ -36,9 +36,10 @@ public class SecurityConfigs extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    // Remove the ROLE_ prefix
     @Bean
     GrantedAuthorityDefaults grantedAuthorityDefaults() {
-        return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
+        return new GrantedAuthorityDefaults(""); 
     }
     
     @Bean

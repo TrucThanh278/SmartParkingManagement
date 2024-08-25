@@ -20,6 +20,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -47,25 +49,34 @@ public class ParkingLot implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @NotNull(message = "Name cannot be null")
+    @NotBlank(message = "Name cannot be blank")
     @Column(name = "name")
     private String name;
+    @NotNull(message = "Address cannot be blank")
+    @NotBlank(message = "Address cannot be blank")
     @Column(name = "address")
     private String address;
+    @NotNull(message = "Total spots cannot be blank")
     @Column(name = "total_spots")
     private Integer totalSpots;
+    @NotNull(message = "Price per hour cannot be blank")
+
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price_per_hour")
     private Float pricePerHour;
     @Lob
     @Column(name = "description")
     private String description;
+    @NotNull(message = "Start time cannot be blank")
+
     @Column(name = "start_time")
- 
     private LocalDateTime startTime;
+    @NotNull(message = "End time cannot be blank")
+
     @Column(name = "end_time")
-    
-    private LocalDateTime  endTime;
-    @OneToMany(mappedBy = "parkingLotId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private LocalDateTime endTime;
+    @OneToMany(mappedBy = "parkingLotId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ParkingSpot> parkingSpotList;
 
     public ParkingLot() {
@@ -123,19 +134,19 @@ public class ParkingLot implements Serializable {
         this.description = description;
     }
 
-    public LocalDateTime  getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime  startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime  getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime  endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -172,5 +183,5 @@ public class ParkingLot implements Serializable {
     public String toString() {
         return "com.ou.pojo.ParkingLot[ id=" + id + " ]";
     }
-    
+
 }

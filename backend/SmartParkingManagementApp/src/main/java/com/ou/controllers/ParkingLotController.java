@@ -9,9 +9,11 @@ import com.ou.pojo.ParkingLot;
 import com.ou.services.ParkingLotService;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -52,13 +54,48 @@ public class ParkingLotController {
     
     @GetMapping("/parkingLot/create")
     public String getCreateParkingLotPage(Model model){
-        model.addAttribute("newParkingLot", new ParkingLot());
+        model.addAttribute("parkingLot", new ParkingLot());
         return "createParkingLot";
     }
     
-    @PostMapping("/parkingLot")
-    public String addParkingLot(Model model, @ModelAttribute("newParkingLot") ParkingLot newParkingLot){
-        this.parkingLotService.createParkingLot(newParkingLot);
-        return "redirect:/parkingLot";
+    @PostMapping("/parkingLot/create")
+    public String addParkingLot(Model model, 
+            @ModelAttribute("parkingLot") @Valid ParkingLot parkingLot,
+            BindingResult rs){
+        if(rs.hasErrors()){
+            return "createParkingLot";
+        }
+        else {
+            this.parkingLotService.createParkingLot(parkingLot);
+            return "redirect:/parkingLot";
+        }
     }
+    
+    @GetMapping("/parkingLot/update/{id}")
+    public String getUpdateParkingLotPage(Model model, @PathVariable("id") Integer id){
+        ParkingLot parkingLot = this.parkingLotService.getParkingLotDetail(id);
+        model.addAttribute("parkingLot", parkingLot);
+        return "createParkingLot";
+    }
+    
+    @PostMapping("/parkingLot/update")
+    public String updateParkingLot(Model model, @ModelAttribute("parkingLot") @Valid ParkingLot parkingLot, BindingResult rs){
+        if (rs.hasErrors()){
+            return "createParkingLot";
+        }else{
+            this.parkingLotService.createParkingLot(parkingLot);
+            return "redirect:/";
+        }
+    }
+    
+    @GetMapping("/parkingLot/delete/{id}")
+    public String deleteParkingLot(@PathVariable("id") Integer id){
+        try{
+            this.parkingLotService.deleteParkingLot(id);
+        }catch (Exception e) {
+            System.err.println("Delete ParkingLot Error: " + e.getMessage());
+        }
+        return "redirect:/";
+    }
+    
 }

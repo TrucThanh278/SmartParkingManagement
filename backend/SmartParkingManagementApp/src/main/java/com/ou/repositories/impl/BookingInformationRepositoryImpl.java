@@ -24,22 +24,36 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class BookingInformationRepositoryImpl implements BookingInformationRepository{
+public class BookingInformationRepositoryImpl implements BookingInformationRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Override
-    public List<BookingInformation> getBookingListWithParkingSpotId(Integer id){
+    public List<BookingInformation> getBookingListWithParkingSpotId(Integer id) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<BookingInformation> q = b.createQuery(BookingInformation.class);
         Root root = q.from(BookingInformation.class);
-        
+
         Predicate idPredicate = b.equal(root.get("parkingSpotId").get("id"), id);
         q.where(idPredicate);
-        
+
         Query query = s.createQuery(q);
         return query.getResultList();
-    }   
-    
+    }
+
+    @Override
+    public List<BookingInformation> getBookingListOfParkingLot(Integer id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<BookingInformation> q = b.createQuery(BookingInformation.class);
+        Root root = q.from(BookingInformation.class);
+        Predicate idPredicate = b.equal(root.get("parkingSpotId").get("parkingLotId").get("id"), id);
+        q.where(idPredicate);
+
+        Query query = s.createQuery(q);
+        return query.getResultList();
+    }
+
 }

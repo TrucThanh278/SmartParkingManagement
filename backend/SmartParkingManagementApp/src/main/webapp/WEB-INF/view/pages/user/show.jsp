@@ -17,10 +17,6 @@
             </span>
      </div> 
     </div>
-    
-    <div class="d-flex justify-content-end">
-        <a class="btn btn-primary" href="<c:url value="/user/create"/>">Add user</a>
-    </div>
       
     <table class="table table-hover">
         <thead>
@@ -45,9 +41,7 @@
                     <td>
                         <a  href="<c:url value="/user/${u.id}" />"
                             class="btn btn-success"><i class="fa fa-eye"></i></a>
-                        <a  href="<c:url value="/user/${u.id}" />"
-                            class="btn btn-warning"><i class='fas fa-edit'></i></a>
-                        <a
+                        <a  href="<c:url value="/user/delete/${u.id}" />"
                             class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr> 

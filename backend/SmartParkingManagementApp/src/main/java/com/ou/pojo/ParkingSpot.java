@@ -4,6 +4,7 @@
  */
 package com.ou.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -47,9 +48,11 @@ public class ParkingSpot implements Serializable {
     private String spotNumber;
     @Column(name = "status")
     private Boolean status;
+    @JsonIgnore
     @JoinColumn(name = "parking_lot_id", referencedColumnName = "id")
     @ManyToOne
     private ParkingLot parkingLotId;
+    @JsonIgnore
     @OneToMany(mappedBy = "parkingSpotId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BookingInformation> bookingInformationList;
 

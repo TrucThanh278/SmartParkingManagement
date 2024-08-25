@@ -49,9 +49,9 @@
                     <td>
                         <a  href="<c:url value="/parkingLot/${p.id}" />"
                             class="btn btn-success"><i class="fa fa-eye"></i></a>
-                        <a  href="<c:url value="/parkingSpot/${p.id}" />"
+                        <a  href="<c:url value="/parkingLot/update/${p.id}" />"
                             class="btn btn-warning"><i class='fas fa-edit'></i></a>
-                        <a
+                            <a href="<c:url value="/parkingLot/delete/${p.id}" />"
                             class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr> 

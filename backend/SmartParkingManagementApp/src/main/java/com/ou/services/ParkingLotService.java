@@ -14,10 +14,16 @@ import java.util.Map;
  * @author trucn
  */
 public interface ParkingLotService {
-    public List<ParkingLot> getParkingLots();
-    public List<ParkingLot> getParkingLotsByName(Map<String, String> params);
-    public ParkingLot getParkingLotDetail(Integer id);
-    public ParkingLot updateParkingLotInfo(Integer id, ParkingLot updatedParkingLot);
-    public ParkingLot createParkingLot(ParkingLot p);
-    public boolean deleteParkingLot(Integer id);
+
+    List<ParkingLot> getParkingLots();
+
+    List<ParkingLot> getParkingLotsByName(Map<String, String> params);
+
+    ParkingLot getParkingLotDetail(Integer id);
+
+    ParkingLot updateParkingLotInfo(Integer id, ParkingLot updatedParkingLot);
+
+    ParkingLot createParkingLot(ParkingLot p);
+
+    void deleteParkingLot(Integer id);
 }

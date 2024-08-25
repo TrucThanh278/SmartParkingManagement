@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface BookingInformationRepository {
     public List<BookingInformation> getBookingListWithParkingSpotId(Integer id);
+    public List<BookingInformation> getBookingListOfParkingLot(Integer id);
 }

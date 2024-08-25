@@ -4,11 +4,14 @@
  */
 package com.ou.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,11 +45,14 @@ public class Vehicle implements Serializable {
     private Integer id;
     @Column(name = "plate_number")
     private String plateNumber;
-    @OneToMany(mappedBy = "vehicleId")
+    @JsonIgnore
+    @OneToMany(mappedBy = "vehicleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<BookingInformation> bookingInformationList;
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
+    @JsonIgnore
     @JoinColumn(name = "vehicle_category_id", referencedColumnName = "id")
     @ManyToOne
     private VehicleCategory vehicleCategoryId;

@@ -6,6 +6,7 @@ package com.ou.pojo;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class Report implements Serializable {
     @Column(name = "comment")
     private String comment;
     @JoinColumn(name = "booking_info_id", referencedColumnName = "id")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BookingInformation bookingInfoId;
 
     public Report() {

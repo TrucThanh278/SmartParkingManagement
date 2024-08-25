@@ -12,8 +12,11 @@ import java.util.List;
  * @author trucn
  */
 public interface UserRepository {
-    public List<User> getUsers();
-    public User getUserDetail(int id);
-    public User getUserByEmail(String email);
+    List<User> getUsers();
+    User getUserDetail(int id);
+    User getUserByEmail(String email);
+    boolean authUser(String username, String password);
+    User addUser(User user);
+    void deleteUser(Integer id);
 //    public void addOrUpdateUser(User u);
 }

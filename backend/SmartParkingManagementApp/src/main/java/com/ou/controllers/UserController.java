@@ -16,10 +16,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
@@ -57,12 +59,22 @@ public class UserController {
         model.addAttribute("vehicles", vehicles);
         return "userDetail";
     }
-
-    @GetMapping("/user/create")
-    public String getCreateUserPage(Model model) {
-        model.addAttribute("newUser", new User());
-        return "createUser";
+    
+    @GetMapping("/user/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id){
+        try {
+            this.userService.deleteUser(id);
+        } catch (Exception e) {
+            System.err.println("Delete Message: "+ e.getMessage());
+        }
+        return "redirect:/users";
     }
+
+//    @GetMapping("/user/create")
+//    public String getCreateUserPage(Model model) {
+//        model.addAttribute("newUser", new User());
+//        return "createUser";
+//    }
 
 //    @PostMapping("/user/create")
 //    public String createUser(Model model, @ModelAttribute(value = "newUser") @Valid User user, BindingResult rs) {
@@ -74,7 +86,7 @@ public class UserController {
 //         }
 //            return "createUser";
 //        }
-//        this.userService.addOrUpdate(user);
+//        this.userService.addUser(user);
 //        return "redirect:/users";
 //    }
 }

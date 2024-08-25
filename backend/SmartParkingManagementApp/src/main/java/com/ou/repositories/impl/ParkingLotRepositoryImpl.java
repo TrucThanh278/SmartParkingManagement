@@ -15,7 +15,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -103,27 +102,19 @@ public class ParkingLotRepositoryImpl implements ParkingLotRepository {
     @Override
     public ParkingLot createParkingLot(ParkingLot newParkingLot) {
         Session s = this.factory.getObject().getCurrentSession();
-
-        
-        s.save(newParkingLot);
+        if (newParkingLot.getId() == null)
+            s.save(newParkingLot);
+        else
+            s.update(newParkingLot);
         return newParkingLot;
 
     }
 
     @Override
-    public boolean deleteParkingLot(Integer id) {
+    public void deleteParkingLot(Integer id) {
         Session s = this.factory.getObject().getCurrentSession();
-
-        Transaction transaction = s.beginTransaction();
-        ParkingLot parkingLot = s.get(ParkingLot.class, id);
-        if (parkingLot != null) {
-            s.delete(parkingLot);
-            transaction.commit();
-            return true;
-        }
-        transaction.commit();
-        return false;
-
+        ParkingLot p = s.get(ParkingLot.class, id);
+        s.delete(p);
     }
 
 }

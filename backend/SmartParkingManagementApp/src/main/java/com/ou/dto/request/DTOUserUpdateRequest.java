@@ -1,6 +1,11 @@
-package com.ou.dto.response;
+package com.ou.dto.request;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Getter
@@ -9,13 +14,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DTOUserResponse {
-    String username;
+public class DTOUserUpdateRequest {
     String firstName;
     String lastName;
-    String email;
     String phone;
-    String avatar;
     String address;
-    String roleName;
 }

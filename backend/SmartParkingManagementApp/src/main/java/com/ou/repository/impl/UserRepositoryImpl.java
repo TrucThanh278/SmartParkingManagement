@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ou.repository.impl;
 
 import com.ou.repository.UserRepository;
@@ -76,8 +72,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean userExistsByUsername(String username) {
+        Session s = this.factory.getObject().getCurrentSession();
         String query = "SELECT COUNT(u) FROM User u WHERE u.username = :username";
-        TypedQuery<Long> typedQuery = entityManager.createQuery(query, Long.class);
+        TypedQuery<Long> typedQuery = s.createQuery(query, Long.class);
         typedQuery.setParameter("username", username);
         Long count = typedQuery.getSingleResult();
         return count > 0;
@@ -87,5 +84,10 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<User> findById(Integer id) {
         User user = entityManager.find(User.class, id);
         return Optional.ofNullable(user);
+    }
+
+    @Override
+    public void enableUser(User u) {
+        u.setEnabled(true);
     }
 }

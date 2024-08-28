@@ -14,9 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class VerificationTokenRepositoryImpl implements VerificationTokenRepository {
-        private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
-
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -29,7 +26,6 @@ public class VerificationTokenRepositoryImpl implements VerificationTokenReposit
             query.getSingleResult().getUser().setEnabled(true);
             return query.getSingleResult();
         } catch (NoResultException e) {
-            LOGGER.warning("No verification token found for token: " + token);
             return null;
         }
     }

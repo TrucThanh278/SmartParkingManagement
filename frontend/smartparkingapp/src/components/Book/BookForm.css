@@ -1,0 +1,161 @@
+@keyframes slide-down {
+  0% {
+      transform: translateY(-100%);
+      opacity: 0;
+  }
+  100% {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+.image-shape {
+    width: 100%; /* Make image fit container width */
+    height: 100%; /* Make image fit container height */
+    border-radius: 10px; /* Rounded corners for images */
+    object-fit: cover; /* Ensure images cover their container without distortion */
+  }
+  
+  .text-overlay {
+    position: absolute;
+    bottom: 0; /* Align overlay to the bottom of the image */
+    left: 0;
+    width: 100%; /* Full width of the container */
+    height: 55%; /* Adjust based on the desired overlay height */
+    background-color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: center;
+  }
+  
+  p {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.664);
+  }
+  
+  h1 {
+    font-size: 3em; /* Adjusted for responsiveness */
+    text-align: center; /* Center text */
+    margin-top: 1%;
+    color: aliceblue;
+  }
+  
+  h2 {
+    font-size: 1.5em; /* Adjusted for readability */
+    color: rgb(7, 97, 13);
+    text-align: center; /* Center text */
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    animation: slide-down 0.5s ease-out;
+    margin: auto;
+  }
+  
+  input {
+    padding: 1.5%;
+    margin-top: 2%;
+    width: 100%; /* Make inputs responsive */
+    max-width: 400px; /* Limit maximum width for better appearance */
+  }
+  
+  label {
+    padding: 2%;
+  }
+  
+  button {
+    margin-top: 2%;
+  }
+  .spots-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.spot {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.spot.taken {
+    background-color: red;
+    color: white;
+}
+
+.spot.selected {
+    background-color: green;
+    color: white;
+}
+
+.spot .fa-car {
+    font-size: 24px; /* Adjust icon size as needed */
+}
+
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 580px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: -2px;
+  right: 10px;
+  background: transparent;
+  color: #3e8e41;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+
+.form-container.closing {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.form.closing {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.form-container span {
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 23px;
+}
+
+.parking-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.parking-info p {
+  margin: 0 10px;
+}

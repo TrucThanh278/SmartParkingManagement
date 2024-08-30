@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.ou_SmartParkingManagementApp_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.ou.pojo.Vehicle</class>
+    <class>com.ou.pojo.BookingInformation</class>
+    <class>com.ou.pojo.Report</class>
+    <class>com.ou.pojo.Role</class>
+    <class>com.ou.pojo.ParkingSpot</class>
+    <class>com.ou.pojo.VehicleCategory</class>
+    <class>com.ou.pojo.ParkingLot</class>
+    <class>com.ou.pojo.User</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/parkingmanagement?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="Vu0932868903"/>
+    </properties>
+  </persistence-unit>
+</persistence>

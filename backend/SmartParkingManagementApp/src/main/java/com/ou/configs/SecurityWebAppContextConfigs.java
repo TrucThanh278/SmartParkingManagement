@@ -8,8 +8,8 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 
 /**
  *
- * @author trucn
+ * @author OU
  */
-public class SecurityWebAppContextConfigs extends AbstractSecurityWebApplicationInitializer {
+public class SecurityWebAppContextConfigs extends  AbstractSecurityWebApplicationInitializer{
     
 }

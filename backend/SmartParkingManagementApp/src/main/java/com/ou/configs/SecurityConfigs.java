@@ -4,6 +4,7 @@
  */
 package com.ou.configs;
 
+
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  *
- * @author trucn
+ * @author OU
  */
 @Configuration
 @EnableWebSecurity
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
     "com.ou.controllers",
+    "com.ou.configs",
+    "com.ou.mapper",
     "com.ou.services",
     "com.ou.repositories"
 })

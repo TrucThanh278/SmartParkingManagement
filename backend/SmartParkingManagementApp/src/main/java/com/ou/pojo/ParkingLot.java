@@ -5,6 +5,11 @@
 package com.ou.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Basic;
@@ -20,6 +25,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author trucn
+ * @author OU
  */
 @Entity
 @Table(name = "parking_lot")
@@ -61,7 +69,6 @@ public class ParkingLot implements Serializable {
     @Column(name = "total_spots")
     private Integer totalSpots;
     @NotNull(message = "Price per hour cannot be blank")
-
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price_per_hour")
     private Float pricePerHour;
@@ -134,6 +141,7 @@ public class ParkingLot implements Serializable {
         this.description = description;
     }
 
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -183,5 +191,4 @@ public class ParkingLot implements Serializable {
     public String toString() {
         return "com.ou.pojo.ParkingLot[ id=" + id + " ]";
     }
-
 }

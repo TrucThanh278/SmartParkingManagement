@@ -4,6 +4,7 @@
  */
 package com.ou.pojo;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -28,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author trucn
+ * @author OU
  */
 @Entity
 @Table(name = "booking_information")
@@ -46,8 +47,7 @@ public class BookingInformation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    
+    private Integer id;   
     @Column(name = "start_time")
     private Date startTime;
     

@@ -1,0 +1,220 @@
+.container-signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative; /* Ensure the pseudo-element is positioned relative to the container */
+}
+
+.container-signup::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../asset/images/wait.png");
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px); /* Adjust the blur level as needed */
+  z-index: -1; /* Ensure the pseudo-element is behind the content */
+  opacity: 0.9; /* Optional: Adjust opacity if needed */
+}
+
+.container-signup h2 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: transparent; /* Make the text fill transparent */
+  -webkit-text-stroke: 1px white; /* Add a white stroke to the text */
+  position: relative;
+}
+
+.container-signup h2::before {
+  font-size: 5em;
+  margin-bottom: 20px;
+  color: transparent; /* Make the text fill transparent */
+  -webkit-text-stroke: 1px white; /* Add a white stroke to the text */
+  position: relative;
+}
+
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  padding: 20px;
+  background-color: rgb(255, 252, 252,0.3); /* Nền đen trong suốt mờ */
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 95%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #3e8e41;
+}
+
+.error-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.form-group-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-group {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.form-group:last-child {
+  margin-right: 0;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3e8e41;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #3e8e41;
+}
+
+.error {
+  color: red !important;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.container-signup p {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #dee2e6;
+}
+
+/* Định kiểu cho hàng các nhóm form */
+.form-group-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Định kiểu cho các nhóm form */
+.form-group {
+  margin-bottom: 15px;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.form-group:last-child {
+  margin-right: 0;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  background-color: #fff; /* Màu nền trắng cho input */
+  border: 1px solid #ddd; /* Đường viền nhẹ */
+  border-radius: 4px; /* Góc bo tròn nhẹ */
+  padding: 8px;
+}
+
+/* Định kiểu cho các biểu tượng */
+.icon {
+  margin-right: 10px;
+  color: #555;
+}
+
+/* Định kiểu cho input */
+.input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  outline: none;
+}
+
+/* Định kiểu cho nút bấm */
+.button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3e8e41;
+  color: white;
+  border: none;
+  border-radius: 4px; /* Góc bo tròn nhẹ */
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #5f8961;
+}
+
+
+/* Định kiểu cho nhãn */
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+
+
+.container-signup p a:hover {
+  color: #3e8e41;
+}

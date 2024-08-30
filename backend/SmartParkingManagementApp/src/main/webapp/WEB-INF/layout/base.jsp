@@ -4,9 +4,10 @@
     Author     : trucn
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,10 +19,21 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css">
-<script src="${pageContext.request.contextPath}/resources/js/scripts.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+       <!-- FullCalendar Scheduler CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.10.1/main.min.css' rel='stylesheet' />
 
+    <!-- jQuery -->
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 
+    <!-- FullCalendar Scheduler JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.10.1/main.min.js'></script>
+    
+    
+        
+        <link rel="stylesheet" href="<c:url value="/css/styles.css"/>"/>
+        <script src="<c:url value="/js/scripts.js"/>" ></script>
     </head>
     <body class="sb-nav-fixed">
         <tiles:insertAttribute name="header" />

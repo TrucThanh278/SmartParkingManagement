@@ -5,6 +5,8 @@
 package com.ou.configs;
 
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,29 +15,36 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  *
- * @author ADMIN
+ * @author OU
  */
 @Configuration
 @EnableWebSecurity
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
     "com.ou.controllers",
-    "com.ou.repository",
-    "com.ou.service",
     "com.ou.configs",
     "com.ou.mapper",
+    "com.ou.services",
+    "com.ou.repositories"
 })
 public class SecurityConfigs extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
 
+    // Remove the ROLE_ prefix
+    @Bean
+    GrantedAuthorityDefaults grantedAuthorityDefaults() {
+        return new GrantedAuthorityDefaults(""); 
+    }
+    
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -48,27 +57,38 @@ public class SecurityConfigs extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-    @Override
-    protected void configure(HttpSecurity http)
-            throws Exception {
-        http.formLogin()
+    protected void configure(HttpSecurity http) throws Exception {
+    http
+            .authorizeRequests()
+                .antMatchers("/login", "/logout").permitAll()
+                .anyRequest().access("hasRole('ADMIN')")
+                .and()
+            .formLogin()
+                .loginPage("/login")
                 .usernameParameter("username")
-                .passwordParameter("password");
-        
-        http.formLogin().defaultSuccessUrl("/")
-                .failureUrl("/login?error");
-        
-        http.logout().logoutSuccessUrl("/login");
-        
-        http.exceptionHandling()
-                .accessDeniedPage("/login?accessDenied");
-        
-        http.authorizeRequests().antMatchers("/api/categories").permitAll()
-                .antMatchers("/api/products").permitAll()
-                .antMatchers("/**").access("hasRole('ROLE_ADMIN')");
-//                .access("hasRole('ROLE_ADMIN')");
-//        .antMatchers("/**/pay")
-//                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-        http.csrf().disable();
+                .passwordParameter("password")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login?error")
+                .and()
+            .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
+                .and()
+            .exceptionHandling()
+                .accessDeniedPage("/login?accessDenied")
+                .and()
+            .csrf().disable();
+    }
+    
+    
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary
+                = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", "djyggobeq",
+                        "api_key", "446637785899928",
+                        "api_secret", "7EAQ1bjCVEaO2tYArfZbYo58tXo",
+                        "secure", true));
+        return cloudinary;
     }
 }

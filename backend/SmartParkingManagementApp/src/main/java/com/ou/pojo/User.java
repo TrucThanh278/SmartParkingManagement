@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +21,22 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
+/**
+ *
+ * @author trucn
+ */
 @Entity
 @Table(name = "user")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
@@ -36,63 +52,55 @@ import javax.validation.constraints.Size;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-
-    @Size(max = 50)
+    @NotNull(message = "Fist name cannot be empty")
+    @Size(min = 3, message = "Last name must have at least 3 characters")
     @Column(name = "last_name")
     private String lastName;
-
-    @Size(max = 50)
+    @NotNull(message = "Fist name cannot be empty")
+    @Size(min = 3, message = "First name must have at least 3 characters")
     @Column(name = "first_name")
     private String firstName;
-
+    @NotNull(message = "Email cannot be empty")
+    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @Column(name = "email")
+    private String email;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "username")
     private String username;
-
-    @Size(max = 100)
-    @Column(name = "email")
-    private String email;
-
-    @Size(max = 255)
+    @NotNull(message = "Password cannot be empty")
+    @Size(min = 3, message = "Password must have at least 3 characters")
     @Column(name = "password")
     private String password;
-
-    @Size(max = 255)
     @Column(name = "address")
     private String address;
-
-    @Size(max = 20)
+    @NotNull
     @Column(name = "phone")
     private String phone;
-
-    @Size(max = 255)
     @Column(name = "avatar")
     private String avatar;
-
-    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Vehicle> vehicleSet;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @ManyToOne
     private Role roleId;
-
-    @Column(name = "enabled")
-    private boolean enabled;
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Vehicle> vehicleList;
+    
+    @Transient
+    private MultipartFile file;
 
     public User() {
-        this.enabled = false; // Default to false
     }
 
-    // Getters and Setters
+    public User(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -124,6 +132,7 @@ public class User implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
 
     public String getEmail() {
         return email;
@@ -192,11 +201,14 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return (id != null ? id.hashCode() : 0);
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof User)) {
             return false;
         }
@@ -208,4 +220,19 @@ public class User implements Serializable {
     public String toString() {
         return "com.ou.pojo.User[ id=" + id + " ]";
     }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
 }

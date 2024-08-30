@@ -5,10 +5,13 @@
 package com.ou.pojo;
 
 import java.io.Serializable;
-import java.util.Set;
+
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,13 +19,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ADMIN
+ * @author OU
  */
 @Entity
 @Table(name = "vehicle_category")
@@ -39,11 +42,10 @@ public class VehicleCategory implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 50)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "vehicleCategoryId")
-    private Set<Vehicle> vehicleSet;
+    @OneToMany(mappedBy = "vehicleCategoryId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Vehicle> vehicleList;
 
     public VehicleCategory() {
     }
@@ -69,12 +71,12 @@ public class VehicleCategory implements Serializable {
     }
 
     @XmlTransient
-    public Set<Vehicle> getVehicleSet() {
-        return vehicleSet;
+    public List<Vehicle> getVehicleList() {
+        return vehicleList;
     }
 
-    public void setVehicleSet(Set<Vehicle> vehicleSet) {
-        this.vehicleSet = vehicleSet;
+    public void setVehicleList(List<Vehicle> vehicleList) {
+        this.vehicleList = vehicleList;
     }
 
     @Override

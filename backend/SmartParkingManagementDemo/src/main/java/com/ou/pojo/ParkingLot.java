@@ -5,6 +5,7 @@
 package com.ou.pojo;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -62,11 +63,11 @@ public class ParkingLot implements Serializable {
     @Column(name = "description")
     private String description;
     @Column(name = "start_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startTime;
+    
+    private LocalDateTime startTime;
     @Column(name = "end_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endTime;
+    
+    private LocalDateTime  endTime;
     @OneToMany(mappedBy = "parkingLotId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ParkingSpot> parkingSpotList;
 
@@ -125,19 +126,19 @@ public class ParkingLot implements Serializable {
         this.description = description;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime  getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime  startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime  getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime  endTime) {
         this.endTime = endTime;
     }
 

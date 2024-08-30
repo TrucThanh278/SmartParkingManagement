@@ -11,6 +11,7 @@ import com.ou.repository.impl.ParkingLotImpl;
 import com.ou.repository.impl.ParkingSpotImpl;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,11 @@ import java.util.Map;
 public class SmartParkingManagementDemo {
 
     public static void main(String[] args) {
+        //Tao moi bai do xe
+//        ParkingLotImpl s = new ParkingLotImpl();
+//        ParkingLot p = s.createParkingLot("Parking Lot A", "Do Xuan Hop", 150, 3.5f, "Tuyet voi", LocalDateTime.of(2024, 8, 11, 8, 0), LocalDateTime.of(2024, 8, 11, 22, 0));
+//        System.out.println(">>>> Bai do xe moi: " + p.getStartTime());
+        
         // Lay danh sach bai do xe
 //        ParkingLotImpl s = new ParkingLotImpl();
 //        List<ParkingLot> rs = s.getParkingLots();
@@ -68,8 +74,8 @@ public class SmartParkingManagementDemo {
 
 
 //        Lay danh sach cho do xe theo khoa ngoai
-        ParkingSpotImpl s = new ParkingSpotImpl();
-        List<ParkingSpot> rs = s.getParkingSpotsWithParkingLot(1);
-        rs.forEach(r -> System.out.printf("%s - %s\n", r.getSpotNumber(), r.getParkingLotId().getName()));
+//        ParkingSpotImpl s = new ParkingSpotImpl();
+//        List<ParkingSpot> rs = s.getParkingSpotsWithParkingLot(1);
+//        rs.forEach(r -> System.out.printf("%s - %s\n", r.getSpotNumber(), r.getParkingLotId().getName()));
     }
 }

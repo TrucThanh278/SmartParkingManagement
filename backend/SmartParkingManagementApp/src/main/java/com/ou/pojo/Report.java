@@ -6,6 +6,7 @@ package com.ou.pojo;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +18,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ADMIN
+ * @author OU
  */
 @Entity
 @Table(name = "report")
@@ -43,11 +43,10 @@ public class Report implements Serializable {
     @Column(name = "rating")
     private Float rating;
     @Lob
-    @Size(max = 65535)
     @Column(name = "comment")
     private String comment;
     @JoinColumn(name = "booking_info_id", referencedColumnName = "id")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BookingInformation bookingInfoId;
 
     public Report() {

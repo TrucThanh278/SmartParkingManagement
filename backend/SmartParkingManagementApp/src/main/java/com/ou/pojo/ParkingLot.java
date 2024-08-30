@@ -10,6 +10,13 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,12 +28,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ADMIN
+ * @author OU
  */
 @Entity
 @Table(name = "parking_lot")
@@ -48,29 +57,34 @@ public class ParkingLot implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 100)
+    @NotNull(message = "Name cannot be null")
+    @NotBlank(message = "Name cannot be blank")
     @Column(name = "name")
     private String name;
-    @Size(max = 255)
+    @NotNull(message = "Address cannot be blank")
+    @NotBlank(message = "Address cannot be blank")
     @Column(name = "address")
     private String address;
+    @NotNull(message = "Total spots cannot be blank")
     @Column(name = "total_spots")
     private Integer totalSpots;
+    @NotNull(message = "Price per hour cannot be blank")
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price_per_hour")
     private Float pricePerHour;
     @Lob
-    @Size(max = 65535)
     @Column(name = "description")
     private String description;
+    @NotNull(message = "Start time cannot be blank")
+
     @Column(name = "start_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startTime;
+    private LocalDateTime startTime;
+    @NotNull(message = "End time cannot be blank")
+
     @Column(name = "end_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endTime;
-    @OneToMany(mappedBy = "parkingLotId")
-    private Set<ParkingSpot> parkingSpotSet;
+    private LocalDateTime endTime;
+    @OneToMany(mappedBy = "parkingLotId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ParkingSpot> parkingSpotList;
 
     public ParkingLot() {
     }
@@ -127,29 +141,30 @@ public class ParkingLot implements Serializable {
         this.description = description;
     }
 
-    public Date getStartTime() {
+
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
     @XmlTransient
-    public Set<ParkingSpot> getParkingSpotSet() {
-        return parkingSpotSet;
+    public List<ParkingSpot> getParkingSpotList() {
+        return parkingSpotList;
     }
 
-    public void setParkingSpotSet(Set<ParkingSpot> parkingSpotSet) {
-        this.parkingSpotSet = parkingSpotSet;
+    public void setParkingSpotList(List<ParkingSpot> parkingSpotList) {
+        this.parkingSpotList = parkingSpotList;
     }
 
     @Override
@@ -176,5 +191,4 @@ public class ParkingLot implements Serializable {
     public String toString() {
         return "com.ou.pojo.ParkingLot[ id=" + id + " ]";
     }
-    
 }

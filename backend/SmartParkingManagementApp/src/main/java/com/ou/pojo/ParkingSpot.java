@@ -4,11 +4,15 @@
  */
 package com.ou.pojo;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,13 +22,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ADMIN
+ * @author OU
  */
 @Entity
 @Table(name = "parking_spot")
@@ -42,16 +45,17 @@ public class ParkingSpot implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 10)
     @Column(name = "spot_number")
     private String spotNumber;
     @Column(name = "status")
     private Boolean status;
+    @JsonIgnore
     @JoinColumn(name = "parking_lot_id", referencedColumnName = "id")
     @ManyToOne
     private ParkingLot parkingLotId;
-    @OneToMany(mappedBy = "parkingSpotId")
-    private Set<BookingInformation> bookingInformationSet;
+    @JsonIgnore
+    @OneToMany(mappedBy = "parkingSpotId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BookingInformation> bookingInformationList;
 
     public ParkingSpot() {
     }
@@ -93,12 +97,12 @@ public class ParkingSpot implements Serializable {
     }
 
     @XmlTransient
-    public Set<BookingInformation> getBookingInformationSet() {
-        return bookingInformationSet;
+    public List<BookingInformation> getBookingInformationList() {
+        return bookingInformationList;
     }
 
-    public void setBookingInformationSet(Set<BookingInformation> bookingInformationSet) {
-        this.bookingInformationSet = bookingInformationSet;
+    public void setBookingInformationList(List<BookingInformation> bookingInformationList) {
+        this.bookingInformationList = bookingInformationList;
     }
 
     @Override

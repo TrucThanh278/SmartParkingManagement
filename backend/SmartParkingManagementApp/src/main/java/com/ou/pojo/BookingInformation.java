@@ -4,11 +4,16 @@
  */
 package com.ou.pojo;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ADMIN
+ * @author OU
  */
 @Entity
 @Table(name = "booking_information")
@@ -42,22 +47,25 @@ public class BookingInformation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Integer id;   
     @Column(name = "start_time")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
+    
     @Column(name = "end_time")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
     @Column(name = "payment_status")
     private Boolean paymentStatus;
-    @OneToOne(mappedBy = "bookingInfoId")
+    @JsonIgnore
+    @OneToOne(mappedBy = "bookingInfoId",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Report report;
+    
+    
     @JoinColumn(name = "parking_spot_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ParkingSpot parkingSpotId;
+    
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Vehicle vehicleId;
 
     public BookingInformation() {

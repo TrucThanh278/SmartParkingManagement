@@ -107,11 +107,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>5.2.1.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
             <version>5.5.1</version>
         </dependency>
@@ -131,6 +126,15 @@
         </dependency>
         
         <!--=============== Multipart form data ===================-->
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.2.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -145,15 +149,7 @@
             <groupId>com.cloudinary</groupId>
             <artifactId>cloudinary-http44</artifactId>
             <version>1.29.0</version>
-        </dependency>
-        
-        <!--        Validator data-->
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.1.1.Final</version>
-        </dependency>
-        
+        </dependency> 
         <!--        Mapstruct-->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -176,13 +172,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>5.2.2.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>5.2.2.RELEASE</version>
-        </dependency>        
+        </dependency>     
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-email</artifactId>
@@ -193,6 +183,17 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>5.8.3</version> <!-- Thay thế bằng phiên bản phù hợp với dự án của bạn -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>5.2.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.13.4</version>
         </dependency>
     </dependencies>
     

@@ -31,15 +31,21 @@ function SignIn() {
 
       cookie.save("access-token", res.data);
 
-      let user = await authAPIs().get(endpoints['current-user']);
-      cookie.save("user", user.data);
+      let userRes = await authAPIs().get(endpoints['current-user']);
+      const userData = userRes.data;
 
-      dispatch({
-        "type": "login",
-        "payload": user.data
-      });
+      if (userData.enabled === true) { // Check if user is enabled (1)
+        cookie.save("user", userData);
 
-      setErrorMessage(""); // Clear the error message after successful login
+        dispatch({
+          "type": "login",
+          "payload": userData
+        });
+
+        setErrorMessage(""); // Clear the error message after successful login
+      } else {
+        setErrorMessage("Your account is not verified. Please verify your account.");
+      }
 
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
@@ -61,7 +67,7 @@ function SignIn() {
       <form method="post" onSubmit={login}>
         <div className="form-group">
           <label className="label" htmlFor="username">
-            Email
+            Username
           </label>
           <div className="input-container">
             <FontAwesomeIcon icon={faEnvelope} className="icon" />

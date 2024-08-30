@@ -35,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author ADMIN
  */
+
 @RestController
 @RequestMapping("/api")
 public class ApiUserController {
@@ -133,6 +134,7 @@ public class ApiUserController {
     }
 
     @PostMapping(path = "/users/{id}", consumes = "multipart/form-data", produces = "application/json")
+    @CrossOrigin
     public ResponseEntity<?> updateUser(
             @PathVariable("id") Integer id,
             @RequestParam(value = "firstName", required = false) String firstName,
@@ -156,6 +158,7 @@ public class ApiUserController {
     }
 
     @PostMapping("/{id}/change-password")
+    @CrossOrigin
     public ResponseEntity<?> changePassword(
             @PathVariable Integer id,
             @RequestBody ChangePasswordRequest changePasswordRequest) {

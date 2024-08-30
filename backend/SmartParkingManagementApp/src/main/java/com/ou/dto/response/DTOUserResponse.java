@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DTOUserResponse {
+    Integer id;
     String username;
     String firstName;
     String lastName;
@@ -18,4 +19,5 @@ public class DTOUserResponse {
     String avatar;
     String address;
     String roleName;
+    boolean enabled;
 }

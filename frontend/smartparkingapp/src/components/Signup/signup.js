@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faHome, faPhone, faEnvelope, faLock, faImage } from '@fortawesome/free-solid-svg-icons';
-import { Alert } from 'react-bootstrap';  
+import { Alert } from 'react-bootstrap';
 import APIs, { endpoints } from "../../configs/APIs";
 import "./signup.css";
 
@@ -18,7 +18,7 @@ function SignUp() {
     confirmPassword: '',
     avatar: null
   });
-  
+
   const [error, setError] = useState('');
   const navigate = useNavigate();
 

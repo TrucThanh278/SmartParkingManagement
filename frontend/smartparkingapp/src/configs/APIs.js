@@ -6,7 +6,9 @@ const BASE_URL = 'http://localhost:8080/SmartParkingManagementApp/api'
 export const endpoints = {
     'signin': '/login',
     'current-user': '/current-user',
-    'signup': '/users'
+    'signup': '/users',
+    'updateUser': (userId) => `/users/${userId}`,
+    'changePassword': (userId) => `/${userId}/change-password`,
 }
 
 export const authAPIs = () => {

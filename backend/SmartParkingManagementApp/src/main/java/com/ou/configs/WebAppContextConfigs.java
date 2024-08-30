@@ -50,11 +50,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = {
     "com.ou.controllers",
     "com.ou.services",
-    "com.ou.repositories"
+    "com.ou.repositories",
     "com.ou.repository.impl",
     "com.ou.service.impl",
     "com.ou.components",
-    "com.ou.mapper",
+    "com.ou.mappers",
 })  
 @Order(1)
 public class WebAppContextConfigs implements WebMvcConfigurer {
@@ -125,7 +125,7 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
-
+    }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");

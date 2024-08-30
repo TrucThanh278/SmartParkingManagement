@@ -2,12 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ou.repositories.impl;
+package com.ou.repositories.Impl;
 
 import com.ou.pojo.User;
 import com.ou.repositories.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -55,14 +57,14 @@ public class UserRepositoryImpl implements UserRepository{
         return (User) query.getSingleResult();
     }
 
-    @Override
-    public User getUserByEmail(String email) {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createNamedQuery("User.findByEmail");
-        q.setParameter("email", email);
-        
-        return (User) q.getSingleResult();
-    }
+//    @Override
+//    public User getUserByEmail(String email) {
+//        Session s = this.factory.getObject().getCurrentSession();
+//        Query q = s.createNamedQuery("User.findByEmail");
+//        q.setParameter("email", email);
+//        
+//        return (User) q.getSingleResult();
+//    }
     
     @Override
     public void deleteUser(Integer id){
@@ -71,17 +73,68 @@ public class UserRepositoryImpl implements UserRepository{
         s.delete(u);
     }
     
-    @Override
-    public boolean authUser(String email, String password) {
-        User  u = this.getUserByEmail(email);
-        return this.passEncoder.matches(password, u.getPassword());
-    }
+//    @Override
+//    public boolean authUser(String email, String password) {
+//        User  u = this.getUserByEmail(email);
+//        return this.passEncoder.matches(password, u.getPassword());
+//    }
     
      @Override
     public User addUser(User u) {
         Session s = this.factory.getObject().getCurrentSession();
         s.save(u); 
         return u;
+    }
+    
+    public User getUserByUsername(String username) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("User.findByUsername");
+        q.setParameter("username", username);
+        
+        return (User) q.getSingleResult();
+    }
+
+    @Override
+    public boolean authUser(String username, String password) {
+        User u = this.getUserByUsername(username);
+        return u != null && this.passEncoder.matches(password, u.getPassword());
+    }
+
+//    @Override
+//    public User addUser(User u) {
+//        Session s = this.factory.getObject().getCurrentSession();
+//        s.save(u);
+//        return u;
+//    }
+//
+//    @Override
+//    public User save(User user) {
+//        Session s = this.factory.getObject().getCurrentSession();
+//        s.save(user);
+//        return user;
+//    }
+
+    @Override
+    public boolean userExistsByUsername(String username) {
+        Session s = this.factory.getObject().getCurrentSession();
+        String query = "SELECT COUNT(u) FROM User u WHERE u.username = :username";
+        TypedQuery<Long> typedQuery = s.createQuery(query, Long.class);
+        typedQuery.setParameter("username", username);
+        Long count = typedQuery.getSingleResult();
+        return count > 0;
+    }
+
+    @Override
+    public Optional<User> findById(Integer id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        User user = s.find(User.class, id);
+        return Optional.ofNullable(user);
+    }
+
+    @Override
+    public void enableUser(User u) {
+        u.setEnabled(true);
     }
     
 }

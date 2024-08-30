@@ -32,21 +32,6 @@
                     </ul>
                 </li>
                 <li><a class="dropdown-item" href="#!">Logout</a></li>
-                    <s:authorize access="!isAuthenticated()">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/login" />">Đăng nhập</a>
-                    </li>
-                </s:authorize>
-                <s:authorize access="isAuthenticated()">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/" />">
-                            Welcome <s:authentication property="principal.username" />!
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/logout" />">Đăng xuất</a>
-                    </li>
-                </s:authorize>
             </ul>
     </s:authorize>
 </nav>

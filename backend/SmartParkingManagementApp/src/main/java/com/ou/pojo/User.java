@@ -1,12 +1,9 @@
 package com.ou.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serializable;
 import java.util.Set;
-import javax.persistence.Basic;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -89,13 +86,17 @@ public class User implements Serializable {
     @ManyToOne
     private Role roleId;
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Vehicle> vehicleList;
+    private Set<Vehicle> vehicleSet;
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    public User() {
+        this.enabled = false; // Default to false
+    }
     
     @Transient
     private MultipartFile file;
 
-    public User() {
-    }
 
     public User(Integer id) {
         this.id = id;

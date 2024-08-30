@@ -8,7 +8,7 @@ import com.ou.dto.request.DTOUserRequest;
 import com.ou.dto.request.DTOUserUpdateRequest;
 import com.ou.dto.response.DTOUserResponse;
 import com.ou.pojo.VerificationToken;
-import com.ou.service.UserService;
+import com.ou.services.UserService;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -114,7 +114,7 @@ public class ApiUserController {
     @CrossOrigin
     public ResponseEntity<String> confirmUser(@RequestParam("token") String token) {
         try {
-            VerificationToken verificationToken = userService.getVerificationToken(token);
+            VerificationToken verificationToken = this.userService.getVerificationToken(token);
 
             if (verificationToken == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token.");
@@ -164,7 +164,7 @@ public class ApiUserController {
             @RequestBody ChangePasswordRequest changePasswordRequest) {
 
         try {
-            userService.changePassword(id, changePasswordRequest);
+            this.userService.changePassword(id, changePasswordRequest);
             return ResponseEntity.ok("Password changed successfully");
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

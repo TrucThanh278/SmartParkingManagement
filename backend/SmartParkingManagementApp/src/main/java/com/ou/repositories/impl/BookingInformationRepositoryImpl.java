@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ou.repositories.impl;
+package com.ou.repositories.Impl;
 
 import com.ou.pojo.BookingInformation;
 import com.ou.repositories.BookingInformationRepository;

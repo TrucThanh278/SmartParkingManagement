@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-27T23:09:31+0700",
+    date = "2024-08-30T17:40:07+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 14.0.2 (Oracle Corporation)"
 )
 @Component
@@ -25,12 +25,15 @@ public class UserMapperImpl implements UserMapper {
         DTOUserResponse.DTOUserResponseBuilder dTOUserResponse = DTOUserResponse.builder();
 
         dTOUserResponse.roleName( userRoleIdName( user ) );
+        dTOUserResponse.id( user.getId() );
         dTOUserResponse.username( user.getUsername() );
         dTOUserResponse.firstName( user.getFirstName() );
         dTOUserResponse.lastName( user.getLastName() );
         dTOUserResponse.email( user.getEmail() );
         dTOUserResponse.phone( user.getPhone() );
         dTOUserResponse.avatar( user.getAvatar() );
+        dTOUserResponse.address( user.getAddress() );
+        dTOUserResponse.enabled( user.isEnabled() );
 
         return dTOUserResponse.build();
     }
@@ -56,7 +59,7 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public void updateUserFromDto(DTOUserUpdateRequest dto, User user) {
+    public void updateUserFromDto(User user, DTOUserUpdateRequest dto) {
         if ( dto == null ) {
             return;
         }
@@ -76,12 +79,15 @@ public class UserMapperImpl implements UserMapper {
         DTOUserResponse.DTOUserResponseBuilder dTOUserResponse = DTOUserResponse.builder();
 
         dTOUserResponse.roleName( userRoleIdName( user ) );
+        dTOUserResponse.id( user.getId() );
         dTOUserResponse.username( user.getUsername() );
         dTOUserResponse.firstName( user.getFirstName() );
         dTOUserResponse.lastName( user.getLastName() );
         dTOUserResponse.email( user.getEmail() );
         dTOUserResponse.phone( user.getPhone() );
         dTOUserResponse.avatar( user.getAvatar() );
+        dTOUserResponse.address( user.getAddress() );
+        dTOUserResponse.enabled( user.isEnabled() );
 
         return dTOUserResponse.build();
     }

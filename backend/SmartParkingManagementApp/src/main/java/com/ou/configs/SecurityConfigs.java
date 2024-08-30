@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = {
     "com.ou.controllers",
     "com.ou.configs",
-    "com.ou.mapper",
+    "com.ou.mappers",
     "com.ou.services",
     "com.ou.repositories"
 })
@@ -61,7 +61,7 @@ public class SecurityConfigs extends WebSecurityConfigurerAdapter {
     http
             .authorizeRequests()
                 .antMatchers("/login", "/logout").permitAll()
-                .anyRequest().access("hasRole('ADMIN')")
+                .anyRequest().access("hasRole('ROLE_ADMIN')")
                 .and()
             .formLogin()
                 .loginPage("/login")

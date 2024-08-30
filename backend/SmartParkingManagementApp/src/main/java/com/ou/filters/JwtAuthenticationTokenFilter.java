@@ -6,7 +6,7 @@ package com.ou.filters;
 
 import com.ou.pojo.User;
 import com.ou.components.JwtService;
-import com.ou.service.UserService;
+import com.ou.services.UserService;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;

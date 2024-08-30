@@ -11,7 +11,41 @@
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
     </definition>
     <definition name="home" extends="baseLayout">
-        <put-attribute name="title" value="Trang chu"/>
+        <put-attribute name="title" value="Home"/>
         <put-attribute name="content" value="/WEB-INF/view/pages/index.jsp"/>
     </definition>
+    <definition name="showParkingLot" extends="baseLayout">
+        <put-attribute name="title" value="Parking Lot List"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/parkingLot/show.jsp"/>
+    </definition>
+    <definition name="detailParkingLot" extends="baseLayout">
+        <put-attribute name="title" value="Parking Lot Detail"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/parkingLot/detail.jsp"/>
+    </definition>
+    <definition name="createParkingLot" extends="baseLayout">
+        <put-attribute name="title" value="Create Parking Lot"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/parkingLot/create.jsp"/>
+    </definition>
+    <definition name="updateParkingLot" extends="baseLayout">
+        <put-attribute name="title" value="Parking Spot List"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/parkingLot/update.jsp"/>
+    </definition>
+    <definition name="showParkingSpots" extends="baseLayout">
+        <put-attribute name="title" value="Parking Spot List"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/parkingSpot/show.jsp"/>
+    </definition>
+    
+    <definition name="showUsers" extends="baseLayout">
+        <put-attribute name="title" value="User List"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/user/show.jsp"/>
+    </definition>
+    <definition name="userDetail" extends="baseLayout">
+        <put-attribute name="title" value="User Detail"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/user/detail.jsp"/>
+    </definition>
+    <definition name="createUser" extends="baseLayout">
+        <put-attribute name="title" value="Create User"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/user/create.jsp"/>
+    </definition>
+    <definition name="login" template="/WEB-INF/view/pages/auth/login.jsp"/>
 </tiles-definitions>

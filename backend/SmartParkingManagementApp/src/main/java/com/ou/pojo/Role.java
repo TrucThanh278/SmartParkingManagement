@@ -39,34 +39,30 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Long id;
-    
+    private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
     @Column(name = "name")
     private String name;
-    
-    @OneToMany(mappedBy = "roleId", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<User> userSet;
+    @OneToMany(mappedBy = "roleId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<User> userList;
+
     public Role() {
     }
 
-    public Role(Long id) {
+    public Role(Integer id) {
         this.id = id;
     }
 
-    public Role(Long id, String name) {
+    public Role(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -79,12 +75,12 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public Set<User> getUserSet() {
-        return userSet;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setUserSet(Set<User> userSet) {
-        this.userSet = userSet;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     @Override
@@ -96,6 +92,7 @@ public class Role implements Serializable {
 
     @Override
     public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Role)) {
             return false;
         }
@@ -110,4 +107,5 @@ public class Role implements Serializable {
     public String toString() {
         return "com.ou.pojo.Role[ id=" + id + " ]";
     }
+    
 }

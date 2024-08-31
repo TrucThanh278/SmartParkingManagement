@@ -4,7 +4,6 @@
  */
 package com.ou.controllers;
 
-import com.ou.editors.LocalDateTimeEditor;
 import com.ou.pojo.ParkingLot;
 import com.ou.services.ParkingLotService;
 import java.time.LocalDateTime;
@@ -32,11 +31,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class ParkingLotController {
     @Autowired
     private ParkingLotService parkingLotService;
-    
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(LocalDateTime.class, new LocalDateTimeEditor());
-    }
     
     @GetMapping("/")
     public String getParkingLot(Model model){

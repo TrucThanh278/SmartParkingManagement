@@ -2,6 +2,7 @@ com\ou\repositories\Impl\VehicleRepositoryImpl.class
 com\ou\dto\response\DTOUserResponse.class
 com\ou\dto\request\DTOUserRequest.class
 com\ou\pojo\ParkingLot_.class
+com\ou\mappers\ParkingLotMapper.class
 com\ou\filters\CustomAccessDeniedHandler.class
 com\ou\repositories\VehicleRepository.class
 com\ou\dto\Service.class
@@ -12,14 +13,17 @@ com\ou\configs\MailConfig.class
 com\ou\services\Impl\BookingInformationServiceImpl.class
 com\ou\repositories\Impl\ParkingLotRepositoryImpl.class
 com\ou\configs\SecurityWebAppContextConfigs.class
+com\ou\controllers\ApiParkingLotController.class
 com\ou\controllers\ParkingSpotController.class
 com\ou\controllers\ApiUserController.class
 com\ou\service\impl\VerificationTokenServiceImpl.class
+com\ou\dto\response\DTOParkingLotResponse$DTOParkingLotResponseBuilder.class
 com\ou\filters\JwtAuthenticationTokenFilter.class
 com\ou\services\ParkingLotService.class
 com\ou\dto\request\DTOUserRequest$DTOUserRequestBuilder.class
 com\ou\pojo\Vehicle_.class
 com\ou\pojo\User_.class
+com\ou\dto\response\DTOParkingLotResponse.class
 com\ou\controllers\ParkingLotController.class
 com\ou\configs\HibernateConfigs.class
 com\ou\repositories\Impl\VerificationTokenRepositoryImpl.class
@@ -37,6 +41,7 @@ com\ou\service\impl\MailService.class
 com\ou\controllers\BookingInformationController.class
 com\ou\mapper\UserMapperImpl.class
 com\ou\mapper\UserMapper.class
+com\ou\mappers\ParkingLotMapperImpl.class
 com\ou\repositories\ParkingLotRepository.class
 com\ou\services\Impl\VehicleCategoryServiceImpl.class
 com\ou\repositories\RoleRepository.class

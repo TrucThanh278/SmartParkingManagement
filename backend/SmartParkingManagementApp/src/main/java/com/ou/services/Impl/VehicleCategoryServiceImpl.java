@@ -4,10 +4,13 @@
  */
 package com.ou.services.Impl;
 
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author trucn
  */
+@Service
 public class VehicleCategoryServiceImpl {
     
 }

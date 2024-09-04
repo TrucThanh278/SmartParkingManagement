@@ -1,85 +1,65 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './BookSearch.css';
+import cookie from 'react-cookies';
 
-function BookSearch({ parkingData, onSearchResults }) {
-    const [location, setLocation] = useState('');
-    const [startTime, setStartTime] = useState('');
-    const [endTime, setEndTime] = useState('');
+function BookSearch({ onSearchResults }) {
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
     const [sortBy, setSortBy] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault();
 
-        let filtered = parkingData;
+        let query = `?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`;
 
-        // Lọc theo vị trí
-        if (location) {
-            filtered = filtered.filter(parking => 
-                parking.location.toLowerCase().includes(location.toLowerCase())
-            );
+
+        if (sortBy === 'price-asc') {
+            query += `&sortByPriceAsc=true`;
+        } else if (sortBy === 'price-desc') {
+            query += `&sortByPriceAsc=false`;
         }
 
-        // Lọc theo thời gian
-        if (startTime && endTime) {
-            const [startHour, startMinute] = startTime.split(':').map(Number);
-            const [endHour, endMinute] = endTime.split(':').map(Number);
+        const token = cookie.load('access-token');
 
-            filtered = filtered.filter(parking => {
-                const [parkingStartHour, parkingStartMinute] = parking.startTime.split(':').map(Number);
-                const [parkingEndHour, parkingEndMinute] = parking.endTime.split(':').map(Number);
-
-                const parkingStartTotalMinutes = parkingStartHour * 60 + parkingStartMinute;
-                const parkingEndTotalMinutes = parkingEndHour * 60 + parkingEndMinute;
-                const startTotalMinutes = startHour * 60 + startMinute;
-                const endTotalMinutes = endHour * 60 + endMinute;
-
-                return parkingStartTotalMinutes <= startTotalMinutes && parkingEndTotalMinutes >= endTotalMinutes;
+        try {
+            const response = await axios.get(`http://localhost:8080/SmartParkingManagementApp/api/parkinglots/search${query}`, {
+                headers: {
+                    'Authorization': `${token}`
+                }
             });
+            onSearchResults(response.data);
+        } catch (error) {
+            console.error('Failed to fetch parking data', error);
+            setError('Failed to fetch parking data');
         }
-
-        // Sắp xếp theo tiêu chí
-        if (sortBy) {
-            filtered = filtered.sort((a, b) => {
-                if (sortBy === 'price-asc') return a.price - b.price;
-                if (sortBy === 'price-desc') return b.price - a.price;
-                if (sortBy === 'rating-asc') return a.rating - b.rating;
-                if (sortBy === 'rating-desc') return b.rating - a.rating;
-                return 0;
-            });
-        }
-
-        onSearchResults(filtered);
     };
 
     return (
         <div className="book-search">
             <form onSubmit={handleSearch} className="search-form">
-                <div className='inputTime'>
-                    <input 
-                        type="text" 
-                        placeholder="Location" 
-                        value={location} 
-                        onChange={(e) => setLocation(e.target.value)} 
+                <div className='inputFields'>
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
-                    <input 
-                        type="time" 
-                        value={startTime} 
-                        onChange={(e) => setStartTime(e.target.value)} 
-                    />
-                    <input 
-                        type="time" 
-                        value={endTime} 
-                        onChange={(e) => setEndTime(e.target.value)} 
+                    <input
+                        type="text"
+                        placeholder="Address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
                     />
                     <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
                         <option value="">Sort By</option>
                         <option value="price-asc">Price (Low to High)</option>
                         <option value="price-desc">Price (High to Low)</option>
-                        <option value="rating-asc">Rating (Low to High)</option>
-                        <option value="rating-desc">Rating (High to Low)</option>
                     </select>
                 </div>
                 <button type="submit">Search</button>
+                {error && <div className="error-message">{error}</div>}
             </form>
         </div>
     );

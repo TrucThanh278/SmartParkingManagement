@@ -56,4 +56,24 @@ public class BookingInformationRepositoryImpl implements BookingInformationRepos
         return query.getResultList();
     }
 
+    @Override
+    public BookingInformation saveBookingInfo(BookingInformation bookingInformation) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.saveOrUpdate(bookingInformation);
+        return bookingInformation;
+    }
+
+    @Override
+    public BookingInformation findById(Integer id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(BookingInformation.class, id);
+    }
+
+    @Override
+    public void deleteBookingInfo(Integer id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        BookingInformation p = s.get(BookingInformation.class, id);
+        s.delete(p);
+    }
+
 }

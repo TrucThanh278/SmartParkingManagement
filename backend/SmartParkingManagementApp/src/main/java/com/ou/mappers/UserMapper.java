@@ -1,4 +1,4 @@
-package com.ou.mapper;
+package com.ou.mappers;
 
 import com.ou.dto.request.ChangePasswordRequest;
 import com.ou.dto.request.DTOUserRequest;
@@ -12,8 +12,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Mapping(source = "roleId.name", target = "roleName")
     DTOUserResponse toUserResponse(User user);

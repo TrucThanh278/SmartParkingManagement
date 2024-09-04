@@ -24,8 +24,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -60,7 +58,6 @@ public class BookingInformation implements Serializable {
     @JsonIgnore
     @OneToOne(mappedBy = "bookingInfoId",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Report report;
-    
     
     @JoinColumn(name = "parking_spot_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)

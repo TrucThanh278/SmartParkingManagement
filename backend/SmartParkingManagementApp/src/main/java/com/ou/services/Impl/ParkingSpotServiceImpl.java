@@ -24,5 +24,10 @@ public class ParkingSpotServiceImpl implements ParkingSpotService{
     public List<ParkingSpot> parkingSpots(int id){
         return this.parkingSpotsRepository.getParkingSpotsWithParkingLot(id);
     }
+
+    @Override
+    public ParkingSpot findById(Integer id) {
+        return parkingSpotsRepository.findById(id);
+    }
    
 }

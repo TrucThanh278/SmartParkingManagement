@@ -9,11 +9,12 @@ export const endpoints = {
     'signup': '/users',
     'updateUser': (userId) => `/users/${userId}`,
     'changePassword': (userId) => `/${userId}/change-password`,
+    'parkinglots': '/parkinglots',
 }
 
 export const authAPIs = () => {
     return axios.create({
-        baseURL:BASE_URL,
+        baseURL: BASE_URL,
         headers: {
             'Authorization': cookie.load('access-token')
         }

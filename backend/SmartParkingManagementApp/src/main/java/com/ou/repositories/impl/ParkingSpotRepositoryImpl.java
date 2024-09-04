@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class ParkingSpotRepositoryImpl implements ParkingSpotsRepository{
+public class ParkingSpotRepositoryImpl implements ParkingSpotsRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
@@ -60,9 +60,22 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotsRepository{
     @Override
     public void addParkingSpot(int num) {
         Session s = this.factory.getObject().getCurrentSession();
-        for(int i = 0; i < num; i++){
-            
+        for (int i = 0; i < num; i++) {
+
         }
+    }
+
+    @Override
+    public ParkingSpot findById(Integer id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(ParkingSpot.class, id);
+    }
+
+    @Override
+    public ParkingSpot save(ParkingSpot ps) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.saveOrUpdate(ps);
+        return ps;
     }
 
 }

@@ -94,10 +94,6 @@ public class User implements Serializable {
         this.enabled = false; // Default to false
     }
     
-    @Transient
-    private MultipartFile file;
-
-
     public User(Integer id) {
         this.id = id;
     }
@@ -222,18 +218,4 @@ public class User implements Serializable {
         return "com.ou.pojo.User[ id=" + id + " ]";
     }
 
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-    
 }

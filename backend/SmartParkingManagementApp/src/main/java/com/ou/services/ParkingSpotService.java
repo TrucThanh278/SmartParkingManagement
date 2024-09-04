@@ -12,5 +12,8 @@ import java.util.List;
  * @author trucn
  */
 public interface ParkingSpotService {
+
     public List<ParkingSpot> parkingSpots(int id);
+
+    ParkingSpot findById(Integer id);
 }

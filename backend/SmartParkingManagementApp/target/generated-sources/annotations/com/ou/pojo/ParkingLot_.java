@@ -7,7 +7,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2024-08-31T21:01:04")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2024-09-04T22:50:52")
 @StaticMetamodel(ParkingLot.class)
 public class ParkingLot_ { 
 

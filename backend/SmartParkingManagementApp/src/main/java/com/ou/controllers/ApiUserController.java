@@ -1,6 +1,5 @@
 package com.ou.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ou.pojo.User;
 import com.ou.components.JwtService;
 import com.ou.dto.request.ChangePasswordRequest;
@@ -9,7 +8,6 @@ import com.ou.dto.request.DTOUserUpdateRequest;
 import com.ou.dto.response.DTOUserResponse;
 import com.ou.pojo.VerificationToken;
 import com.ou.services.UserService;
-import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import org.slf4j.Logger;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,11 +27,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * Controller for handling user-related endpoints.
- *
- * @author ADMIN
- */
 
 @RestController
 @RequestMapping("/api")
@@ -85,10 +77,9 @@ public class ApiUserController {
                     .email(email)
                     .phone(phone)
                     .address(address)
-                    .avatar(null) // Avatar will be handled separately
+                    .avatar(null)
                     .build();
 
-            // Add user
             User user = userService.addUser(dtoUserRequest, avatar);
             DTOUserResponse userResponse = userService.getDTOUserByUsername(user.getUsername());
             return ResponseEntity.ok(userResponse);

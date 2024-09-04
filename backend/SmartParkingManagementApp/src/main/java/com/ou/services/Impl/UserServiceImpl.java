@@ -10,7 +10,7 @@ import com.ou.dto.request.ChangePasswordRequest;
 import com.ou.dto.request.DTOUserRequest;
 import com.ou.dto.request.DTOUserUpdateRequest;
 import com.ou.dto.response.DTOUserResponse;
-import com.ou.mapper.UserMapper;
+import com.ou.mappers.UserMapper;
 import com.ou.pojo.Role;
 import com.ou.pojo.User;
 import com.ou.pojo.VerificationToken;

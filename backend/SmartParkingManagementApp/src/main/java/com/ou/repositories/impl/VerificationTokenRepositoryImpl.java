@@ -2,8 +2,6 @@ package com.ou.repositories.Impl;
 
 import com.ou.pojo.VerificationToken;
 import com.ou.repository.VerificationTokenRepository;
-import com.ou.services.Impl.UserServiceImpl;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;

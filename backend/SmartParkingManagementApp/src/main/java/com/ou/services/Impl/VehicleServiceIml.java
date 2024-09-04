@@ -4,6 +4,8 @@
  */
 package com.ou.services.Impl;
 
+import com.ou.dto.request.DTOVehicleRequest;
+import com.ou.mappers.VehicleMapper;
 import com.ou.pojo.Vehicle;
 import com.ou.repositories.VehicleRepository;
 import com.ou.services.VehicleService;
@@ -16,14 +18,24 @@ import org.springframework.stereotype.Service;
  * @author trucn
  */
 @Service
-public class VehicleServiceIml implements VehicleService{
-    
+public class VehicleServiceIml implements VehicleService {
+
     @Autowired
     private VehicleRepository vehicleRepository;
+    
+    @Autowired
+    private VehicleMapper vehicleMapper;
 
     @Override
     public List<Vehicle> getVehicleWithUserID(int id) {
         return this.vehicleRepository.getVehicleWithUserID(id);
     }
-    
+
+    @Override
+    public Vehicle addVehicle(DTOVehicleRequest dtoVehicleRequest) {
+        Vehicle vehicle = vehicleMapper.addVehicle(dtoVehicleRequest);
+
+        return vehicleRepository.save(vehicle);
+    }
+
 }

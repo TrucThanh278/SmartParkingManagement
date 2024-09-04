@@ -4,11 +4,23 @@
  */
 package com.ou.configs;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.annotation.Order;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.ou.formatters.LocalDateTimeFormatters;
 import com.ou.formatters.RoleFormatters;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +33,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -38,8 +51,13 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = {
     "com.ou.controllers",
     "com.ou.services",
-    "com.ou.repositories"
-})
+    "com.ou.repositories",
+    "com.ou.repository.impl",
+    "com.ou.service.impl",
+    "com.ou.components",
+    "com.ou.mappers",
+})  
+@Order(1)
 public class WebAppContextConfigs implements WebMvcConfigurer {
 
     @Override
@@ -54,12 +72,37 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
         return resolver;
     }
 
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource m = new ResourceBundleMessageSource();
+        m.setBasename("messages");
+
+        return m;
+    }
+
+    @Bean(name = "validator")
+    public LocalValidatorFactoryBean validator() {
+        LocalValidatorFactoryBean bean
+                = new LocalValidatorFactoryBean();
+        bean.setValidationMessageSource(messageSource());
+        return bean;
+    }
+
+    @Override
+    public Validator getValidator() {
+        return validator();
+    }
+
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new RoleFormatters());
+        registry.addFormatter(new LocalDateTimeFormatters("yyyy-MM-dd'T'HH:mm"));
     }
 
     
+
 
 //    @Bean
 //    public InternalResourceViewResolver viewResolver(){
@@ -71,10 +114,25 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
 //        
 //        return r;
 //    }
+
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//    registry.addResourceHandler("/css/**", "/js/**")
+//            .addResourceLocations("classpath:/static/css/", "classpath:/static/js/");
+    
+        @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:3000") // URL của frontend
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
     }
+    
 
 }

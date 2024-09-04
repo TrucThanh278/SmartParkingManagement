@@ -4,9 +4,12 @@
  */
 package com.ou.pojo;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -28,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author trucn
+ * @author OU
  */
 @Entity
 @Table(name = "booking_information")
@@ -46,11 +49,11 @@ public class BookingInformation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    
+    private Integer id;  
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "start_time")
     private Date startTime;
-    
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "end_time")
     private Date endTime;
     @Column(name = "payment_status")
@@ -65,7 +68,7 @@ public class BookingInformation implements Serializable {
     private ParkingSpot parkingSpotId;
     
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Vehicle vehicleId;
 
     public BookingInformation() {
@@ -149,6 +152,15 @@ public class BookingInformation implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    
+    
+    public boolean isSpotOccupied(LocalDateTime now) {
+        LocalDateTime x = now;
+        LocalDateTime a = this.endTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime b = this.startTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        return !now.isAfter(this.endTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) && !now.isBefore(this.startTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
     }
 
     @Override

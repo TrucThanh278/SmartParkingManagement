@@ -4,6 +4,7 @@
  */
 package com.ou.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author trucn
+ * @author OU
  */
 @Entity
 @Table(name = "parking_lot")
@@ -61,7 +62,6 @@ public class ParkingLot implements Serializable {
     @Column(name = "total_spots")
     private Integer totalSpots;
     @NotNull(message = "Price per hour cannot be blank")
-
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price_per_hour")
     private Float pricePerHour;
@@ -134,6 +134,7 @@ public class ParkingLot implements Serializable {
         this.description = description;
     }
 
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -183,5 +184,4 @@ public class ParkingLot implements Serializable {
     public String toString() {
         return "com.ou.pojo.ParkingLot[ id=" + id + " ]";
     }
-
 }

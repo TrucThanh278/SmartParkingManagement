@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ou.repositories.impl;
+package com.ou.repositories.Impl;
 
 import com.ou.pojo.Role;
 import com.ou.repositories.RoleRepository;
+
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -47,6 +48,19 @@ public class RoleRepositoryImpl implements RoleRepository {
         
         Predicate p = b.equal(root.get("name"), name);
         q.where(p);
+        
+        Query query = s.createQuery(q);
+        return (Role) query.getSingleResult();
+    }
+
+    @Override
+    public Role findById(Long id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Role> q = b.createQuery(Role.class);
+        Root root = q.from(Role.class);
+        Predicate idPredicate = b.equal(root.get("id"), id);
+        q.select(root).where(idPredicate);
         
         Query query = s.createQuery(q);
         return (Role) query.getSingleResult();

@@ -26,4 +26,6 @@ public interface ParkingLotRepository {
     ParkingLot createParkingLot(ParkingLot p);
 
     void deleteParkingLot(Integer id);
+    
+    List<ParkingLot> findParkingLots(String name, String address, boolean sortByPriceAsc);
 }

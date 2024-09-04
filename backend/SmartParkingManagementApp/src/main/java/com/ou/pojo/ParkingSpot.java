@@ -4,6 +4,7 @@
  */
 package com.ou.pojo;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
@@ -26,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author trucn
+ * @author OU
  */
 @Entity
 @Table(name = "parking_spot")

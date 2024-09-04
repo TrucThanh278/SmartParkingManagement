@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ou.repositories.impl;
+package com.ou.repositories.Impl;
 
 import com.ou.pojo.ParkingLot;
 import com.ou.repositories.ParkingLotRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
@@ -78,7 +80,7 @@ public class ParkingLotRepositoryImpl implements ParkingLotRepository {
 
         Query query = s.createQuery(q);
         return (ParkingLot) query.getSingleResult();
-        
+
     }
 
     @Override
@@ -102,10 +104,11 @@ public class ParkingLotRepositoryImpl implements ParkingLotRepository {
     @Override
     public ParkingLot createParkingLot(ParkingLot newParkingLot) {
         Session s = this.factory.getObject().getCurrentSession();
-        if (newParkingLot.getId() == null)
+        if (newParkingLot.getId() == null) {
             s.save(newParkingLot);
-        else
+        } else {
             s.update(newParkingLot);
+        }
         return newParkingLot;
 
     }
@@ -115,6 +118,36 @@ public class ParkingLotRepositoryImpl implements ParkingLotRepository {
         Session s = this.factory.getObject().getCurrentSession();
         ParkingLot p = s.get(ParkingLot.class, id);
         s.delete(p);
+    }
+
+    @Override
+    public List<ParkingLot> findParkingLots(String name, String address, boolean sortByPriceAsc) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder cb = s.getCriteriaBuilder();
+        CriteriaQuery<ParkingLot> cq = cb.createQuery(ParkingLot.class);
+        Root<ParkingLot> root = cq.from(ParkingLot.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (name != null && !name.isEmpty()) {
+            Expression<String> nameExpression = root.get("name");
+            Predicate namePredicate = cb.like(cb.lower(nameExpression), "%" + name.toLowerCase() + "%");
+            predicates.add(namePredicate);
+        }
+        if (address != null && !address.isEmpty()) {
+            Expression<String> addressExpression = root.get("address");
+            Predicate addressPredicate = cb.like(cb.lower(addressExpression), "%" + address.toLowerCase() + "%");
+            predicates.add(addressPredicate);
+        }
+
+        cq.where(predicates.toArray(new Predicate[0]));
+        if (sortByPriceAsc) {
+            cq.orderBy(cb.asc(root.get("pricePerHour")));
+        } else {
+            cq.orderBy(cb.desc(root.get("pricePerHour")));
+        }
+
+        return s.createQuery(cq).getResultList();
     }
 
 }

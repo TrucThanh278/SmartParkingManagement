@@ -1,0 +1,106 @@
+.booking-details-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.booking-details-form {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 600px;
+    position: relative;
+    transition: transform 0.5s, opacity 0.5s;
+    margin-top: 67px;
+}
+
+.booking-details-form h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.booking-details-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.booking-details-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.booking-details-form button {
+    color: #3e8e41;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close-btn {
+    position: absolute;
+    background: transparent;
+    color: #3e8e41;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.close-btn:hover {
+    color: #c00;
+}
+
+.booking-details-container.closing {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.booking-details-form.closing {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.existing-bookings {
+    flex: 1;
+    max-width: 300px;
+}
+
+.existing-bookings h3 {
+    margin-bottom: 20px;
+    font-size: 1em;
+    text-align: center;
+}
+
+.existing-bookings div {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.existing-bookings p {
+    margin: 0;
+}
+
+.book-detail-flex {
+    display: flex;
+}
+
+.alert {
+    height: 40px;
+    color: red;
+    font-weight: bold;
+}
+

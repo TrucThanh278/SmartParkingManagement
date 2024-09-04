@@ -32,7 +32,7 @@ public class SmartParkingMangementDemoUtils {
         props.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
         props.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
         props.put(Environment.USER, "root");
-        props.put(Environment.PASS, "ThanhTruc2708");
+        props.put(Environment.PASS, "Vu0932868903");
         props.put(Environment.URL, "jdbc:mysql://localhost/parkingmanagement");
         props.put(Environment.SHOW_SQL, true);
 

@@ -1,6 +1,7 @@
 package com.ou.dto.response;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,6 @@ public class ParkingLotResponseDTO {
     String address;
     Float pricePerHour;
     String description;
-    LocalDateTime startTime;
-    LocalDateTime endTime;
+    Date startTime;
+    Date endTime;
 }

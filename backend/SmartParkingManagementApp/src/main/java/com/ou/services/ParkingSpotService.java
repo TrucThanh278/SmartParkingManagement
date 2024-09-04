@@ -13,15 +13,10 @@ import java.util.Map;
  * @author trucn
  */
 public interface ParkingSpotService {
-<<<<<<< HEAD
-
-    public List<ParkingSpot> parkingSpots(int id);
-
+    List<ParkingSpot> parkingSpots(int id);
     ParkingSpot findById(Integer id);
-=======
     List<ParkingSpot> getParkingSpots(Map<String, String> params);
-    public List<ParkingSpot> parkingSpots(int id);
     void addParkingSpots(List<ParkingSpot> p);
     int getTotalPages(String parkingLotID);
->>>>>>> main
+
 }

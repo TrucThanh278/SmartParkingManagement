@@ -7,6 +7,7 @@ package com.ou.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -69,13 +70,13 @@ public class ParkingLot implements Serializable {
     @Column(name = "description")
     private String description;
     @NotNull(message = "Start time cannot be blank")
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "start_time")
-    private LocalDateTime startTime;
+    private Date startTime;
     @NotNull(message = "End time cannot be blank")
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "end_time")
-    private LocalDateTime endTime;
+    private Date endTime;
     @OneToMany(mappedBy = "parkingLotId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ParkingSpot> parkingSpotList;
 
@@ -135,19 +136,19 @@ public class ParkingLot implements Serializable {
     }
 
 
-    public LocalDateTime getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

@@ -69,10 +69,7 @@ D:\OU\PhatTrienHeThongWeb\SmartParkingManagement\backend\SmartParkingManagementA
 D:\OU\PhatTrienHeThongWeb\SmartParkingManagement\backend\SmartParkingManagementApp\src\main\java\com\ou\dto\request\UserRequestDTO.java
 D:\OU\PhatTrienHeThongWeb\SmartParkingManagement\backend\SmartParkingManagementApp\src\main\java\com\ou\mappers\UserMapper.java
 D:\OU\PhatTrienHeThongWeb\SmartParkingManagement\backend\SmartParkingManagementApp\src\main\java\com\ou\repositories\Impl\UserRepositoryImpl.java
-<<<<<<< HEAD
 D:\OU\PhatTrienHeThongWeb\SmartParkingManagement\backend\SmartParkingManagementApp\src\main\java\com\ou\dto\response\BookingInfoResponseDTO.java
-=======
->>>>>>> main
 D:\OU\PhatTrienHeThongWeb\SmartParkingManagement\backend\SmartParkingManagementApp\src\main\java\com\ou\pojo\BookingInformation.java
 D:\OU\PhatTrienHeThongWeb\SmartParkingManagement\backend\SmartParkingManagementApp\src\main\java\com\ou\repositories\Impl\VehicleCategoryRepositoryImpl.java
 D:\OU\PhatTrienHeThongWeb\SmartParkingManagement\backend\SmartParkingManagementApp\src\main\java\com\ou\services\BookingInformationService.java

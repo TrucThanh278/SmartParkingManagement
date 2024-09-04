@@ -12,13 +12,16 @@ import com.ou.pojo.ParkingLot;
 import com.ou.pojo.ParkingSpot;
 import com.ou.services.BookingInformationService;
 import com.ou.services.ParkingSpotService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -32,36 +35,29 @@ public class ParkingSpotController {
     @Autowired
     private BookingInformationService bookingInformationService;
    
-     
-    
-    @GetMapping("/parkingSpots/{id}")
-    public String getParkingSpots(Model model, @PathVariable(name = "id") int id, HttpSession session) throws JsonProcessingException{
-        List<ParkingSpot> parkingSpots = this.parkingSpotService.parkingSpots(id);
+    @GetMapping("/parkingSpots")
+    public String getParkingSpots(@RequestParam(required = false) String parkingLotID,
+                                   @RequestParam(required = false, defaultValue = "1") int page,
+                                   Model model, HttpSession session) throws JsonProcessingException{
         ParkingLot parkingLot =(ParkingLot) session.getAttribute("parkingLot");
+        Map<String, String> params = new HashMap<>();
+        params.put("parkingLotID", parkingLotID);
+        params.put("page", String.valueOf(page));
+        int totalPages = this.parkingSpotService.getTotalPages(parkingLotID);
         
-//        System.out.println("parkingLot >>>>> " + parkingLot.getParkingSpotList());
-//        for(ParkingSpot p : parkingLot.getParkingSpotList()){
-//            System.out.println(">>>>>>> ParkingSpot Item: " + p.getSpotNumber());
-//        }
-        
-//        List<BookingInformation> bookingList = this.bookingInformationService.getBookingListWithPakingSpotId((Integer) id);
-//        for(BookingInformation b : bookingList){
-//                    System.out.println(">>>>>>>> Booking List: " + b.getVehicleId());
-//        }
-
-        List<BookingInformation> bookingList = this.bookingInformationService.getBookingListOfParkingLot((Integer) parkingLot.getId());
-       
-        
-        
+        List<ParkingSpot> parkingSpots = this.parkingSpotService.getParkingSpots(params);
         model.addAttribute("parkingSpots", parkingSpots);
-        model.addAttribute("parkingLot", parkingLot);
-        ObjectMapper objectMapper = new ObjectMapper();
-//        ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
-        String bookingListJSON= objectMapper.writeValueAsString(bookingList);
-        String parkingSpotListJSON = objectMapper.writeValueAsString(parkingLot.getParkingSpotList());
-        System.out.println(">>>>>>>>>>>>>JSON: " + bookingListJSON);
-        model.addAttribute("bookingListJSON", bookingListJSON);
-        model.addAttribute("parkingSpotListJSON", parkingSpotListJSON);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
         return "showParkingSpots";
     }
+    
+    
+    @GetMapping("/parkingSpot/{id}/bookings")
+    public String viewBookings(@PathVariable("id") int spotId, Model model) {
+        List<BookingInformation> bookings = this.bookingInformationService.getBookingListWithPakingSpotId(spotId);
+        model.addAttribute("bookings", bookings);
+        return "showBookingInformation";
+    }
+    
 }

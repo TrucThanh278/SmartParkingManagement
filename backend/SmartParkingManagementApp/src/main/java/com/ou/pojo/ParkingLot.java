@@ -71,12 +71,10 @@ public class ParkingLot implements Serializable {
     @NotNull(message = "Start time cannot be blank")
 
     @Column(name = "start_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
     @NotNull(message = "End time cannot be blank")
 
     @Column(name = "end_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
     @OneToMany(mappedBy = "parkingLotId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ParkingSpot> parkingSpotList;

@@ -1,7 +1,10 @@
 com\ou\repositories\Impl\VehicleRepositoryImpl.class
 com\ou\mappers\ParkingLotMapper.class
 com\ou\repositories\VehicleRepository.class
+<<<<<<< HEAD
 com\ou\repositories\ReportRepository.class
+=======
+>>>>>>> main
 com\ou\pojo\ParkingSpot_.class
 com\ou\pojo\Vehicle.class
 com\ou\mappers\ReportMapperImpl.class
@@ -38,13 +41,23 @@ com\ou\service\VerificationTokenService.class
 com\ou\dto\request\ReportRequestDTO.class
 com\ou\pojo\ParkingLot.class
 com\ou\controllers\AuthController.class
+<<<<<<< HEAD
 com\ou\dto\response\BookingInformationResponseDTO$BookingInformationResponseDTOBuilder.class
+=======
+com\ou\configs\TilesConfigs.class
+>>>>>>> main
 com\ou\pojo\Report_.class
 com\ou\configs\WebAppContextConfigs.class
 com\ou\pojo\VehicleCategory_.class
 com\ou\services\RoleService.class
 com\ou\dto\request\UserUpdateRequestDTO$UserUpdateRequestDTOBuilder.class
 com\ou\repositories\BookingInformationRepository.class
+<<<<<<< HEAD
+=======
+com\ou\formatters\LocalDateTimeFormatters.class
+com\ou\services\Impl\RoleServiceImpl.class
+com\ou\dto\request\DTOUserUpdateRequest$DTOUserUpdateRequestBuilder.class
+>>>>>>> main
 com\ou\pojo\Report.class
 com\ou\formatters\RoleFormatters.class
 com\ou\components\JwtService.class

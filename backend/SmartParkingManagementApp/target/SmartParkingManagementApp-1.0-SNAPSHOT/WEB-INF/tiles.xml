@@ -48,4 +48,8 @@
         <put-attribute name="content" value="/WEB-INF/view/pages/user/create.jsp"/>
     </definition>
     <definition name="login" template="/WEB-INF/view/pages/auth/login.jsp"/>
+    <definition name="showBookingInformation" extends="baseLayout">
+        <put-attribute name="title" value="Show booking informations"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/bookingInformation/show.jsp"/>
+    </definition>
 </tiles-definitions>

@@ -63,7 +63,7 @@
             </div>
         </div>
             
-                <a class="btn btn-primary" href="<c:url value="/parkingSpots/${parkingLot.id}" />">List of parking spot of ${parkingLot.name}</a>
+                <a class="btn btn-primary" href="<c:url value="/parkingSpots/?parkingLotID=${parkingLot.id}" />">List of parking spot of ${parkingLot.name}</a>
     </form>
             
 </div>

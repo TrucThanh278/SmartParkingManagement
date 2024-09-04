@@ -21,14 +21,14 @@
         crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
-       <!-- FullCalendar Scheduler CSS -->
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.10.1/main.min.css' rel='stylesheet' />
+        <!-- FullCalendar Scheduler CSS -->
+        <link href='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.10.1/main.min.css' rel='stylesheet' />
 
-    <!-- jQuery -->
-    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+        <!-- jQuery -->
+        <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 
-    <!-- FullCalendar Scheduler JS -->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.10.1/main.min.js'></script>
+        <!-- FullCalendar Scheduler JS -->
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.10.1/main.min.js'></script>
     
     
         

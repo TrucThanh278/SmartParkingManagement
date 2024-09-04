@@ -9,7 +9,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ChangePasswordRequest {
-    String oldPassword;
-    String newPassword;
+public class VehicleRequestDTO {
+    private String plateNumber;
+    private Integer userId;
+    private Integer vehicleCategoryId;
 }

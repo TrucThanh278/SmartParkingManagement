@@ -6,10 +6,10 @@ package com.ou.services.Impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.ou.dto.request.ChangePasswordRequest;
-import com.ou.dto.request.DTOUserRequest;
-import com.ou.dto.request.DTOUserUpdateRequest;
-import com.ou.dto.response.DTOUserResponse;
+import com.ou.dto.request.ChangePasswordRequestDTO;
+import com.ou.dto.request.UserRequestDTO;
+import com.ou.dto.request.UserUpdateRequestDTO;
+import com.ou.dto.response.UserResponseDTO;
 import com.ou.mappers.UserMapper;
 import com.ou.pojo.Role;
 import com.ou.pojo.User;
@@ -166,14 +166,14 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public DTOUserResponse getDTOUserByUsername(String username) {
+    public UserResponseDTO getDTOUserByUsername(String username) {
         User user = getUserByUsername(username);
         return userMapper.toUserResponse(user);
     }
 
     @Override
     @Transactional
-    public User addUser(DTOUserRequest dtoUserRequest, MultipartFile avatar) {
+    public User addUser(UserRequestDTO dtoUserRequest, MultipartFile avatar) {
         try {
 
             User user = userMapper.toUser(dtoUserRequest);
@@ -291,7 +291,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public DTOUserResponse updateUser(Integer id, DTOUserUpdateRequest dtoUserUpdateRequest, MultipartFile avatar) {
+    public UserResponseDTO updateUser(Integer id, UserUpdateRequestDTO dtoUserUpdateRequest, MultipartFile avatar) {
         Optional<User> optionalUser = this.userRepository.findById(id);
         if (!optionalUser.isPresent()) {
             throw new RuntimeException("User not found");
@@ -328,7 +328,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void changePassword(Integer userId, ChangePasswordRequest changePasswordRequest) {
+    public void changePassword(Integer userId, ChangePasswordRequestDTO changePasswordRequest) {
         Optional<User> optionalUser = this.userRepository.findById(userId);
 
         if (!optionalUser.isPresent()) {

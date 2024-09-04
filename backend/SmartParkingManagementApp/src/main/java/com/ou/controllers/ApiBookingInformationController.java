@@ -1,8 +1,8 @@
 package com.ou.controllers;
 
-import com.ou.dto.request.DTOBookingInfoRequest;
-import com.ou.dto.request.DTOBookingInfoUpdateRequest;
-import com.ou.dto.response.DTOBookingInformationResponse;
+import com.ou.dto.request.BookingInfoRequestDTO;
+import com.ou.dto.request.BookingInfoUpdateRequestDTO;
+import com.ou.dto.response.BookingInformationResponseDTO;
 import com.ou.pojo.BookingInformation;
 import com.ou.services.BookingInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ public class ApiBookingInformationController {
 
     @PostMapping(path = "/booking", produces = "application/json")
     @CrossOrigin
-    public ResponseEntity<?> addBookingInfo(@RequestBody DTOBookingInfoRequest dtoBookingInfoRequest) {
+    public ResponseEntity<?> addBookingInfo(@RequestBody BookingInfoRequestDTO dtoBookingInfoRequest) {
         BookingInformation bookingInformation = bookingInformationService.addBookingInfo(dtoBookingInfoRequest);
         return ResponseEntity.ok(bookingInformation);
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<DTOBookingInformationResponse> updateBookingInfo(@PathVariable Integer id, @RequestBody DTOBookingInfoUpdateRequest dtoBookingInfoUpdateRequest) {
-        DTOBookingInformationResponse response = bookingInformationService.updateBookingInfo(id, dtoBookingInfoUpdateRequest);
+    public ResponseEntity<BookingInformationResponseDTO> updateBookingInfo(@PathVariable Integer id, @RequestBody BookingInfoUpdateRequestDTO dtoBookingInfoUpdateRequest) {
+        BookingInformationResponseDTO response = bookingInformationService.updateBookingInfo(id, dtoBookingInfoUpdateRequest);
         return ResponseEntity.ok(response);
     }
 

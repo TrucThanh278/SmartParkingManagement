@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DTOBookingInfoResponse {
+public class BookingInfoResponseDTO {
     Integer id;
     Integer parkingSpotId;
     Integer vehicleId;

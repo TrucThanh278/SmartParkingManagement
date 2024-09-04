@@ -4,7 +4,7 @@
  */
 package com.ou.services;
 
-import com.ou.dto.response.DTOParkingLotResponse;
+import com.ou.dto.response.ParkingLotResponseDTO;
 import com.ou.pojo.ParkingLot;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +27,7 @@ public interface ParkingLotService {
 
     void deleteParkingLot(Integer id);
     
-    DTOParkingLotResponse getDTOParkingLotDetail(Integer id);
+    ParkingLotResponseDTO getDTOParkingLotDetail(Integer id);
     
-    List<DTOParkingLotResponse> searchParkingLots(String name, String address, boolean sortByPriceAsc);
+    List<ParkingLotResponseDTO> searchParkingLots(String name, String address, boolean sortByPriceAsc);
 }

@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DTOReportRequest {
+public class ReportRequestDTO {
     private Float rating;
     private String comment;
     private Integer bookingInfoId;

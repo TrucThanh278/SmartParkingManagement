@@ -1,6 +1,6 @@
 package com.ou.mappers;
 
-import com.ou.dto.request.DTOVehicleRequest;
+import com.ou.dto.request.VehicleRequestDTO;
 import com.ou.pojo.Vehicle;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,5 +13,5 @@ public interface VehicleMapper {
         @Mapping(target = "userId.id", source = "userId"),
         @Mapping(target = "vehicleCategoryId.id", source = "vehicleCategoryId"),
     })
-    Vehicle addVehicle(DTOVehicleRequest dtoVehicleRequest);
+    Vehicle addVehicle(VehicleRequestDTO dtoVehicleRequest);
 }

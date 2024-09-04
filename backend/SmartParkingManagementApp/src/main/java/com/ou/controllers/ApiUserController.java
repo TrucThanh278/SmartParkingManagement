@@ -2,10 +2,10 @@ package com.ou.controllers;
 
 import com.ou.pojo.User;
 import com.ou.components.JwtService;
-import com.ou.dto.request.ChangePasswordRequest;
-import com.ou.dto.request.DTOUserRequest;
-import com.ou.dto.request.DTOUserUpdateRequest;
-import com.ou.dto.response.DTOUserResponse;
+import com.ou.dto.request.ChangePasswordRequestDTO;
+import com.ou.dto.request.UserRequestDTO;
+import com.ou.dto.request.UserUpdateRequestDTO;
+import com.ou.dto.response.UserResponseDTO;
 import com.ou.pojo.VerificationToken;
 import com.ou.services.UserService;
 import java.security.Principal;
@@ -68,8 +68,8 @@ public class ApiUserController {
             @RequestParam("address") String address,
             @RequestPart("avatar") MultipartFile avatar) {
         try {
-            // Create DTOUserRequest object from parameters
-            DTOUserRequest dtoUserRequest = DTOUserRequest.builder()
+            // Create UserRequestDTO object from parameters
+            UserRequestDTO dtoUserRequest = UserRequestDTO.builder()
                     .username(username)
                     .password(password)
                     .firstName(firstName)
@@ -81,7 +81,7 @@ public class ApiUserController {
                     .build();
 
             User user = userService.addUser(dtoUserRequest, avatar);
-            DTOUserResponse userResponse = userService.getDTOUserByUsername(user.getUsername());
+            UserResponseDTO userResponse = userService.getDTOUserByUsername(user.getUsername());
             return ResponseEntity.ok(userResponse);
         } catch (Exception e) {
             LOGGER.error("Error adding user", e);
@@ -91,9 +91,9 @@ public class ApiUserController {
 
     @GetMapping(path = "/current-user", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<DTOUserResponse> details(Principal user) {
+    public ResponseEntity<UserResponseDTO> details(Principal user) {
         try {
-            DTOUserResponse userResponse = this.userService.getDTOUserByUsername(user.getName());
+            UserResponseDTO userResponse = this.userService.getDTOUserByUsername(user.getName());
             return new ResponseEntity<>(userResponse, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER.error("Error fetching user details", e);
@@ -134,14 +134,14 @@ public class ApiUserController {
             @RequestParam(value = "address", required = false) String address,
             @RequestPart(value = "avatar", required = false) MultipartFile avatar) {
         try {
-            DTOUserUpdateRequest dtoUserUpdateRequest = DTOUserUpdateRequest.builder()
+            UserUpdateRequestDTO dtoUserUpdateRequest = UserUpdateRequestDTO.builder()
                     .firstName(firstName)
                     .lastName(lastName)
                     .phone(phone)
                     .address(address)
                     .build();
 
-            DTOUserResponse updatedUser = userService.updateUser(id, dtoUserUpdateRequest, avatar);
+            UserResponseDTO updatedUser = userService.updateUser(id, dtoUserUpdateRequest, avatar);
             return ResponseEntity.ok(updatedUser);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the user.");
@@ -152,7 +152,7 @@ public class ApiUserController {
     @CrossOrigin
     public ResponseEntity<?> changePassword(
             @PathVariable Integer id,
-            @RequestBody ChangePasswordRequest changePasswordRequest) {
+            @RequestBody ChangePasswordRequestDTO changePasswordRequest) {
 
         try {
             this.userService.changePassword(id, changePasswordRequest);

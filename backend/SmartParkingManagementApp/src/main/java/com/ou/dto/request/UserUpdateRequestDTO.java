@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DTOUserUpdateRequest {
+public class UserUpdateRequestDTO {
     String firstName;
     String lastName;
     String phone;

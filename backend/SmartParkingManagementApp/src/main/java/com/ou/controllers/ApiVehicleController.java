@@ -1,6 +1,6 @@
 package com.ou.controllers;
 
-import com.ou.dto.request.DTOVehicleRequest;
+import com.ou.dto.request.VehicleRequestDTO;
 import com.ou.pojo.Vehicle;
 import com.ou.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class ApiVehicleController {
     private VehicleService vehicleService;
 
     @PostMapping(path = "/add", produces = "application/json")
-    public ResponseEntity<Vehicle> addVehicle(@RequestBody DTOVehicleRequest dtoVehicleRequest) {
+    public ResponseEntity<Vehicle> addVehicle(@RequestBody VehicleRequestDTO dtoVehicleRequest) {
         Vehicle vehicle = vehicleService.addVehicle(dtoVehicleRequest);
         return ResponseEntity.ok(vehicle);
     }

@@ -4,7 +4,7 @@
  */
 package com.ou.services.Impl;
 
-import com.ou.dto.response.DTOParkingLotResponse;
+import com.ou.dto.response.ParkingLotResponseDTO;
 import com.ou.mappers.ParkingLotMapper;
 import com.ou.pojo.ParkingLot;
 import com.ou.repositories.ParkingLotRepository;
@@ -59,17 +59,17 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     }
 
     @Override
-    public DTOParkingLotResponse getDTOParkingLotDetail(Integer id) {
+    public ParkingLotResponseDTO getDTOParkingLotDetail(Integer id) {
         ParkingLot parkingLot = parkingLotRepository.getParkingLotDetail(id);
         return parkingLotMapper.toParkingLotReponse(parkingLot);
     }
 
     @Override
-    public List<DTOParkingLotResponse> searchParkingLots(String name, String address, boolean sortByPriceAsc) {
+    public List<ParkingLotResponseDTO> searchParkingLots(String name, String address, boolean sortByPriceAsc) {
         List<ParkingLot> parkingLots = parkingLotRepository.findParkingLots(name, address, sortByPriceAsc);
-        List<DTOParkingLotResponse> dtoList = new ArrayList<>();
+        List<ParkingLotResponseDTO> dtoList = new ArrayList<>();
         for (ParkingLot parkingLot : parkingLots) {
-            DTOParkingLotResponse dto = parkingLotMapper.toParkingLotReponse(parkingLot);
+            ParkingLotResponseDTO dto = parkingLotMapper.toParkingLotReponse(parkingLot);
             dtoList.add(dto);
         }
         return dtoList;

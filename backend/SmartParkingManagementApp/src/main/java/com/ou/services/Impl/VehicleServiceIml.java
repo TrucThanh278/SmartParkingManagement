@@ -4,7 +4,7 @@
  */
 package com.ou.services.Impl;
 
-import com.ou.dto.request.DTOVehicleRequest;
+import com.ou.dto.request.VehicleRequestDTO;
 import com.ou.mappers.VehicleMapper;
 import com.ou.pojo.Vehicle;
 import com.ou.repositories.VehicleRepository;
@@ -32,7 +32,7 @@ public class VehicleServiceIml implements VehicleService {
     }
 
     @Override
-    public Vehicle addVehicle(DTOVehicleRequest dtoVehicleRequest) {
+    public Vehicle addVehicle(VehicleRequestDTO dtoVehicleRequest) {
         Vehicle vehicle = vehicleMapper.addVehicle(dtoVehicleRequest);
 
         return vehicleRepository.save(vehicle);

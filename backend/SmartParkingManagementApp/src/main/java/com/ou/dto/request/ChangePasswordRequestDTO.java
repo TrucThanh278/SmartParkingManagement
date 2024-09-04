@@ -9,14 +9,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DTOUserRequest {
-    String username;
-    String password;
-    String firstName;
-    String lastName;
-    String email;
-    String phone;
-    String address;
-    String avatar;
+public class ChangePasswordRequestDTO {
+    String oldPassword;
+    String newPassword;
 }
-

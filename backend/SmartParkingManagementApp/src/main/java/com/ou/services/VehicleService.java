@@ -4,7 +4,7 @@
  */
 package com.ou.services;
 
-import com.ou.dto.request.DTOVehicleRequest;
+import com.ou.dto.request.VehicleRequestDTO;
 import com.ou.pojo.Vehicle;
 import java.util.List;
 
@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface VehicleService {
     public List<Vehicle> getVehicleWithUserID(int id);
-    Vehicle addVehicle(DTOVehicleRequest dtoVehicleRequest);
+    Vehicle addVehicle(VehicleRequestDTO dtoVehicleRequest);
 }

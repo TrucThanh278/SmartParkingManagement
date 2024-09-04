@@ -1,8 +1,8 @@
 package com.ou.services.Impl;
 
-import com.ou.dto.request.DTOBookingInfoRequest;
-import com.ou.dto.request.DTOBookingInfoUpdateRequest;
-import com.ou.dto.response.DTOBookingInformationResponse;
+import com.ou.dto.request.BookingInfoRequestDTO;
+import com.ou.dto.request.BookingInfoUpdateRequestDTO;
+import com.ou.dto.response.BookingInformationResponseDTO;
 import com.ou.mappers.BookingInfoMapper;
 import com.ou.pojo.BookingInformation;
 import com.ou.pojo.ParkingSpot;
@@ -41,7 +41,7 @@ public class BookingInformationServiceImpl implements BookingInformationService 
     }
 
     @Override
-    public BookingInformation addBookingInfo(DTOBookingInfoRequest dtoBookingInfoRequest) {
+    public BookingInformation addBookingInfo(BookingInfoRequestDTO dtoBookingInfoRequest) {
         BookingInformation bookingInformation = bookingInfoMapper.addBookingInfo(dtoBookingInfoRequest);
 
         ParkingSpot parkingSpot = parkingSpotRepository.findById(dtoBookingInfoRequest.getParkingSpotId());
@@ -61,7 +61,7 @@ public class BookingInformationServiceImpl implements BookingInformationService 
     }
 
     @Override
-    public DTOBookingInformationResponse updateBookingInfo(Integer intgr, DTOBookingInfoUpdateRequest dtbr) {
+    public BookingInformationResponseDTO updateBookingInfo(Integer intgr, BookingInfoUpdateRequestDTO dtbr) {
         BookingInformation existingBookingInfo = bookingInformationRepository.findById(intgr);
 
         bookingInfoMapper.updateBookingInfoFromDto(dtbr, existingBookingInfo);

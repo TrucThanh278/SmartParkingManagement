@@ -9,8 +9,14 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DTOVehicleRequest {
-    private String plateNumber;
-    private Integer userId;
-    private Integer vehicleCategoryId;
+public class UserRequestDTO {
+    String username;
+    String password;
+    String firstName;
+    String lastName;
+    String email;
+    String phone;
+    String address;
+    String avatar;
 }
+

@@ -1,6 +1,6 @@
 package com.ou.services.Impl;
 
-import com.ou.dto.request.DTOReportRequest;
+import com.ou.dto.request.ReportRequestDTO;
 import com.ou.mappers.ReportMapper;
 import com.ou.pojo.BookingInformation;
 import com.ou.pojo.Report;
@@ -24,7 +24,7 @@ public class ReportServiceImpl implements ReportService {
 
 
     @Override
-    public Report addReport(DTOReportRequest dtoReportRequest) {
+    public Report addReport(ReportRequestDTO dtoReportRequest) {
         Report report = reportMapper.addReport(dtoReportRequest);
 
         BookingInformation bookingInformation = bookingInformationRepository.findById(dtoReportRequest.getBookingInfoId());

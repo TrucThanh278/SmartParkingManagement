@@ -54,7 +54,7 @@
                     <label for="staticEmail" class="col-sm-2 col-form-label">Total spots: </label>
                     <div class="col-sm-10">
                         <form:input type="number"  class="form-control ${not empty errorTotalSpots ? 'is-invalid'
-                                                                         : ''}" id="staticEmail" path="totalSpots"/>
+                                                                         : ''}" id="staticEmail" path="totalSpots" name="totalSpots"/>
                                     ${errorTotalSpots}
                         </div>
                     </div>

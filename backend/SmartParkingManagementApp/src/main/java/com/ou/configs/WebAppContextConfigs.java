@@ -20,6 +20,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.ou.formatters.LocalDateTimeFormatters;
 import com.ou.formatters.RoleFormatters;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +98,7 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new RoleFormatters());
+        registry.addFormatter(new LocalDateTimeFormatters("yyyy-MM-dd'T'HH:mm"));
     }
 
     

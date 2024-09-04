@@ -6,6 +6,8 @@ package com.ou.repositories.Impl;
 
 import com.ou.pojo.ParkingSpot;
 import com.ou.repositories.ParkingSpotsRepository;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class ParkingSpotRepositoryImpl implements ParkingSpotsRepository{
+    
+    private static final int PAGE_SIZE = 30;
 
     @Autowired
     private LocalSessionFactoryBean factory;
@@ -38,10 +42,58 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotsRepository{
         CriteriaQuery<ParkingSpot> q = b.createQuery(ParkingSpot.class);
         Root root = q.from(ParkingSpot.class);
         q.select(root);
-
+        
+        if(params != null){
+            List<Predicate> predicates = new ArrayList<>();
+            String parkingLotID = params.get("parkingLotID");
+            if(parkingLotID != null && !parkingLotID.isEmpty()){
+                Predicate p1 = b.equal(root.get("parkingLotId").get("id"), Integer.parseInt(parkingLotID));
+                predicates.add(p1);
+            }
+            
+            q.where(predicates.toArray(Predicate[]::new));
+        }
         Query query = s.createQuery(q);
-        return query.getResultList();
+        
+        if (params != null) {
+            String page = params.get("page");
+            if (page != null && !page.isEmpty()) {
+                int p = Integer.parseInt(page);
+                int start = (p - 1) * PAGE_SIZE;
 
+                query.setFirstResult(start);
+                query.setMaxResults(PAGE_SIZE);
+            }
+        }
+
+        List<ParkingSpot> spots = query.getResultList();
+        LocalDateTime now = LocalDateTime.now();
+
+        // Update status
+        for (ParkingSpot spot : spots) {
+            boolean isOccupied = spot.getBookingInformationList().stream()
+                .anyMatch(booking -> booking.isSpotOccupied(now));
+            spot.setStatus(isOccupied);
+        }
+
+    return spots;
+
+    }
+    
+    public int getTotalPages(String parkingLotID){
+        Session s = this.factory.getObject().getCurrentSession();
+    CriteriaBuilder b = s.getCriteriaBuilder();
+    CriteriaQuery<Long> q = b.createQuery(Long.class);
+    Root root = q.from(ParkingSpot.class);
+
+    q.select(b.count(root));
+    if (parkingLotID != null && !parkingLotID.isEmpty()) {
+        q.where(b.equal(root.get("parkingLotId").get("id"), Integer.parseInt(parkingLotID)));
+    }
+    
+    long totalSpots = s.createQuery(q).getSingleResult();
+    int totalPages = (int) Math.ceil((double) totalSpots / PAGE_SIZE);
+    return totalPages;
     }
 
     @Override
@@ -64,5 +116,15 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotsRepository{
             
         }
     }
+
+    @Override
+    public void addParkingSpots(List<ParkingSpot> p) {
+        Session s = this.factory.getObject().getCurrentSession();
+        for(ParkingSpot ps : p){
+            s.save(ps);
+        }
+    }
+    
+    
 
 }

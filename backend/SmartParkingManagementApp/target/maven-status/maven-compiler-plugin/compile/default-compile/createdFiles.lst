@@ -5,7 +5,6 @@ com\ou\pojo\ParkingLot_.class
 com\ou\mappers\ParkingLotMapper.class
 com\ou\filters\CustomAccessDeniedHandler.class
 com\ou\repositories\VehicleRepository.class
-com\ou\dto\Service.class
 com\ou\pojo\ParkingSpot_.class
 com\ou\pojo\Vehicle.class
 com\ou\services\Impl\UserServiceImpl.class
@@ -54,7 +53,6 @@ com\ou\service\VerificationTokenService.class
 com\ou\dto\request\ChangePasswordRequest$ChangePasswordRequestBuilder.class
 com\ou\pojo\ParkingLot.class
 com\ou\controllers\AuthController.class
-com\ou\editors\LocalDateTimeEditor.class
 com\ou\configs\TilesConfigs.class
 com\ou\pojo\Report_.class
 com\ou\configs\WebAppContextConfigs.class
@@ -62,6 +60,7 @@ com\ou\pojo\VehicleCategory_.class
 com\ou\services\RoleService.class
 com\ou\dto\request\DTOUserUpdateRequest.class
 com\ou\repositories\BookingInformationRepository.class
+com\ou\formatters\LocalDateTimeFormatters.class
 com\ou\services\Impl\RoleServiceImpl.class
 com\ou\dto\request\DTOUserUpdateRequest$DTOUserUpdateRequestBuilder.class
 com\ou\pojo\Report.class

@@ -16,4 +16,6 @@ public interface ParkingSpotsRepository {
     List<ParkingSpot> getParkingSpots(Map<String, String> params);
     List<ParkingSpot> getParkingSpotsWithParkingLot(int ID);
     void addParkingSpot(int num);
+    void addParkingSpots(List<ParkingSpot> p);
+    int getTotalPages(String parkingLotID);
 }

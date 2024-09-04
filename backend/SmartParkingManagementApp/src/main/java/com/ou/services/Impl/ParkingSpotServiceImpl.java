@@ -8,6 +8,7 @@ import com.ou.pojo.ParkingSpot;
 import com.ou.repositories.ParkingSpotsRepository;
 import com.ou.services.ParkingSpotService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,22 @@ public class ParkingSpotServiceImpl implements ParkingSpotService{
     @Override
     public List<ParkingSpot> parkingSpots(int id){
         return this.parkingSpotsRepository.getParkingSpotsWithParkingLot(id);
+    }
+
+    @Override
+    public void addParkingSpots(List<ParkingSpot> pss) {
+        this.parkingSpotsRepository.addParkingSpots(pss);
+    }
+
+    @Override
+    public List<ParkingSpot> getParkingSpots(Map<String, String> params) {
+        return this.parkingSpotsRepository.getParkingSpots(params);
+    }
+
+
+    @Override
+    public int getTotalPages(String parkingLotID) {
+        return this.parkingSpotsRepository.getTotalPages(parkingLotID);
     }
    
 }

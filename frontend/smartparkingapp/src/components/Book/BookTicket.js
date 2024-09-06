@@ -3,7 +3,9 @@ import Cookies from 'react-cookies';
 import { authAPIs, endpoints } from '../../configs/APIs';
 import "./BookTicket.css";
 import AddVehicleForm from './AddVehicleForm';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import PaymentForm from './PaymentForm'; // Import PaymentForm
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function BookTicket({ spotIndex, spotId, onClose, price }) {
     const [vehicleType, setVehicleType] = useState("");
@@ -14,8 +16,10 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
     const [errorMessage, setErrorMessage] = useState("");
     const [showAddVehicleForm, setShowAddVehicleForm] = useState(false);
     const [userId, setUserId] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [showPaymentForm, setShowPaymentForm] = useState(false);
 
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -33,7 +37,7 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
             }
         };
 
-        fetchUserData(); // Fetch user data to get userId
+        fetchUserData();
     }, []);
 
     useEffect(() => {
@@ -118,6 +122,7 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
         }
 
         setErrorMessage("");
+        setLoading(true);
 
         try {
             const response = await authAPIs().post(endpoints.createBooking, {
@@ -128,34 +133,41 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
             });
 
             if (response.status === 200) {
-                alert("Booking successful!");
-                const ticket = {
-                    carModel: vehicleType,
-                    spotNumber: spotIndex,
-                    spotId: spotId,
-                    startDate: startDate,
-                    endDate: endDate,
-                    amount: calculateAmount(new Date(start), new Date(end))
-                };
-                navigate('/ticket', { state: { ticketInfo: ticket } }); // Use navigate for routing
+                setLoading(false);
+                setShowPaymentForm(true); // Show payment form on success
+
+                Swal.fire({
+                    title: 'Booking Successful!',
+                    text: 'Your parking spot has been booked successfully. Please proceed with payment.',
+                    icon: 'success',
+                    confirmButtonText: 'Proceed to Payment'
+                });
             } else {
                 const errorData = await response.data;
                 setErrorMessage(`Failed to book: ${errorData.message || 'Unknown error'}`);
+                setLoading(false);
             }
         } catch (error) {
-            setErrorMessage("An error occurred while booking.");
+            setLoading(false);
+            if (error.response && error.response.status === 500) {
+                Swal.fire({
+                    title: 'Booking Failed',
+                    text: errorMessage.includes("outside business hours")
+                        ? "Booking failed: Outside business hours."
+                        : errorMessage.includes("time slot conflict")
+                            ? "Booking failed: Time slot conflict."
+                            : "An error occurred while booking. Please try again later.",
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
         }
-    };
-
-    const calculateAmount = (start, end) => {
-        const hours = (end - start) / 1000 / 3600;
-        return (hours * price).toFixed(2);
     };
 
     return (
         <div className="booking-details-container">
             <div className="booking-details-form">
-                <h2>Booking Details for Spot {spotIndex}</h2>
+                <h2 className="name-book-details">Booking Details for Spot {spotIndex}</h2>
                 <div className="book-detail-flex">
                     <form onSubmit={handleSubmit}>
                         <label>
@@ -207,33 +219,39 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
                             />
                         </label>
                         {errorMessage && <div className="alert">{errorMessage}</div>}
-                        <button type="submit">Submit</button>
+                        {loading ? <p>Loading...</p> : <button type="submit">Submit</button>}
                     </form>
-                    <div className="existing-bookings">
+                    <form className="existing-bookings">
                         <h3>Existing Bookings:</h3>
                         {existingBookings.map((booking, index) => (
                             <div key={index}>
                                 <p>Start: {new Date(booking.startTime).toLocaleString()}</p>
                                 <p>End: {new Date(booking.endTime).toLocaleString()}</p>
+                                <p>Vehicle: {booking.vehicle?.plateNumber || 'N/A'}</p>
                             </div>
                         ))}
-                    </div>
+                    </form>
                 </div>
+                {showAddVehicleForm && (
+                    <AddVehicleForm
+                        onClose={() => setShowAddVehicleForm(false)}
+                        onAddVehicle={(newVehicle) => {
+                            setVehicles([...vehicles, newVehicle]);
+                            setShowAddVehicleForm(false);
+                        }}
+                    />
+                )}
                 <button className="close-btn" onClick={onClose}>
                     <i className="fas fa-times"></i>
                 </button>
             </div>
-
-            {showAddVehicleForm && (
-                <AddVehicleForm
-                    onClose={() => setShowAddVehicleForm(false)}
-                    onVehicleAdded={(newVehicle) => {
-                        setVehicles((prevVehicles) => [...prevVehicles, newVehicle]);
-                        setVehicleType(newVehicle.id);
-                        setShowAddVehicleForm(false);
-                    }}
+            {showPaymentForm && (
+                <PaymentForm
+                    price={price}
+                    onClose={() => setShowPaymentForm(false)}
                 />
             )}
+
         </div>
     );
 }

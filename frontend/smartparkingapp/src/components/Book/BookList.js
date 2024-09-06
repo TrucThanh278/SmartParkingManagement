@@ -84,8 +84,8 @@ function BookList() {
 
     return (
         <div>
-            <h1>Select Your Parking Lot</h1>
-            <h2>More parking lots will be added soon. Stay tuned!</h2>
+            <h1 className='h1-description'>Select Your Parking Lot</h1>
+            <h2 className='h2-description'>More parking lots will be added soon. Stay tuned!</h2>
             <BookSearch
                 onSearchResults={setFilteredData}
                 setTotalPages={setTotalPages}

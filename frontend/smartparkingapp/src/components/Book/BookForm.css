@@ -113,7 +113,7 @@ button {
 }
 
 .spot.selected {
-  background-color: green;
+  background-color: #2d6097;
   color: white;
 }
 
@@ -144,7 +144,7 @@ button {
   top: -2px;
   right: 10px;
   background: transparent;
-  color: #3e8e41;
+  color: #2d6097;
   border: none;
   font-size: 24px;
   cursor: pointer;
@@ -176,4 +176,12 @@ button {
 
 .parking-info p {
   margin: 0 10px;
+}
+
+.nameSpot {
+  font-size: 1.5em;
+  /* Adjusted for readability */
+  color: #2d6097 !important;
+  text-align: center;
+  /* Center text */
 }

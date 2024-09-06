@@ -111,3 +111,7 @@ select {
     border-radius: 5px;
     margin-left: 10px;
 }
+
+.name-book-details {
+    color: #2d6097 !important;
+}

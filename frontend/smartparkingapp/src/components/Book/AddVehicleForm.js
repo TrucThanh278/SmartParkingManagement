@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Cookies from 'react-cookies';
 import { authAPIs, endpoints } from '../../configs/APIs';
+import Swal from 'sweetalert2';
 import "./AddVehicleForm.css";
 
 function AddVehicleForm({ onClose, onVehicleAdded }) {
@@ -8,10 +9,10 @@ function AddVehicleForm({ onClose, onVehicleAdded }) {
     const [vehicleCategoryId, setVehicleCategoryId] = useState(3);
     const [vehicleCategories, setVehicleCategories] = useState([]);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const [userId, setUserId] = useState(null);
 
     useEffect(() => {
-        // Fetch vehicle categories and user data
         const fetchVehicleCategories = async () => {
             const token = Cookies.load('access-token');
             if (!token) {
@@ -60,6 +61,8 @@ function AddVehicleForm({ onClose, onVehicleAdded }) {
         }
 
         try {
+            setLoading(true);
+
             const response = await authAPIs().post(endpoints.addVehicle, {
                 plateNumber: vehiclePlate,
                 userId,
@@ -67,18 +70,24 @@ function AddVehicleForm({ onClose, onVehicleAdded }) {
             });
 
             if (response.status === 200) {
-                alert("Vehicle added successfully!");
-                const newVehicle = response.data;  // Assuming the response contains the newly added vehicle data
+                const newVehicle = response.data;
 
-                // Notify parent component with the new vehicle data
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Vehicle added successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+
                 onVehicleAdded(newVehicle);
-                onClose(); // Close the form
+                onClose();
             }
         } catch (error) {
             setError(`Failed to add vehicle: ${error.response?.data?.message || 'Unknown error'}`);
+        } finally {
+            setLoading(false);
         }
     };
-
 
     return (
         <div className="vehicle-form">
@@ -108,8 +117,14 @@ function AddVehicleForm({ onClose, onVehicleAdded }) {
                     </select>
                 </label>
                 {error && <p className="error">{error}</p>}
-                <button type="submit">Submit</button>
-                <button type="button" onClick={onClose}>Cancel</button>
+                <div className="btn-flex">
+                    <button type="submit" disabled={loading}>
+                        {loading ? 'Submitting...' : 'Submit'}
+                    </button>
+                    <button type="button" onClick={onClose} disabled={loading}>
+                        Cancel
+                    </button>
+                </div>
             </form>
         </div>
     );

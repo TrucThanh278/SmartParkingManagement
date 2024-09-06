@@ -5,13 +5,13 @@ import "./contact.css";
 import Header from '../Layout/Header';
 
 function contact() {
-  const phone = "+212 771325766";
-  const email = "abdelhamidnajmi10@gmail.com";
-  const address = "INPT, Av Allal Al Fassi, Rabat, Morocco";
+  const phone = "123456789";
+  const email = "daihocmo@gmail.com";
+  const address = "Dai hoc Mo thanh pho HCM";
 
   return (
     <div className="contact">
-     <Header />
+      <Header />
       <div className="contact-text">
         <h1>Contact Us</h1>
         <p>Phone: {phone}</p>

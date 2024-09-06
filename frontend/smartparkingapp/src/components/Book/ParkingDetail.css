@@ -1,32 +1,27 @@
-.image-container {
-    position: relative;
-    cursor: pointer;
-}
-
-.image-shape {
+/* .parking-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-}
-
-.text-overlay {
-    position: absolute;
-    bottom: 0;
+    height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    color: white;
-    width: 100%;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.text-overlay button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+.parking-detail {
+    background: white;
+    padding: 20px;
     border-radius: 5px;
+    width: 300px;
+    text-align: center;
 }
 
-.text-overlay button:hover {
-    background-color: #0056b3;
-}
+.parking-detail .close-btn {
+    margin-top: 10px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+} */

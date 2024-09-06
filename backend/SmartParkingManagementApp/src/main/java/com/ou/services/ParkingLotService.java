@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public interface ParkingLotService {
 
+
     Map<String, Object> getParkingLots(Map<String, String> params);
 
     List<ParkingLot> getParkingLotsByName(Map<String, String> params);

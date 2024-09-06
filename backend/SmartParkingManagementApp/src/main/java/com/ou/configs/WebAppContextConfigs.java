@@ -99,7 +99,7 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new RoleFormatters());
-        registry.addFormatter(new LocalDateTimeFormatters("yyyy-MM-dd'T'HH:mm"));
+        registry.addFormatter(new LocalDateTimeFormatters());
     }
 
 //    @Bean

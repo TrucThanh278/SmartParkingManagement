@@ -1,5 +1,8 @@
 package com.ou.dto.response;
 
+
+import java.time.LocalDateTime;
+import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,7 +21,6 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ParkingLotResponseDTO {
-
     Integer id;
     String name;
     String address;

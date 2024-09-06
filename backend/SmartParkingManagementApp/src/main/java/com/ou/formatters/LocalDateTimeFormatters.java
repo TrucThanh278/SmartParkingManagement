@@ -4,6 +4,7 @@
  */
 package com.ou.formatters;
 
+import com.ou.pojo.ParkingSpot;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,32 +16,22 @@ import org.springframework.format.Formatter;
  * @author trucn
  */
 public class LocalDateTimeFormatters implements Formatter<LocalDateTime>{
-    private DateTimeFormatter formatter;
-    
-    public LocalDateTimeFormatters(String pattern){
-        this.formatter = DateTimeFormatter.ofPattern(pattern);
+   
+    private final DateTimeFormatter dateTimeFormatter;
+
+    public LocalDateTimeFormatters() {
+        this.dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     }
 
+    // Chuyển đổi từ chuỗi sang LocalDateTime
     @Override
-    public String print(LocalDateTime t, Locale locale) {
-        if (t == null) {
-            return "";
-        }
-        return t.format(formatter);
+    public LocalDateTime parse(String text, Locale locale) {
+        return LocalDateTime.parse(text, dateTimeFormatter);
     }
 
+    // Chuyển đổi từ LocalDateTime sang chuỗi
     @Override
-    public LocalDateTime parse(String text, Locale locale) throws ParseException {
-        if (text == null || text.isEmpty()) {
-            return null;
-        }
-        try {
-            return LocalDateTime.parse(text, formatter);
-        } catch (Exception e) {
-            throw new ParseException("Failed to parse LocalDateTime: " + text, 0);
-        }
+    public String print(LocalDateTime object, Locale locale) {
+        return object.format(dateTimeFormatter);
     }
-    
-    
-    
 }

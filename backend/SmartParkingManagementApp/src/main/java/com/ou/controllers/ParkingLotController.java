@@ -45,7 +45,10 @@ public class ParkingLotController {
     @GetMapping("/")
     public Map<String, Object> getParkingLots(
             @RequestParam Map<String, String> params) {
-        return parkingLotService.getParkingLots(params);
+         Map<String, String> params = new HashMap<>();
+        List<ParkingLot> parkingLots = this.parkingLotService.getParkingLots(params);
+        model.addAttribute("parkingLots", parkingLots);
+        return "showParkingLot";
     }
 
     @GetMapping("/parkingLot/{id}")

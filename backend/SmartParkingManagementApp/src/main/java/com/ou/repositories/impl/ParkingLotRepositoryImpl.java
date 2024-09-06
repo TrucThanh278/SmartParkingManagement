@@ -31,6 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class ParkingLotRepositoryImpl implements ParkingLotRepository {
+    
+    private static final int PAGE_SIZE = 6;
 
     private static final int PAGE_SIZE = 6;
 

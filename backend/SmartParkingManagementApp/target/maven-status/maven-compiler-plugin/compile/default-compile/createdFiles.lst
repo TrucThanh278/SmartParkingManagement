@@ -18,12 +18,14 @@ com\ou\pojo\Vehicle_.class
 com\ou\dto\response\UserResponseDTO.class
 com\ou\services\Impl\MailService.class
 com\ou\controllers\ParkingLotController.class
+com\ou\services\MomoService.class
 com\ou\configs\HibernateConfigs.class
 com\ou\repositories\Impl\VehicleCategoryRepositoryImpl.class
 com\ou\services\Impl\ParkingSpotServiceImpl.class
 com\ou\services\ParkingSpotService.class
 com\ou\controllers\ApiVehicleController.class
 com\ou\mappers\UserMapper.class
+com\ou\controllers\MomoController.class
 com\ou\pojo\Role_.class
 com\ou\services\Impl\ReportServiceImpl.class
 com\ou\dto\request\UserUpdateRequestDTO.class
@@ -106,6 +108,7 @@ com\ou\pojo\User.class
 com\ou\pojo\VerificationToken_.class
 com\ou\repositories\Impl\BookingInformationRepositoryImpl.class
 com\ou\controllers\UserController.class
+com\ou\configs\MomoConfigs.class
 com\ou\mappers\VehicleMapperImpl.class
 com\ou\pojo\VehicleCategory.class
 com\ou\dto\response\BookingInformationResponseDTO.class

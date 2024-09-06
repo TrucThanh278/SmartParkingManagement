@@ -1,35 +1,26 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './BookSearch.css';
-import cookie from 'react-cookies';
+import { authAPIs, endpoints } from '../../configs/APIs';
 
-function BookSearch({ onSearchResults }) {
+function BookSearch({ onSearchResults, setTotalPages, setPage }) {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [sortBy, setSortBy] = useState('');
     const [error, setError] = useState('');
 
-    const handleSearch = async (e) => {
-        e.preventDefault();
-
+    const handleSearch = async () => {
         let query = `?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`;
-
-
         if (sortBy === 'price-asc') {
             query += `&sortByPriceAsc=true`;
         } else if (sortBy === 'price-desc') {
             query += `&sortByPriceAsc=false`;
         }
 
-        const token = cookie.load('access-token');
-
         try {
-            const response = await axios.get(`http://localhost:8080/SmartParkingManagementApp/api/parkinglots/search${query}`, {
-                headers: {
-                    'Authorization': `${token}`
-                }
-            });
-            onSearchResults(response.data);
+            const response = await authAPIs().get(`${endpoints.searchParkingLots}${query}`);
+            onSearchResults(response.data.data); // Set the results
+            setTotalPages(response.data.totalPages); // Set total pages from the search
+            setPage(1); // Reset to the first page
         } catch (error) {
             console.error('Failed to fetch parking data', error);
             setError('Failed to fetch parking data');
@@ -38,7 +29,7 @@ function BookSearch({ onSearchResults }) {
 
     return (
         <div className="book-search">
-            <form onSubmit={handleSearch} className="search-form">
+            <form onSubmit={(e) => e.preventDefault()} className="search-form">
                 <div className='inputFields'>
                     <input
                         type="text"
@@ -58,7 +49,7 @@ function BookSearch({ onSearchResults }) {
                         <option value="price-desc">Price (High to Low)</option>
                     </select>
                 </div>
-                <button type="submit">Search</button>
+                <button type="submit" onClick={handleSearch}>Search</button>
                 {error && <div className="error-message">{error}</div>}
             </form>
         </div>

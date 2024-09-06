@@ -1,6 +1,6 @@
 package com.ou.dto.response;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,20 +8,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-
+import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ParkingLotResponseDTO {
+
     Integer id;
     String name;
     String address;
+    Integer totalSpots;
     Float pricePerHour;
     String description;
-    LocalDateTime startTime;
-    LocalDateTime endTime;
+
+    @JsonFormat(pattern = "HH:mm:ss")
+    LocalTime startTime;
+
+    @JsonFormat(pattern = "HH:mm:ss")
+    LocalTime endTime;
+
+    List<ParkingSpotDTO> parkingSpotList;
 }

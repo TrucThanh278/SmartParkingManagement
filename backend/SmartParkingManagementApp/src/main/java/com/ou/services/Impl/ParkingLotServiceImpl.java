@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ou.services.Impl;
 
 import com.ou.dto.response.ParkingLotResponseDTO;
@@ -29,8 +25,8 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     private ParkingLotMapper parkingLotMapper;
 
     @Override
-    public List<ParkingLot> getParkingLots() {
-        return this.parkingLotRepository.getParkingLots();
+    public Map<String, Object> getParkingLots(Map<String, String> params) {
+        return parkingLotRepository.getParkingLots(params);
     }
 
     @Override
@@ -65,14 +61,8 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     }
 
     @Override
-    public List<ParkingLotResponseDTO> searchParkingLots(String name, String address, boolean sortByPriceAsc) {
-        List<ParkingLot> parkingLots = parkingLotRepository.findParkingLots(name, address, sortByPriceAsc);
-        List<ParkingLotResponseDTO> dtoList = new ArrayList<>();
-        for (ParkingLot parkingLot : parkingLots) {
-            ParkingLotResponseDTO dto = parkingLotMapper.toParkingLotReponse(parkingLot);
-            dtoList.add(dto);
-        }
-        return dtoList;
+    public Map<String, Object> findParkingLots(String name, String address, boolean sortByPriceAsc) {
+        return parkingLotRepository.findParkingLots(name, address, sortByPriceAsc);
     }
 
 }

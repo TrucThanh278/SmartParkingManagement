@@ -4,7 +4,10 @@ import com.ou.dto.request.BookingInfoRequestDTO;
 import com.ou.dto.request.BookingInfoUpdateRequestDTO;
 import com.ou.dto.response.BookingInformationResponseDTO;
 import com.ou.pojo.BookingInformation;
+import com.ou.pojo.Vehicle;
 import com.ou.services.BookingInformationService;
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,4 +43,13 @@ public class ApiBookingInformationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    @GetMapping("/current-date/{parkingSpotId}")
+    public ResponseEntity<List<BookingInformation>> getBookingListByCurrentDateAndParkingSpotId(
+            @PathVariable("parkingSpotId") Integer parkingSpotId) {
+        LocalDate currentDate = LocalDate.now();
+        List<BookingInformation> bookings = bookingInformationService.getBookingListByCurrentDateAndParkingSpotId(currentDate, parkingSpotId);
+        return ResponseEntity.ok(bookings);
+    }
+    
 }

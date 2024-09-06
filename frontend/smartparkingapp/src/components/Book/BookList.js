@@ -3,8 +3,7 @@ import Hero from '../../asset/images/hero.jpg';
 import './BookList.css';
 import BookForm from './BookForm';
 import BookSearch from './BookSearch';
-import axios from 'axios'; // Sử dụng axios để thực hiện các yêu cầu HTTP
-import { authAPIs, endpoints } from '../../configs/APIs'; // Import endpoints từ cấu hình API
+import { authAPIs, endpoints } from '../../configs/APIs';
 
 function ClickableImage({ image, name, address, startTime, endTime, pricePerHour, totalSpots, description, onClick }) {
     return (
@@ -15,8 +14,9 @@ function ClickableImage({ image, name, address, startTime, endTime, pricePerHour
                 <p>Address: {address}</p>
                 <p>Price: {pricePerHour || 'N/A'}$ - hour</p>
                 <p>Total Spots: {totalSpots || 'N/A'}</p>
-                <p>Start Time: {startTime}</p>
-                <p>End Time: {endTime}</p>
+                <p>Start Time: {startTime || 'N/A'}</p>
+                <p>End Time: {endTime || 'N/A'}</p>
+                <p>{description || 'No description'}</p>
             </div>
         </div>
     );
@@ -28,31 +28,40 @@ function BookList() {
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
         const fetchParkingData = async () => {
             try {
-                const response = await authAPIs().get(endpoints.parkinglots);
-                console.log("Parking Data from API:", response.data); // Log API response for debugging
+                const response = await authAPIs().get(endpoints.parkinglots(page));
+                console.log("Full API Response:", response);
 
-                // Adjust response to match the structure expected in ClickableImage
-                const data = response.data.map(parking => ({
-                    ...parking,
-                    image: parking.image || Hero, // Use default image if not provided
-                    startTime: parking.startTime ? new Date(parking.startTime).toLocaleString() : 'N/A',
-                    endTime: parking.endTime ? new Date(parking.endTime).toLocaleString() : 'N/A'
-                }));
-                setFilteredData(data);
+                if (response.data && Array.isArray(response.data.data)) {
+                    console.log("Data inside response.data.data:", response.data.data);
+
+                    const formattedData = response.data.data.map(parking => ({
+                        ...parking,
+                        image: parking.image || Hero,
+                        startTime: parking.startTime || 'N/A',
+                        endTime: parking.endTime || 'N/A'
+                    }));
+                    setFilteredData(formattedData);
+
+                    setTotalPages(response.data.totalPages || 1);
+                } else {
+                    throw new Error("Invalid API response structure");
+                }
             } catch (err) {
-                setError('Failed to fetch parking data');
-                console.error(err);
+                setError('Error fetching parking data');
+                console.error("Error fetching data:", err);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchParkingData();
-    }, []);
+    }, [page]);
 
     const handleImageClick = (parking) => {
         setSelectedParking(parking);
@@ -64,8 +73,10 @@ function BookList() {
         setSelectedParking(null);
     };
 
-    const handleSearchResults = (results) => {
-        setFilteredData(results);
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages && newPage !== page) {
+            setPage(newPage);
+        }
     };
 
     if (loading) return <div>Loading...</div>;
@@ -73,9 +84,32 @@ function BookList() {
 
     return (
         <div>
-            <h1>Choose Your Parking</h1>
-            <h2>Other parking lots will be added soon. Stay tuned!!!</h2>
-            <BookSearch onSearchResults={handleSearchResults} />
+            <h1>Select Your Parking Lot</h1>
+            <h2>More parking lots will be added soon. Stay tuned!</h2>
+            <BookSearch
+                onSearchResults={setFilteredData}
+                setTotalPages={setTotalPages}
+                setPage={setPage}
+            />
+
+            <div className="pagination">
+                <button
+                    onClick={() => handlePageChange(page - 1)}
+                    disabled={page <= 1}
+                    aria-label="Previous Page"
+                >
+                    <i className="fas fa-chevron-left"></i>
+                </button>
+                <span>Page {page} of {totalPages}</span>
+                <button
+                    onClick={() => handlePageChange(page + 1)}
+                    disabled={page >= totalPages}
+                    aria-label="Next Page"
+                >
+                    <i className="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
             <div className="img-container">
                 {filteredData.map((parking, index) => (
                     <ClickableImage
@@ -93,6 +127,7 @@ function BookList() {
                 ))}
             </div>
             {showForm && <BookForm parkingData={selectedParking} onClose={handleCloseForm} />}
+
         </div>
     );
 }

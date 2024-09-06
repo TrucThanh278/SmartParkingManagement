@@ -22,6 +22,7 @@ import javax.persistence.Table;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -44,6 +45,7 @@ public class VehicleCategory implements Serializable {
     private Integer id;
     @Column(name = "name")
     private String name;
+    @JsonIgnore
     @OneToMany(mappedBy = "vehicleCategoryId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Vehicle> vehicleList;
 

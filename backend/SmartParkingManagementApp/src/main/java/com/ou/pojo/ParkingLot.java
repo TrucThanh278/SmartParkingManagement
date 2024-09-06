@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ou.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -69,13 +66,13 @@ public class ParkingLot implements Serializable {
     @Column(name = "description")
     private String description;
     @NotNull(message = "Start time cannot be blank")
-
+    @JsonFormat(pattern = "HH:mm:ss")
     @Column(name = "start_time")
-    private LocalDateTime startTime;
+    private LocalTime startTime;
     @NotNull(message = "End time cannot be blank")
-
+    @JsonFormat(pattern = "HH:mm:ss")
     @Column(name = "end_time")
-    private LocalDateTime endTime;
+    private LocalTime endTime;
     @OneToMany(mappedBy = "parkingLotId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ParkingSpot> parkingSpotList;
 
@@ -134,20 +131,19 @@ public class ParkingLot implements Serializable {
         this.description = description;
     }
 
-
-    public LocalDateTime getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 

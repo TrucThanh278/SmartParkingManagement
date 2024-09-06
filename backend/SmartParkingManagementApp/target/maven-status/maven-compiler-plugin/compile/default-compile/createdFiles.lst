@@ -1,10 +1,7 @@
 com\ou\repositories\Impl\VehicleRepositoryImpl.class
 com\ou\mappers\ParkingLotMapper.class
 com\ou\repositories\VehicleRepository.class
-<<<<<<< HEAD
 com\ou\repositories\ReportRepository.class
-=======
->>>>>>> main
 com\ou\pojo\ParkingSpot_.class
 com\ou\pojo\Vehicle.class
 com\ou\mappers\ReportMapperImpl.class
@@ -16,6 +13,7 @@ com\ou\dto\request\BookingInfoUpdateRequestDTO.class
 com\ou\repositories\Impl\ReportRepositoryImpl.class
 com\ou\filters\JwtAuthenticationTokenFilter.class
 com\ou\services\ParkingLotService.class
+com\ou\dto\response\ParkingSpotDTO$ParkingSpotDTOBuilder.class
 com\ou\pojo\Vehicle_.class
 com\ou\dto\response\UserResponseDTO.class
 com\ou\services\Impl\MailService.class
@@ -39,25 +37,18 @@ com\ou\repositories\VehicleCategoryRepository.class
 com\ou\pojo\BookingInformation_.class
 com\ou\service\VerificationTokenService.class
 com\ou\dto\request\ReportRequestDTO.class
+com\ou\configs\TimeZoneConfigs.class
 com\ou\pojo\ParkingLot.class
 com\ou\controllers\AuthController.class
-<<<<<<< HEAD
 com\ou\dto\response\BookingInformationResponseDTO$BookingInformationResponseDTOBuilder.class
-=======
-com\ou\configs\TilesConfigs.class
->>>>>>> main
 com\ou\pojo\Report_.class
 com\ou\configs\WebAppContextConfigs.class
 com\ou\pojo\VehicleCategory_.class
+com\ou\controllers\ApiVehicleCategoryController.class
 com\ou\services\RoleService.class
 com\ou\dto\request\UserUpdateRequestDTO$UserUpdateRequestDTOBuilder.class
 com\ou\repositories\BookingInformationRepository.class
-<<<<<<< HEAD
-=======
 com\ou\formatters\LocalDateTimeFormatters.class
-com\ou\services\Impl\RoleServiceImpl.class
-com\ou\dto\request\DTOUserUpdateRequest$DTOUserUpdateRequestBuilder.class
->>>>>>> main
 com\ou\pojo\Report.class
 com\ou\formatters\RoleFormatters.class
 com\ou\components\JwtService.class
@@ -65,6 +56,7 @@ com\ou\mappers\VehicleMapper.class
 com\ou\services\BookingInformationService.class
 com\ou\services\ReportService.class
 com\ou\dto\request\ChangePasswordRequestDTO.class
+com\ou\dto\response\ParkingSpotDTO.class
 com\ou\repositories\Impl\ParkingSpotRepositoryImpl.class
 com\ou\services\VehicleService.class
 com\ou\configs\JwtSecurityConfig.class
@@ -89,7 +81,6 @@ com\ou\pojo\User_.class
 com\ou\dto\request\UserRequestDTO$UserRequestDTOBuilder.class
 com\ou\repositories\Impl\VerificationTokenRepositoryImpl.class
 com\ou\services\VehicleCategoryService.class
-com\ou\dto\response\BookingInfoResponseDTO$BookingInfoResponseDTOBuilder.class
 com\ou\configs\DispatcherServletInit.class
 com\ou\dto\request\VehicleRequestDTO$VehicleRequestDTOBuilder.class
 com\ou\filters\RestAuthenticationEntryPoint.class
@@ -121,7 +112,6 @@ com\ou\dto\response\BookingInformationResponseDTO.class
 com\ou\pojo\Role.class
 com\ou\configs\SecurityConfigs.class
 com\ou\dto\request\UserRequestDTO.class
-com\ou\dto\response\BookingInfoResponseDTO.class
 com\ou\mappers\BookingInfoMapperImpl.class
 com\ou\services\UserService.class
 com\ou\mappers\BookingInfoMapper.class

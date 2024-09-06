@@ -4,11 +4,11 @@
  */
 package com.ou.pojo;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -47,23 +47,23 @@ public class BookingInformation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;  
+    private Integer id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "start_time")
-    private Date startTime;
+    private LocalDateTime startTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "end_time")
-    private Date endTime;
+    private LocalDateTime endTime;
     @Column(name = "payment_status")
     private Boolean paymentStatus;
     @JsonIgnore
-    @OneToOne(mappedBy = "bookingInfoId",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "bookingInfoId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Report report;
-    
+
     @JoinColumn(name = "parking_spot_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ParkingSpot parkingSpotId;
-    
+
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Vehicle vehicleId;
@@ -83,19 +83,19 @@ public class BookingInformation implements Serializable {
         this.id = id;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -150,14 +150,12 @@ public class BookingInformation implements Serializable {
         }
         return true;
     }
-    
-    
-    
+
     public boolean isSpotOccupied(LocalDateTime now) {
         LocalDateTime x = now;
-        LocalDateTime a = this.endTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDateTime b = this.startTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        return !now.isAfter(this.endTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) && !now.isBefore(this.startTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+        LocalDateTime a = this.endTime;
+        LocalDateTime b = this.startTime;
+        return !now.isAfter(a) && !now.isBefore(b);
     }
 
     @Override
@@ -165,4 +163,25 @@ public class BookingInformation implements Serializable {
         return "com.ou.pojo.BookingInformation[ id=" + id + " ]";
     }
     
+
+public boolean isWithinParkingLotHours(ParkingLot parkingLot) {
+    LocalTime parkingLotStartTime = parkingLot.getStartTime();
+    LocalTime parkingLotEndTime = parkingLot.getEndTime();
+
+    LocalTime bookingStartTime = this.startTime.toLocalTime();
+    LocalTime bookingEndTime = this.endTime.toLocalTime();
+
+    // Handle the case where parking lot hours span over midnight
+    if (parkingLotEndTime.isBefore(parkingLotStartTime)) {
+        // Parking lot closes after midnight
+        return (bookingStartTime.isAfter(parkingLotStartTime) || bookingStartTime.equals(parkingLotStartTime)) &&
+               (bookingEndTime.isBefore(parkingLotEndTime.plusHours(24)) || bookingEndTime.equals(parkingLotEndTime.plusHours(24)));
+    } else {
+        // Parking lot hours do not span over midnight
+        return (bookingStartTime.isAfter(parkingLotStartTime) || bookingStartTime.equals(parkingLotStartTime)) &&
+               (bookingEndTime.isBefore(parkingLotEndTime) || bookingEndTime.equals(parkingLotEndTime));
+    }
+}
+
+
 }

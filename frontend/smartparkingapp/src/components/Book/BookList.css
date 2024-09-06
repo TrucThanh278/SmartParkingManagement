@@ -1,6 +1,4 @@
-
-
-  .book {
+.book {
     height: 1000px;
     display: flex;
     flex-direction: column;
@@ -23,23 +21,30 @@
 }
 
 .img-container {
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
-  justify-content: center; /* Center align items horizontally */
-  gap: 20px; /* Space between items */
-  margin-top: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next line */
+    justify-content: center;
+    /* Center align items horizontally */
+    gap: 20px;
+    /* Space between items */
+    margin-top: 0;
 }
 
 .image-container {
-  position: relative;
-  width: 350px; /* Fixed width for each image */
-  height: 300px; /* Fixed height for each image */
+    position: relative;
+    width: 350px;
+    /* Fixed width for each image */
+    height: 300px;
+    /* Fixed height for each image */
 }
 
 .image-container {
-  position: relative;
-  width: 350px; /* Fixed width for each image */
-  height: 300px; /* Fixed height for each image */
+    position: relative;
+    width: 350px;
+    /* Fixed width for each image */
+    height: 300px;
+    /* Fixed height for each image */
 }
 
 .image-shape {
@@ -70,7 +75,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 3%;
 }
 
 p {
@@ -109,7 +113,8 @@ h2 {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    margin-top: 20px; /* Adjust this value to control the starting position */
+    margin-top: 20px;
+    /* Adjust this value to control the starting position */
 }
 
 input {
@@ -127,6 +132,7 @@ label {
 button {
     margin-top: 2%;
 }
+
 .image-container {
     position: relative;
     display: inline-block;
@@ -135,7 +141,8 @@ button {
 }
 
 .image-shape {
-    width: 300px; /* Adjust the size as needed */
+    width: 300px;
+    /* Adjust the size as needed */
     height: 200px;
     object-fit: cover;
     border-radius: 10px;
@@ -147,21 +154,25 @@ button {
     left: 0;
     width: 100%;
     padding: 10px;
-    background: rgba(0, 0, 0, 0.7); /* Increased opacity for better readability */
+    background: rgba(0, 0, 0, 0.7);
+    /* Increased opacity for better readability */
     color: #fff;
     font-size: 14px;
     border-radius: 0 0 10px 10px;
     text-align: left;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
+    /* Stack items vertically */
 }
 
 .text-overlay p {
     margin: 5px 0;
-    overflow: visible; /* Ensure full text is displayed */
-    white-space: normal; /* Allow text wrapping */
+    overflow: visible;
+    /* Ensure full text is displayed */
+    white-space: normal;
+    /* Allow text wrapping */
     color: black;
-    
+
 }
 
 .text-overlay span {
@@ -170,4 +181,43 @@ button {
     font-size: 16px;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    /* Optional: background color for the pagination area */
+    padding: 10px 0;
+    /* Add padding for spacing */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    /* Optional: shadow for visual separation */
+    border-top: 1px solid #e1e1e1;
+    /* Optional: border for visual separation */
+}
 
+.pagination button {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+    background-color: #d6d6d6;
+    border-color: #d6d6d6;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.pagination span {
+    font-size: 16px;
+    margin: 0 10px;
+}

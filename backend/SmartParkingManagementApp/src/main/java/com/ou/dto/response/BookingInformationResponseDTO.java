@@ -21,7 +21,7 @@ public class BookingInformationResponseDTO {
     private Date startTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
-
+    
     private Integer parkingSpotId;
     private Integer vehicleId;
 }

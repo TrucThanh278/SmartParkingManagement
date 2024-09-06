@@ -4,6 +4,7 @@ import com.ou.dto.request.BookingInfoRequestDTO;
 import com.ou.dto.request.BookingInfoUpdateRequestDTO;
 import com.ou.dto.response.BookingInformationResponseDTO;
 import com.ou.pojo.BookingInformation;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -31,9 +32,10 @@ public interface BookingInfoMapper {
     @Mappings({
         @Mapping(target = "startTime", source = "startTime"),
         @Mapping(target = "endTime", source = "endTime"),
-        @Mapping(target = "parkingSpotId", source = "parkingSpotId.id"), 
-        @Mapping(target = "vehicleId", source = "vehicleId.id") 
+        @Mapping(target = "parkingSpotId", source = "parkingSpotId.id"),
+        @Mapping(target = "vehicleId", source = "vehicleId.id")
     })
     BookingInformationResponseDTO toDto(BookingInformation bookingInformation);
 
+   
 }

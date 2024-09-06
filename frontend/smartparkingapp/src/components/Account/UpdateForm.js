@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { authAPIs, endpoints } from '../../configs/APIs';
 import "./UpdateForm.css";
+import Swal from 'sweetalert2';
 
 function UpdateForm({ userData, onSave, onCancel }) {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ function UpdateForm({ userData, onSave, onCancel }) {
     address: userData.address || '',
     avatar: null,
   });
+  const [loading, setLoading] = useState(false); // Add loading state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +41,8 @@ function UpdateForm({ userData, onSave, onCancel }) {
       form.append('avatar', formData.avatar);
     }
 
+    setLoading(true); // Show loading spinner
+
     try {
       const response = await authAPIs().post(
         endpoints.updateUser(userData.id),
@@ -51,8 +55,26 @@ function UpdateForm({ userData, onSave, onCancel }) {
       );
       console.log('User updated successfully:', response.data);
       onSave(response.data);
+
+      // Show SweetAlert2 success message
+      Swal.fire({
+        title: 'Success!',
+        text: 'User information updated successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
     } catch (error) {
       console.error('An error occurred while updating the user:', error);
+
+      // Show SweetAlert2 error message
+      Swal.fire({
+        title: 'Error!',
+        text: error.response?.data?.message || 'An error occurred while updating the user. Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    } finally {
+      setLoading(false); // Hide loading spinner
     }
   };
 
@@ -62,27 +84,36 @@ function UpdateForm({ userData, onSave, onCancel }) {
         <h2>Update Account</h2>
         <label>
           First Name:
-          <input type="text"
+          <input
+            type="text"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            className="form-control" />
+            className="form-control"
+            disabled={loading}
+          />
         </label>
         <label>
           Last Name:
-          <input type="text"
+          <input
+            type="text"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            className="form-control" />
+            className="form-control"
+            disabled={loading}
+          />
         </label>
         <label>
           Phone:
-          <input type="text"
+          <input
+            type="text"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="form-control" />
+            className="form-control"
+            disabled={loading}
+          />
         </label>
         <label>
           Address:
@@ -92,18 +123,26 @@ function UpdateForm({ userData, onSave, onCancel }) {
             value={formData.address}
             onChange={handleChange}
             className="form-control"
+            disabled={loading}
           />
         </label>
         <label>
           Avatar:
-          <input type="file"
+          <input
+            type="file"
             name="avatar"
             onChange={handleFileChange}
-            className="form-control" />
+            className="form-control"
+            disabled={loading}
+          />
         </label>
         <div className="buttons">
-          <button type="submit" className="save-btn">Save</button>
-          <button type="button" className="cancel-btn" onClick={onCancel}>Cancel</button>
+          <button type="submit" className="save-btn" disabled={loading}>
+            {loading ? 'Saving...' : 'Save'}
+          </button>
+          <button type="button" className="cancel-btn" onClick={onCancel} disabled={loading}>
+            Cancel
+          </button>
         </div>
       </form>
     </div>

@@ -18,7 +18,7 @@ function Book() {
           <Route path="/book-form" element={<BookForm />} />
           <Route path="/book-ticket" element={<BookTicket />} />
           <Route path="/ticket" element={<Ticket />} />
-          <Route path="/parking-detail" component={ParkingDetail} />
+          <Route path="/parking-detail/2" component={ParkingDetail} />
         </Routes>
       </div>
     </div>

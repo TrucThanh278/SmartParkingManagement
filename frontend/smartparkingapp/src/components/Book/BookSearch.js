@@ -6,6 +6,7 @@ function BookSearch({ onSearchResults, setTotalPages, setPage }) {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [sortBy, setSortBy] = useState('');
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const handleSearch = async () => {
@@ -17,13 +18,16 @@ function BookSearch({ onSearchResults, setTotalPages, setPage }) {
         }
 
         try {
+            setLoading(true);
             const response = await authAPIs().get(`${endpoints.searchParkingLots}${query}`);
-            onSearchResults(response.data.data); // Set the results
-            setTotalPages(response.data.totalPages); // Set total pages from the search
-            setPage(1); // Reset to the first page
+            onSearchResults(response.data.data);
+            setTotalPages(response.data.totalPages);
+            setPage(1);
         } catch (error) {
             console.error('Failed to fetch parking data', error);
             setError('Failed to fetch parking data');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -49,7 +53,9 @@ function BookSearch({ onSearchResults, setTotalPages, setPage }) {
                         <option value="price-desc">Price (High to Low)</option>
                     </select>
                 </div>
-                <button type="submit" onClick={handleSearch}>Search</button>
+                <button type="submit" onClick={handleSearch} disabled={loading}>
+                    {loading ? 'Loading...' : 'Search'}
+                </button>
                 {error && <div className="error-message">{error}</div>}
             </form>
         </div>

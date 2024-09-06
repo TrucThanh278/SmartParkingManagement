@@ -176,7 +176,7 @@ button {
 }
 
 .text-overlay span {
-    color: green;
+    color: #ec4b00;
     font-weight: 500;
     font-size: 16px;
 }
@@ -220,4 +220,17 @@ button {
 .pagination span {
     font-size: 16px;
     margin: 0 10px;
+}
+
+.h1-description {
+    font-size: 3em;
+    margin-bottom: 20px;
+    /* Make the text fill transparent */
+    -webkit-text-stroke: 1px white;
+    /* Add a white stroke to the text */
+    position: relative;
+}
+
+.h2-description {
+    color: #f7d7c8;
 }

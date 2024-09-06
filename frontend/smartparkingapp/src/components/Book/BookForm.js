@@ -11,12 +11,10 @@ function BookForm({ onClose, parkingData }) {
     const [existingBookings, setExistingBookings] = useState([]);
     const [ticketInfo, setTicketInfo] = useState(null);
 
-    // Handle selecting a parking spot
     const handleSpotClick = (spot) => {
         setSelectedSpot(spot);
     };
 
-    // Handle submitting the form
     const handleSubmit = (e) => {
         e.preventDefault();
         if (selectedSpot === null) {
@@ -26,50 +24,36 @@ function BookForm({ onClose, parkingData }) {
         setShowDetails(true);
     };
 
-    // Close form with a CSS transition
     const closeForm = () => {
         setClosing(true);
         setTimeout(() => {
             onClose();
-        }, 500); // Transition delay
+        }, 500);
     };
 
-    // Handle booking details submission and calculate total amount
+
     const handleBookingDetailsSubmit = (ticketData) => {
         const { vehicleType, licensePlate, startDate, endDate } = ticketData;
         const start = new Date(startDate);
         const end = new Date(endDate);
         const hours = (end - start) / 1000 / 3600;
-        const amount = (hours * pricePerHour).toFixed(2); // Calculate amount based on price per hour
+        const amount = (hours * pricePerHour).toFixed(2);
 
         const ticket = {
-            name: "John Doe", // Collect user input in a real app
             carModel: vehicleType,
             vehicleNumber: licensePlate,
             spotNumber: selectedSpot.spotNumber,
             startDate,
             endDate,
-            amount,
         };
 
         setTicketInfo(ticket);
     };
 
-    // UseEffect to fetch existing bookings
-    useEffect(() => {
-        if (selectedSpot) {
-            const bookings = [
-                { spotNumber: selectedSpot.spotNumber, startDate: "2024-08-05T10:00", endDate: "2024-08-05T12:00" },
-                { spotNumber: selectedSpot.spotNumber, startDate: "2024-08-05T13:00", endDate: "2024-08-05T14:00" }
-            ];
-            setExistingBookings(bookings.filter(booking => booking.spotNumber === selectedSpot.spotNumber));
-        }
-    }, [selectedSpot]);
-
     return (
         <div className={`form-container ${closing ? "closing" : ""}`}>
             <div className={`form ${closing ? "closing" : ""}`}>
-                <h2>Book a Spot at {name}</h2>
+                <h2 className="nameSpot">Book a Spot at {name}</h2>
                 <div className="parking-info">
                     <p>Address: {address}</p>
                     <p>Price per hour: {pricePerHour}$</p>
@@ -104,7 +88,7 @@ function BookForm({ onClose, parkingData }) {
             {showDetails && (
                 <BookTicket
                     spotIndex={selectedSpot.spotNumber}
-                    spotId={selectedSpot.id} // Pass the selected spot id to BookTicket
+                    spotId={selectedSpot.id}
                     existingBookings={existingBookings}
                     onClose={() => setShowDetails(false)}
                     onBookingSubmit={handleBookingDetailsSubmit}

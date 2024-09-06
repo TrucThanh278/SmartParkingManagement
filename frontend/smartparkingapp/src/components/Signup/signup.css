@@ -4,7 +4,8 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  position: relative; /* Ensure the pseudo-element is positioned relative to the container */
+  position: relative;
+  /* Ensure the pseudo-element is positioned relative to the container */
 }
 
 .container-signup::before {
@@ -17,24 +18,31 @@
   background-image: url("../../asset/images/wait.png");
   background-size: cover;
   background-position: center;
-  filter: blur(5px); /* Adjust the blur level as needed */
-  z-index: -1; /* Ensure the pseudo-element is behind the content */
-  opacity: 0.9; /* Optional: Adjust opacity if needed */
+  filter: blur(5px);
+  /* Adjust the blur level as needed */
+  z-index: -1;
+  /* Ensure the pseudo-element is behind the content */
+  opacity: 0.9;
+  /* Optional: Adjust opacity if needed */
 }
 
 .container-signup h2 {
   font-size: 3em;
   margin-bottom: 20px;
-  color: transparent; /* Make the text fill transparent */
-  -webkit-text-stroke: 1px white; /* Add a white stroke to the text */
+  color: transparent;
+  /* Make the text fill transparent */
+  -webkit-text-stroke: 1px white;
+  /* Add a white stroke to the text */
   position: relative;
 }
 
 .container-signup h2::before {
   font-size: 5em;
   margin-bottom: 20px;
-  color: transparent; /* Make the text fill transparent */
-  -webkit-text-stroke: 1px white; /* Add a white stroke to the text */
+  color: transparent;
+  /* Make the text fill transparent */
+  -webkit-text-stroke: 1px white;
+  /* Add a white stroke to the text */
   position: relative;
 }
 
@@ -47,7 +55,8 @@ form {
   justify-content: center;
   width: 350px;
   padding: 20px;
-  background-color: rgb(255, 252, 252,0.3); /* Nền đen trong suốt mờ */
+  background-color: rgb(255, 252, 252, 0.3);
+  /* Nền đen trong suốt mờ */
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
@@ -99,6 +108,7 @@ form {
   font-size: 14px;
   margin-top: 5px;
 }
+
 .form-group-row {
   display: flex;
   justify-content: space-between;
@@ -169,9 +179,12 @@ form {
 .input-container {
   display: flex;
   align-items: center;
-  background-color: #fff; /* Màu nền trắng cho input */
-  border: 1px solid #ddd; /* Đường viền nhẹ */
-  border-radius: 4px; /* Góc bo tròn nhẹ */
+  background-color: #fff;
+  /* Màu nền trắng cho input */
+  border: 1px solid #ddd;
+  /* Đường viền nhẹ */
+  border-radius: 4px;
+  /* Góc bo tròn nhẹ */
   padding: 8px;
 }
 
@@ -196,7 +209,8 @@ form {
   background-color: #3e8e41;
   color: white;
   border: none;
-  border-radius: 4px; /* Góc bo tròn nhẹ */
+  border-radius: 4px;
+  /* Góc bo tròn nhẹ */
   cursor: pointer;
   font-size: 16px;
 }
@@ -217,4 +231,12 @@ form {
 
 .container-signup p a:hover {
   color: #3e8e41;
+}
+
+.signUp {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: transparent !important;
+  -webkit-text-stroke: 1px white;
+  position: relative;
 }

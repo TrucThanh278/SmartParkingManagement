@@ -14,7 +14,8 @@ import java.util.Map;
  */
 public interface ParkingLotRepository {
 
-    List<ParkingLot> getParkingLots(Map<String, String> params);
+
+    Map<String, Object> getParkingLots(Map<String, String> params);
 
     List<ParkingLot> getParkingLotsByName(Map<String, String> params);
 
@@ -26,5 +27,7 @@ public interface ParkingLotRepository {
 
     void deleteParkingLot(Integer id);
     
-    List<ParkingLot> findParkingLots(String name, String address, boolean sortByPriceAsc);
+    Map<String, Object> findParkingLots(String name, String address, boolean sortByPriceAsc);
+    
+    ParkingLot findById(Integer id);
 }

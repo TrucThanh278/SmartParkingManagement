@@ -13,6 +13,7 @@ com\ou\dto\request\BookingInfoUpdateRequestDTO.class
 com\ou\repositories\Impl\ReportRepositoryImpl.class
 com\ou\filters\JwtAuthenticationTokenFilter.class
 com\ou\services\ParkingLotService.class
+com\ou\dto\response\ParkingSpotDTO$ParkingSpotDTOBuilder.class
 com\ou\pojo\Vehicle_.class
 com\ou\dto\response\UserResponseDTO.class
 com\ou\services\Impl\MailService.class
@@ -45,6 +46,7 @@ com\ou\dto\response\BookingInformationResponseDTO$BookingInformationResponseDTOB
 com\ou\pojo\Report_.class
 com\ou\configs\WebAppContextConfigs.class
 com\ou\pojo\VehicleCategory_.class
+com\ou\controllers\ApiVehicleCategoryController.class
 com\ou\services\RoleService.class
 com\ou\dto\request\UserUpdateRequestDTO$UserUpdateRequestDTOBuilder.class
 com\ou\repositories\BookingInformationRepository.class
@@ -56,6 +58,7 @@ com\ou\mappers\VehicleMapper.class
 com\ou\services\BookingInformationService.class
 com\ou\services\ReportService.class
 com\ou\dto\request\ChangePasswordRequestDTO.class
+com\ou\dto\response\ParkingSpotDTO.class
 com\ou\repositories\Impl\ParkingSpotRepositoryImpl.class
 com\ou\services\VehicleService.class
 com\ou\configs\JwtSecurityConfig.class

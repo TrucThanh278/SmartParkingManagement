@@ -22,12 +22,9 @@ public class ApiParkingLotController {
     private ParkingLotService parkingLotService;
 
     @GetMapping
-    public ResponseEntity<List<ParkingLot>> getAllParkingLots(@RequestParam(required = false, defaultValue = "1") int page) {
-        Map<String, String> params = new HashMap<>();
-        params.put("page", String.valueOf(page));
-
-        List<ParkingLot> parkingLots = parkingLotService.getParkingLots(params);
-        return ResponseEntity.ok(parkingLots);
+    public Map<String, Object> getParkingLots(
+            @RequestParam Map<String, String> params) {
+        return parkingLotService.getParkingLots(params);
     }
 
     @GetMapping("/{id}")
@@ -37,12 +34,10 @@ public class ApiParkingLotController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ParkingLotResponseDTO>> searchParkingLots(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String address,
-            @RequestParam(required = false, defaultValue = "true") boolean sortByPriceAsc) {
-
-        List<ParkingLotResponseDTO> parkingLots = parkingLotService.searchParkingLots(name, address, sortByPriceAsc);
-        return ResponseEntity.ok(parkingLots);
+    public Map<String, Object> getParkingLots(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "address", required = false) String address,
+            @RequestParam(value = "sortByPriceAsc", defaultValue = "false") boolean sortByPriceAsc) {
+        return parkingLotService.findParkingLots(name, address, sortByPriceAsc);
     }
 }

@@ -5,12 +5,16 @@ import com.ou.dto.request.BookingInfoUpdateRequestDTO;
 import com.ou.dto.response.BookingInformationResponseDTO;
 import com.ou.mappers.BookingInfoMapper;
 import com.ou.pojo.BookingInformation;
+import com.ou.pojo.ParkingLot;
 import com.ou.pojo.ParkingSpot;
 import com.ou.pojo.Vehicle;
 import com.ou.repositories.BookingInformationRepository;
+import com.ou.repositories.ParkingLotRepository;
 import com.ou.repositories.ParkingSpotsRepository;
 import com.ou.repositories.VehicleRepository;
 import com.ou.services.BookingInformationService;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +34,9 @@ public class BookingInformationServiceImpl implements BookingInformationService 
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    @Autowired
+    private ParkingLotRepository parkingLotRepository;
+
     @Override
     public List<BookingInformation> getBookingListWithPakingSpotId(Integer id) {
         return this.bookingInformationRepository.getBookingListWithParkingSpotId(id);
@@ -46,6 +53,12 @@ public class BookingInformationServiceImpl implements BookingInformationService 
 
         ParkingSpot parkingSpot = parkingSpotRepository.findById(dtoBookingInfoRequest.getParkingSpotId());
         Vehicle vehicle = vehicleRepository.findById(dtoBookingInfoRequest.getVehicleId());
+
+        ParkingLot parkingLot = parkingSpot.getParkingLotId();
+
+        if (!bookingInformation.isWithinParkingLotHours(parkingLot)) {
+            throw new IllegalArgumentException("Booking times are outside of the parking lot operational hours.");
+        }
 
         bookingInformation.setParkingSpotId(parkingSpot);
         bookingInformation.setVehicleId(vehicle);
@@ -83,5 +96,10 @@ public class BookingInformationServiceImpl implements BookingInformationService 
 
             bookingInformationRepository.deleteBookingInfo(id);
         }
+    }
+
+    @Override
+    public List<BookingInformation> getBookingListByCurrentDateAndParkingSpotId(LocalDate currentDate,  Integer parkingSpotId) {
+        return bookingInformationRepository.getBookingListByCurrentDateAndParkingSpotId(currentDate, parkingSpotId);
     }
 }

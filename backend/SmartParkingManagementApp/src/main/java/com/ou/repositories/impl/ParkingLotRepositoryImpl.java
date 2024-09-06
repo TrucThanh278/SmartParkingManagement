@@ -5,11 +5,14 @@
 package com.ou.repositories.Impl;
 
 import com.ou.pojo.ParkingLot;
+import com.ou.pojo.ParkingSpot;
 import com.ou.repositories.ParkingLotRepository;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
@@ -31,30 +34,48 @@ public class ParkingLotRepositoryImpl implements ParkingLotRepository {
     
     private static final int PAGE_SIZE = 6;
 
+    private static final int PAGE_SIZE = 6;
+
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<ParkingLot> getParkingLots(Map<String, String> params) {
-        Session s = this.factory.getObject().getCurrentSession();
-        CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<ParkingLot> q = b.createQuery(ParkingLot.class);
-        Root root = q.from(ParkingLot.class);
-        q.select(root);
-        Query query = s.createQuery(q);
+    public Map<String, Object> getParkingLots(Map<String, String> params) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        CriteriaQuery<ParkingLot> criteriaQuery = builder.createQuery(ParkingLot.class);
+        Root<ParkingLot> root = criteriaQuery.from(ParkingLot.class);
+        criteriaQuery.select(root);
+        TypedQuery<ParkingLot> hqlQuery = session.createQuery(criteriaQuery);
 
         if (params != null) {
-            String page = params.get("page");
-            if (page != null && !page.isEmpty()) {
-                int p = Integer.parseInt(page);
-                int start = (p - 1) * PAGE_SIZE;
+            String pageParam = params.get("page");
+            if (pageParam != null && !pageParam.isEmpty()) {
+                int page = Integer.parseInt(pageParam);
+                int start = (page - 1) * PAGE_SIZE;
 
-                query.setFirstResult(start);
-                query.setMaxResults(PAGE_SIZE);
+                hqlQuery.setFirstResult(start);
+                hqlQuery.setMaxResults(PAGE_SIZE);
             }
         }
 
-        return query.getResultList();
+        List<ParkingLot> parkingLots = hqlQuery.getResultList();
+
+        CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
+        Root<ParkingLot> countRoot = countQuery.from(ParkingLot.class);
+        countQuery.select(builder.count(countRoot));
+        TypedQuery<Long> countQ = session.createQuery(countQuery);
+        long totalItems = countQ.getSingleResult();
+
+        long totalPages = (totalItems + PAGE_SIZE - 1) / PAGE_SIZE;
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", parkingLots);
+        result.put("totalPages", totalPages);
+        result.put("totalItems", totalItems);
+
+        return result;
     }
 
     @Override
@@ -132,33 +153,75 @@ public class ParkingLotRepositoryImpl implements ParkingLotRepository {
     }
 
     @Override
-    public List<ParkingLot> findParkingLots(String name, String address, boolean sortByPriceAsc) {
-        Session s = this.factory.getObject().getCurrentSession();
-        CriteriaBuilder cb = s.getCriteriaBuilder();
+    public Map<String, Object> findParkingLots(String name, String address, boolean sortByPriceAsc) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+
+        // Criteria API for Sorting and Pagination
         CriteriaQuery<ParkingLot> cq = cb.createQuery(ParkingLot.class);
         Root<ParkingLot> root = cq.from(ParkingLot.class);
 
-        List<Predicate> predicates = new ArrayList<>();
-
+        // JPQL for Filtering
+        String jpql = "SELECT p FROM ParkingLot p WHERE 1=1";
         if (name != null && !name.isEmpty()) {
-            Expression<String> nameExpression = root.get("name");
-            Predicate namePredicate = cb.like(cb.lower(nameExpression), "%" + name.toLowerCase() + "%");
-            predicates.add(namePredicate);
+            jpql += " AND LOWER(p.name) LIKE :name";
         }
         if (address != null && !address.isEmpty()) {
-            Expression<String> addressExpression = root.get("address");
-            Predicate addressPredicate = cb.like(cb.lower(addressExpression), "%" + address.toLowerCase() + "%");
-            predicates.add(addressPredicate);
+            jpql += " AND LOWER(p.address) LIKE :address";
         }
 
-        cq.where(predicates.toArray(new Predicate[0]));
         if (sortByPriceAsc) {
-            cq.orderBy(cb.asc(root.get("pricePerHour")));
+            jpql += " ORDER BY p.pricePerHour ASC";
         } else {
-            cq.orderBy(cb.desc(root.get("pricePerHour")));
+            jpql += " ORDER BY p.pricePerHour DESC";
         }
 
-        return s.createQuery(cq).getResultList();
+        // Create JPQL Query
+        TypedQuery<ParkingLot> query = session.createQuery(jpql, ParkingLot.class);
+        if (name != null && !name.isEmpty()) {
+            query.setParameter("name", "%" + name.toLowerCase() + "%");
+        }
+        if (address != null && !address.isEmpty()) {
+            query.setParameter("address", "%" + address.toLowerCase() + "%");
+        }
+
+
+        query.setMaxResults(PAGE_SIZE);
+        query.setFirstResult(0);
+
+        List<ParkingLot> parkingLots = query.getResultList();
+
+        // Count Query
+        String countJpql = "SELECT COUNT(p) FROM ParkingLot p WHERE 1=1";
+        if (name != null && !name.isEmpty()) {
+            countJpql += " AND LOWER(p.name) LIKE :name";
+        }
+        if (address != null && !address.isEmpty()) {
+            countJpql += " AND LOWER(p.address) LIKE :address";
+        }
+
+        TypedQuery<Long> countQuery = session.createQuery(countJpql, Long.class);
+        if (name != null && !name.isEmpty()) {
+            countQuery.setParameter("name", "%" + name.toLowerCase() + "%");
+        }
+        if (address != null && !address.isEmpty()) {
+            countQuery.setParameter("address", "%" + address.toLowerCase() + "%");
+        }
+
+        Long totalItems = countQuery.getSingleResult();
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("totalItems", totalItems);
+        result.put("data", parkingLots);
+        result.put("totalPages", (int) Math.ceil((double) totalItems / PAGE_SIZE));
+
+        return result;
+    }
+
+    @Override
+    public ParkingLot findById(Integer id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(ParkingLot.class, id);
     }
 
 }

@@ -4,9 +4,15 @@
  */
 package com.ou.repositories.Impl;
 
+
 import com.ou.pojo.BookingInformation;
+import com.ou.pojo.Vehicle;
 import com.ou.repositories.BookingInformationRepository;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -74,6 +80,26 @@ public class BookingInformationRepositoryImpl implements BookingInformationRepos
         Session s = this.factory.getObject().getCurrentSession();
         BookingInformation p = s.get(BookingInformation.class, id);
         s.delete(p);
+    }
+
+    @Override
+    public List<BookingInformation> getBookingListByCurrentDateAndParkingSpotId(LocalDate currentDate, Integer parkingSpotId) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<BookingInformation> query = builder.createQuery(BookingInformation.class);
+        Root<BookingInformation> root = query.from(BookingInformation.class);
+
+        LocalDateTime startOfDay = currentDate.atStartOfDay();
+        LocalDateTime endOfDay = currentDate.atTime(LocalTime.MAX);
+
+        Predicate timePredicate = builder.between(root.get("startTime"), startOfDay, endOfDay);
+        
+        Predicate spotIdPredicate = builder.equal(root.get("parkingSpotId").get("id"), parkingSpotId);
+
+        query.where(builder.and(timePredicate, spotIdPredicate));
+
+        org.hibernate.query.Query<BookingInformation> q = session.createQuery(query);
+        return q.getResultList();
     }
 
 }

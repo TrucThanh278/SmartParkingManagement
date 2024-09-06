@@ -18,5 +18,4 @@ public interface ParkingSpotService {
     List<ParkingSpot> getParkingSpots(Map<String, String> params);
     void addParkingSpots(List<ParkingSpot> p);
     int getTotalPages(String parkingLotID);
-
 }

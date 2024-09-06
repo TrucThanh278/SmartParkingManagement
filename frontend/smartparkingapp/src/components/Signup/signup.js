@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faHome, faPhone, faEnvelope, faLock, faImage } from '@fortawesome/free-solid-svg-icons';
-import { Alert } from 'react-bootstrap';
+import { Alert, Spinner } from 'react-bootstrap';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 import APIs, { endpoints } from "../../configs/APIs";
 import "./signup.css";
 
@@ -20,6 +21,7 @@ function SignUp() {
   });
 
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
 
   const register = async (e) => {
@@ -31,6 +33,7 @@ function SignUp() {
     }
 
     try {
+      setLoading(true); // Set loading to true when request starts
       let form = new FormData();
       Object.keys(formData).forEach(key => {
         if (formData[key] !== null) {
@@ -38,7 +41,6 @@ function SignUp() {
         }
       });
 
-      // Log dữ liệu gửi đi
       console.log("Sending form data:", formData);
 
       let res = await APIs.post(endpoints['signup'], form, {
@@ -49,7 +51,18 @@ function SignUp() {
 
       if (res.status === 200) {
         console.log("Navigating to /signin");
-        navigate("/signin");
+
+        // Show success alert using SweetAlert2
+        Swal.fire({
+          title: 'Success!',
+          text: 'You have successfully registered!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          // Navigate after user clicks "OK" on the alert
+          navigate("/signin");
+        });
+
       } else if (res.status === 409) {
         setError("Email already exists. Please choose another email.");
       } else {
@@ -58,6 +71,8 @@ function SignUp() {
     } catch (error) {
       console.error("Registration error:", error.response || error);
       setError("An error occurred during registration. Please try again later.");
+    } finally {
+      setLoading(false); // Set loading to false after the request is done
     }
   };
 
@@ -71,7 +86,7 @@ function SignUp() {
 
   return (
     <div className="container-signup">
-      <h2>Sign Up</h2>
+      <h2 className="signUp">Sign Up</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <form onSubmit={register} method="post">
         <div className="form-group">
@@ -219,9 +234,11 @@ function SignUp() {
           </div>
         </div>
 
-        <button type="submit" className="button">Sign Up</button>
+        <button type="submit" className="button" disabled={loading}>
+          {loading ? <Spinner animation="border" size="sm" /> : 'Sign Up'}
+        </button>
       </form>
-      <p>
+      <p className="haveAccount">
         Already have an account? <Link to="/signin">Sign in here</Link>
       </p>
     </div>

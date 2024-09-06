@@ -4,7 +4,8 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  position: relative; /* Ensure the pseudo-element is positioned relative to the container */
+  position: relative;
+  /* Ensure the pseudo-element is positioned relative to the container */
   padding: 20px;
 }
 
@@ -18,22 +19,27 @@
   background-image: url("../../asset/images/wait.png");
   background-size: cover;
   background-position: center;
-  filter: blur(5px); /* Adjust the blur level as needed */
-  z-index: -1; /* Ensure the pseudo-element is behind the content */
-  opacity: 0.9; /* Optional: Adjust opacity if needed */
+  filter: blur(5px);
+  /* Adjust the blur level as needed */
+  z-index: -1;
+  /* Ensure the pseudo-element is behind the content */
+  opacity: 0.9;
+  /* Optional: Adjust opacity if needed */
 }
 
 /* Ensure your actual content is on top of the blurred background */
-.container-log > * {
+.container-log>* {
   position: relative;
   z-index: 1;
 }
 
-.container-log h2 {
+.signIn {
   font-size: 3em;
   margin-bottom: 20px;
-  color: transparent; /* Make the text fill transparent */
-  -webkit-text-stroke: 1px white; /* Add a white stroke to the text */
+  color: transparent !important;
+  /* Make the text fill transparent */
+  -webkit-text-stroke: 1px white;
+  /* Add a white stroke to the text */
   position: relative;
 }
 
@@ -87,7 +93,7 @@ h2 {
 }
 
 .error-message {
-  color: red;
+  color: red !important;
   margin-top: 10px;
 }
 
@@ -104,7 +110,6 @@ h2 {
   color: #dee2e6;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .container-log {
     padding: 10px;
@@ -159,4 +164,5 @@ h2 {
   .container-log p {
     font-size: 14px;
   }
+
 }

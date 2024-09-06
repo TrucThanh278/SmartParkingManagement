@@ -215,6 +215,7 @@ sketch
 # and uncomment the following lines
 # .pnp.*
 
+
 /backend/SmartParkingManagementApp/target/*
 /backend/SmartParkingManagementDemo/target/*
 

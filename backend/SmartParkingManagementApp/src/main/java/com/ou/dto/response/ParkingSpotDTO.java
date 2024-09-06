@@ -1,5 +1,4 @@
-package com.ou.dto.request;
-
+package com.ou.dto.response;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,12 +10,11 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DTOUserUpdateRequest {
-    String firstName;
-    String lastName;
-    String phone;
-    String address;
+public class ParkingSpotDTO {
+
+    Integer id;
+    String spotNumber;
 }

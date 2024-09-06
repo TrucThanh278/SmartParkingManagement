@@ -14,8 +14,16 @@ import java.util.Map;
  */
 public interface ParkingSpotsRepository {
     List<ParkingSpot> getParkingSpots(Map<String, String> params);
+
     List<ParkingSpot> getParkingSpotsWithParkingLot(int ID);
+
     void addParkingSpot(int num);
+
+    ParkingSpot findById(Integer id);
+
+    ParkingSpot save(ParkingSpot parkingSpot);
+
     void addParkingSpots(List<ParkingSpot> p);
+
     int getTotalPages(String parkingLotID);
 }

@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ou.services.Impl;
 
-import com.ou.dto.response.DTOParkingLotResponse;
+import com.ou.dto.response.ParkingLotResponseDTO;
 import com.ou.mappers.ParkingLotMapper;
 import com.ou.pojo.ParkingLot;
 import com.ou.repositories.ParkingLotRepository;
@@ -12,7 +8,6 @@ import com.ou.services.ParkingLotService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +25,8 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     private ParkingLotMapper parkingLotMapper;
 
     @Override
-    public List<ParkingLot> getParkingLots() {
-        return this.parkingLotRepository.getParkingLots();
+    public Map<String, Object> getParkingLots(Map<String, String> params) {
+        return parkingLotRepository.getParkingLots(params);
     }
 
     @Override
@@ -60,20 +55,14 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     }
 
     @Override
-    public DTOParkingLotResponse getDTOParkingLotDetail(Integer id) {
+    public ParkingLotResponseDTO getDTOParkingLotDetail(Integer id) {
         ParkingLot parkingLot = parkingLotRepository.getParkingLotDetail(id);
         return parkingLotMapper.toParkingLotReponse(parkingLot);
     }
 
     @Override
-    public List<DTOParkingLotResponse> searchParkingLots(String name, String address, boolean sortByPriceAsc) {
-        List<ParkingLot> parkingLots = parkingLotRepository.findParkingLots(name, address, sortByPriceAsc);
-        List<DTOParkingLotResponse> dtoList = new ArrayList<>();
-        for (ParkingLot parkingLot : parkingLots) {
-            DTOParkingLotResponse dto = parkingLotMapper.toParkingLotReponse(parkingLot);
-            dtoList.add(dto);
-        }
-        return dtoList;
+    public Map<String, Object> findParkingLots(String name, String address, boolean sortByPriceAsc) {
+        return parkingLotRepository.findParkingLots(name, address, sortByPriceAsc);
     }
 
 }

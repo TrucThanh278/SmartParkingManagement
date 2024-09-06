@@ -4,6 +4,7 @@
  */
 package com.ou.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -45,6 +46,7 @@ public class Report implements Serializable {
     @Lob
     @Column(name = "comment")
     private String comment;
+    @JsonIgnore
     @JoinColumn(name = "booking_info_id", referencedColumnName = "id")
     @OneToOne(cascade = CascadeType.ALL)
     private BookingInformation bookingInfoId;

@@ -1,236 +1,205 @@
-
-// import React, { useState, useEffect } from "react";
-// import "./BookTicket.css";
-// import Ticket from '../Ticket/ticket';
-
-// function BookTicket({ spotIndex, onClose }) {
-//     const [vehicleType, setVehicleType] = useState("");
-//     const [licensePlate, setLicensePlate] = useState("");
-//     const [startDate, setStartDate] = useState("");
-//     const [endDate, setEndDate] = useState("");
-//     const [ticketInfo, setTicketInfo] = useState(null);
-//     const [existingBookings, setExistingBookings] = useState([]);
-//     const [errorMessage, setErrorMessage] = useState("");
-
-//     useEffect(() => {
-//         // Fetch existing bookings for the spot from the server or state
-//         // This is just an example, replace with actual data fetching logic
-//         const fetchExistingBookings = async () => {
-//             const bookings = [
-//                 {
-//                     startDate: "2024-08-05T10:00",
-//                     endDate: "2024-08-05T12:00"
-//                 },
-//                 {
-//                     startDate: "2024-08-05T13:00",
-//                     endDate: "2024-08-05T14:00"
-//                 }
-//             ];
-//             setExistingBookings(bookings);
-//         };
-
-//         fetchExistingBookings();
-//     }, [spotIndex]);
-
-//     const checkForConflicts = (newStart, newEnd) => {
-//         return existingBookings.some(booking => {
-//             const existingStart = new Date(booking.startDate);
-//             const existingEnd = new Date(booking.endDate);
-//             return (newStart < existingEnd && newEnd > existingStart);
-//         });
-//     };
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         const start = new Date(startDate);
-//         const end = new Date(endDate);
-
-//         if (checkForConflicts(start, end)) {
-//             setErrorMessage("The selected time slot is already booked.");
-//             return;
-//         }
-
-//         setErrorMessage("");
-//         const ticket = {
-//             name: "John Doe", // This should be collected from user input in a real app
-//             carModel: vehicleType,
-//             vehicleNumber: licensePlate,
-//             spotNumber: spotIndex + 1,
-//             startDate: startDate,
-//             endDate: endDate,
-//             amount: calculateAmount(start, end)
-//         };
-//         setTicketInfo(ticket);
-//     };
-
-//     const calculateAmount = (start, end) => {
-//         const hours = (end - start) / 1000 / 3600;
-//         return (hours * 10).toFixed(2); // Example rate: $10/hour
-//     };
-
-//     return (
-//         <div>
-//             {!ticketInfo ? (
-//                 <div className="booking-details-container">
-//                     <div className="booking-details-form">
-//                         <h2>Booking Details</h2>
-//                         <div className="book-detail-flex">
-//                             <form onSubmit={handleSubmit}>
-//                                 <label>
-//                                     Parking Spot Number:
-//                                     <input type="text" value={`Spot ${spotIndex + 1}`} readOnly />
-//                                 </label>
-//                                 <label>
-//                                     Vehicle Type:
-//                                     <input
-//                                         type="text"
-//                                         value={vehicleType}
-//                                         onChange={(e) => setVehicleType(e.target.value)}
-//                                         required
-//                                     />
-//                                 </label>
-//                                 <label>
-//                                     License Plate:
-//                                     <input
-//                                         type="text"
-//                                         value={licensePlate}
-//                                         onChange={(e) => setLicensePlate(e.target.value)}
-//                                         required
-//                                     />
-//                                 </label>
-//                                 <label>
-//                                     Start Date and Time:
-//                                     <input
-//                                         type="datetime-local"
-//                                         value={startDate}
-//                                         onChange={(e) => setStartDate(e.target.value)}
-//                                         required
-//                                     />
-//                                 </label>
-//                                 <label>
-//                                     End Date and Time:
-//                                     <input
-//                                         type="datetime-local"
-//                                         value={endDate}
-//                                         onChange={(e) => setEndDate(e.target.value)}
-//                                         required
-//                                     />
-//                                 </label>
-//                                 {errorMessage && <p className="error-message">{errorMessage}</p>}
-//                                 <button type="submit">Submit</button>
-//                             </form>
-//                             <div className="existing-bookings">
-//                                 <h3>Existing Bookings:</h3>
-//                                 {existingBookings.map((booking, index) => (
-//                                     <div key={index}>
-//                                         <p>Start: {booking.startDate}</p>
-//                                         <p>End: {booking.endDate}</p>
-//                                     </div>
-//                                 ))}
-//                             </div>
-//                         </div>
-
-//                         <button className="close-btn" onClick={onClose}>
-//                             <i className="fas fa-times"></i>
-//                         </button>
-
-//                     </div>
-//                 </div>
-//             ) : (
-//                 <Ticket ticketInfo={ticketInfo} />
-//             )}
-//         </div>
-//     );
-// }
-
-// export default BookTicket;
-
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Cookies from 'react-cookies';
+import { authAPIs, endpoints } from '../../configs/APIs';
 import "./BookTicket.css";
+import AddVehicleForm from './AddVehicleForm';
+import PaymentForm from './PaymentForm'; // Import PaymentForm
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-function BookTicket({ spotIndex, existingBookings, onClose, price }) {
+function BookTicket({ spotIndex, spotId, onClose, price }) {
     const [vehicleType, setVehicleType] = useState("");
-    const [licensePlate, setLicensePlate] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
+    const [vehicles, setVehicles] = useState([]);
+    const [existingBookings, setExistingBookings] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
+    const [showAddVehicleForm, setShowAddVehicleForm] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [showPaymentForm, setShowPaymentForm] = useState(false);
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const token = Cookies.load('access-token');
+            if (!token) {
+                setErrorMessage('Authorization token is missing.');
+                return;
+            }
+
+            try {
+                const response = await authAPIs().get(endpoints['current-user']);
+                setUserId(response.data.id);
+            } catch (error) {
+                setErrorMessage(`Failed to fetch user data: ${error.response?.data?.message || 'Unknown error'}`);
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
+    useEffect(() => {
+        if (userId !== null) {
+            const fetchVehicles = async () => {
+                const token = Cookies.load('access-token');
+                if (!token) {
+                    setErrorMessage('Authorization token is missing.');
+                    return;
+                }
+
+                try {
+                    const response = await authAPIs().get(endpoints.vehiclesForUser(userId));
+                    setVehicles(response.data);
+                } catch (error) {
+                    setErrorMessage(`Failed to fetch vehicles: ${error.response?.data?.message || 'Unknown error'}`);
+                }
+            };
+
+            const fetchExistingBookings = async () => {
+                const token = Cookies.load('access-token');
+                if (!token) {
+                    setErrorMessage('Authorization token is missing.');
+                    return;
+                }
+
+                try {
+                    const response = await authAPIs().get(endpoints.existingBookingsForSpot(spotId));
+                    setExistingBookings(response.data);
+                } catch (error) {
+                    setErrorMessage(`Failed to fetch existing bookings: ${error.response?.data?.message || 'Unknown error'}`);
+                }
+            };
+
+            fetchVehicles();
+            fetchExistingBookings();
+        }
+    }, [userId, spotId]);
+
+    const formatDate = (date) => {
+        const d = new Date(date);
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const hours = String(d.getHours()).padStart(2, '0');
+        const minutes = String(d.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:00`;
+    };
 
     const checkForConflicts = (newStart, newEnd) => {
         return existingBookings.some(booking => {
-            const existingStart = new Date(booking.startDate);
-            const existingEnd = new Date(booking.endDate);
+            const existingStart = new Date(booking.startTime);
+            const existingEnd = new Date(booking.endTime);
             return (newStart < existingEnd && newEnd > existingStart);
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const start = new Date(startDate);
-        const end = new Date(endDate);
+        const token = Cookies.load('access-token');
+        if (!token) {
+            setErrorMessage('Authorization token is missing.');
+            return;
+        }
 
-        if (isNaN(start) || isNaN(end)) {
+        if (userId === null) {
+            setErrorMessage('User ID is missing.');
+            return;
+        }
+
+        const start = formatDate(startDate);
+        const end = formatDate(endDate);
+
+        if (isNaN(new Date(start)) || isNaN(new Date(end))) {
             setErrorMessage("Please enter valid start and end dates.");
             return;
         }
 
-        if (checkForConflicts(start, end)) {
+        if (checkForConflicts(new Date(start), new Date(end))) {
             setErrorMessage("The selected time slot is already booked.");
             return;
         }
 
         setErrorMessage("");
-        const ticket = {
-            name: "John Doe", // This should be collected from user input in a real app
-            carModel: vehicleType,
-            vehicleNumber: licensePlate,
-            spotNumber: spotIndex + 1,
-            startDate: startDate,
-            endDate: endDate,
-            amount: calculateAmount(start, end)
-        };
+        setLoading(true);
 
-        // Save ticket to local storage
-        localStorage.setItem("ticketInfo", JSON.stringify(ticket));
+        try {
+            const response = await authAPIs().post(endpoints.createBooking, {
+                startTime: start,
+                endTime: end,
+                parkingSpotId: spotId,
+                vehicleId: vehicleType
+            });
 
-        // Navigate to the Ticket page with the ticket info
-        navigate('/ticket');
-    };
+            if (response.status === 200) {
+                setLoading(false);
+                setShowPaymentForm(true); // Show payment form on success
 
-    const calculateAmount = (start, end) => {
-        const hours = (end - start) / 1000 / 3600;
-        return (hours * price).toFixed(2); // Use the price prop for the hourly rate
+                Swal.fire({
+                    title: 'Booking Successful!',
+                    text: 'Your parking spot has been booked successfully. Please proceed with payment.',
+                    icon: 'success',
+                    confirmButtonText: 'Proceed to Payment'
+                });
+            } else {
+                const errorData = await response.data;
+                setErrorMessage(`Failed to book: ${errorData.message || 'Unknown error'}`);
+                setLoading(false);
+            }
+        } catch (error) {
+            setLoading(false);
+            if (error.response && error.response.status === 500) {
+                Swal.fire({
+                    title: 'Booking Failed',
+                    text: errorMessage.includes("outside business hours")
+                        ? "Booking failed: Outside business hours."
+                        : errorMessage.includes("time slot conflict")
+                            ? "Booking failed: Time slot conflict."
+                            : "An error occurred while booking. Please try again later.",
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
     };
 
     return (
         <div className="booking-details-container">
             <div className="booking-details-form">
-                <h2>Booking Details</h2>
+                <h2 className="name-book-details">Booking Details for Spot {spotIndex}</h2>
                 <div className="book-detail-flex">
                     <form onSubmit={handleSubmit}>
                         <label>
                             Parking Spot Number:
-                            <input type="text" value={`Spot ${spotIndex + 1}`} readOnly />
+                            <input type="text" value={`Spot ${spotIndex}`} readOnly />
                         </label>
+
                         <label>
                             Vehicle Type:
-                            <input
-                                type="text"
-                                value={vehicleType}
-                                onChange={(e) => setVehicleType(e.target.value)}
-                                required
-                            />
+                            <div className="vehicle-select-container">
+                                <select
+                                    value={vehicleType}
+                                    onChange={(e) => setVehicleType(e.target.value)}
+                                    required
+                                >
+                                    <option value="">Select a vehicle</option>
+                                    {vehicles.map(vehicle => (
+                                        <option key={vehicle.id} value={vehicle.id}>
+                                            {vehicle.plateNumber}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowAddVehicleForm(true)}
+                                    className="add-vehicle-btn"
+                                >
+                                    Add Vehicle
+                                </button>
+                            </div>
                         </label>
-                        <label>
-                            License Plate:
-                            <input
-                                type="text"
-                                value={licensePlate}
-                                onChange={(e) => setLicensePlate(e.target.value)}
-                                required
-                            />
-                        </label>
+
                         <label>
                             Start Date and Time:
                             <input
@@ -250,23 +219,39 @@ function BookTicket({ spotIndex, existingBookings, onClose, price }) {
                             />
                         </label>
                         {errorMessage && <div className="alert">{errorMessage}</div>}
-                        <button type="submit">Submit</button>
+                        {loading ? <p>Loading...</p> : <button type="submit">Submit</button>}
                     </form>
-                    <div className="existing-bookings">
+                    <form className="existing-bookings">
                         <h3>Existing Bookings:</h3>
                         {existingBookings.map((booking, index) => (
                             <div key={index}>
-                                <p>Start: {booking.startDate}</p>
-                                <p>End: {booking.endDate}</p>
+                                <p>Start: {new Date(booking.startTime).toLocaleString()}</p>
+                                <p>End: {new Date(booking.endTime).toLocaleString()}</p>
+                                <p>Vehicle: {booking.vehicle?.plateNumber || 'N/A'}</p>
                             </div>
                         ))}
-                    </div>
+                    </form>
                 </div>
-
+                {showAddVehicleForm && (
+                    <AddVehicleForm
+                        onClose={() => setShowAddVehicleForm(false)}
+                        onAddVehicle={(newVehicle) => {
+                            setVehicles([...vehicles, newVehicle]);
+                            setShowAddVehicleForm(false);
+                        }}
+                    />
+                )}
                 <button className="close-btn" onClick={onClose}>
                     <i className="fas fa-times"></i>
                 </button>
             </div>
+            {showPaymentForm && (
+                <PaymentForm
+                    price={price}
+                    onClose={() => setShowPaymentForm(false)}
+                />
+            )}
+
         </div>
     );
 }

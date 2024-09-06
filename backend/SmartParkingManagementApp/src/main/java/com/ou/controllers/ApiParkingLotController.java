@@ -1,9 +1,11 @@
 package com.ou.controllers;
 
-import com.ou.dto.response.DTOParkingLotResponse;
+import com.ou.dto.response.ParkingLotResponseDTO;
 import com.ou.pojo.ParkingLot;
 import com.ou.services.ParkingLotService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,24 +22,22 @@ public class ApiParkingLotController {
     private ParkingLotService parkingLotService;
 
     @GetMapping
-    public ResponseEntity<List<ParkingLot>> getAllParkingLots() {
-        List<ParkingLot> parkingLots = parkingLotService.getParkingLots();
-        return ResponseEntity.ok(parkingLots);
+    public Map<String, Object> getParkingLots(
+            @RequestParam Map<String, String> params) {
+        return parkingLotService.getParkingLots(params);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DTOParkingLotResponse> getParkingLotById(@PathVariable("id") Integer id) {
-        DTOParkingLotResponse dtoParkingLotResponse = parkingLotService.getDTOParkingLotDetail(id);
+    public ResponseEntity<ParkingLotResponseDTO> getParkingLotById(@PathVariable("id") Integer id) {
+        ParkingLotResponseDTO dtoParkingLotResponse = parkingLotService.getDTOParkingLotDetail(id);
         return ResponseEntity.ok(dtoParkingLotResponse);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<DTOParkingLotResponse>> searchParkingLots(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String address,
-            @RequestParam(required = false, defaultValue = "true") boolean sortByPriceAsc) {
-
-        List<DTOParkingLotResponse> parkingLots = parkingLotService.searchParkingLots(name, address, sortByPriceAsc);
-        return ResponseEntity.ok(parkingLots);
+    public Map<String, Object> getParkingLots(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "address", required = false) String address,
+            @RequestParam(value = "sortByPriceAsc", defaultValue = "false") boolean sortByPriceAsc) {
+        return parkingLotService.findParkingLots(name, address, sortByPriceAsc);
     }
 }

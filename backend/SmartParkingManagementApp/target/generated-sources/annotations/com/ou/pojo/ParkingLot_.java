@@ -1,13 +1,13 @@
 package com.ou.pojo;
 
 import com.ou.pojo.ParkingSpot;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2024-09-02T18:01:48")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2024-09-07T01:55:12")
 @StaticMetamodel(ParkingLot.class)
 public class ParkingLot_ { 
 
@@ -17,8 +17,8 @@ public class ParkingLot_ {
     public static volatile SingularAttribute<ParkingLot, Float> pricePerHour;
     public static volatile SingularAttribute<ParkingLot, String> description;
     public static volatile ListAttribute<ParkingLot, ParkingSpot> parkingSpotList;
-    public static volatile SingularAttribute<ParkingLot, LocalDateTime> startTime;
+    public static volatile SingularAttribute<ParkingLot, LocalTime> startTime;
     public static volatile SingularAttribute<ParkingLot, Integer> id;
-    public static volatile SingularAttribute<ParkingLot, LocalDateTime> endTime;
+    public static volatile SingularAttribute<ParkingLot, LocalTime> endTime;
 
 }

@@ -4,7 +4,6 @@
  */
 package com.ou.repositories.Impl;
 
-import com.ou.pojo.ParkingSpot;
 import com.ou.pojo.Vehicle;
 import com.ou.repositories.VehicleRepository;
 import java.util.List;
@@ -25,11 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class VehicleRepositoryImpl implements VehicleRepository{
+public class VehicleRepositoryImpl implements VehicleRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Override
     public List<Vehicle> getVehicleWithUserID(int id) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -43,5 +42,17 @@ public class VehicleRepositoryImpl implements VehicleRepository{
         return query.getResultList();
     }
 
-    
+    @Override
+    public Vehicle findById(Integer id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(Vehicle.class, id);
+    }
+
+    @Override
+    public Vehicle save(Vehicle vhcl) {
+        Session session = this.factory.getObject().getCurrentSession();
+        session.saveOrUpdate(vhcl);
+        return vhcl;
+    }
+
 }

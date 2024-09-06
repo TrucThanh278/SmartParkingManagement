@@ -3,6 +3,7 @@ import axios from '../../configs/APIs';
 import { endpoints } from '../../configs/APIs';
 import "./ChangePasswordForm.css";
 import cookie from 'react-cookies';
+import Swal from 'sweetalert2';
 
 function ChangePasswordForm({ userId, onCancel, onPasswordChange }) {
     const [oldPassword, setOldPassword] = useState("");
@@ -10,14 +11,17 @@ function ChangePasswordForm({ userId, onCancel, onPasswordChange }) {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [loading, setLoading] = useState(false); 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         setSuccess("");
+        setLoading(true); 
 
         if (newPassword !== confirmPassword) {
             setError("New passwords do not match");
+            setLoading(false);
             return;
         }
 
@@ -27,6 +31,7 @@ function ChangePasswordForm({ userId, onCancel, onPasswordChange }) {
 
             if (!token) {
                 setError('No token found');
+                setLoading(false); 
                 return;
             }
 
@@ -47,11 +52,34 @@ function ChangePasswordForm({ userId, onCancel, onPasswordChange }) {
             console.log(response);
             setSuccess("Password changed successfully!");
             onPasswordChange();
+
+
+            Swal.fire({
+                title: 'Success!',
+                text: 'Your password has been changed successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+
+            // Clear the form fields
+            setOldPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
         } catch (error) {
             console.error("Failed to change password", error);
             setError(
-                error.response?.data || "An error occurred while changing the password"
+                error.response?.data?.message || "An error occurred while changing the password"
             );
+
+            // Show SweetAlert2 error message
+            Swal.fire({
+                title: 'Error!',
+                text: error.response?.data?.message || 'An error occurred while changing the password. Please try again later.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } finally {
+            setLoading(false); // Hide loading spinner
         }
     };
 
@@ -92,7 +120,9 @@ function ChangePasswordForm({ userId, onCancel, onPasswordChange }) {
                     />
                 </div>
                 <div className="button-group">
-                    <button type="submit" className="btnChange">Change</button>
+                    <button type="submit" className="btnChange" disabled={loading}>
+                        {loading ? 'Changing...' : 'Change'}
+                    </button>
                     <button type="button" className="btnCancel" onClick={onCancel}>
                         Cancel
                     </button>

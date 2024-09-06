@@ -52,4 +52,8 @@
         <put-attribute name="title" value="Show booking informations"/>
         <put-attribute name="content" value="/WEB-INF/view/pages/bookingInformation/show.jsp"/>
     </definition>
+    <definition name="ticket" extends="baseLayout">
+        <put-attribute name="title" value="Buy ticket"/>
+        <put-attribute name="content" value="/WEB-INF/view/pages/bookingInformation/buyticket.jsp"/>
+    </definition>
 </tiles-definitions>

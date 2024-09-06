@@ -4,10 +4,13 @@
  */
 package com.ou.services;
 
+import com.ou.pojo.VehicleCategory;
+import java.util.List;
+
 /**
  *
  * @author trucn
  */
 public interface VehicleCategoryService {
-    
+     List<VehicleCategory> getAllVehicleCategories();
 }

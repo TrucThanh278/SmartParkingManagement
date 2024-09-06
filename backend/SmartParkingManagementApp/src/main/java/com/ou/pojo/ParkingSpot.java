@@ -4,7 +4,6 @@
  */
 package com.ou.pojo;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
@@ -33,10 +32,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "parking_spot")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ParkingSpot.findAll", query = "SELECT p FROM ParkingSpot p"),
-    @NamedQuery(name = "ParkingSpot.findById", query = "SELECT p FROM ParkingSpot p WHERE p.id = :id"),
-    @NamedQuery(name = "ParkingSpot.findBySpotNumber", query = "SELECT p FROM ParkingSpot p WHERE p.spotNumber = :spotNumber"),
-    @NamedQuery(name = "ParkingSpot.findByStatus", query = "SELECT p FROM ParkingSpot p WHERE p.status = :status")})
+        @NamedQuery(name = "ParkingSpot.findAll", query = "SELECT p FROM ParkingSpot p"),
+        @NamedQuery(name = "ParkingSpot.findById", query = "SELECT p FROM ParkingSpot p WHERE p.id = :id"),
+        @NamedQuery(name = "ParkingSpot.findBySpotNumber", query = "SELECT p FROM ParkingSpot p WHERE p.spotNumber = :spotNumber"),
+        @NamedQuery(name = "ParkingSpot.findByStatus", query = "SELECT p FROM ParkingSpot p WHERE p.status = :status") })
 public class ParkingSpot implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -129,5 +128,5 @@ public class ParkingSpot implements Serializable {
     public String toString() {
         return "com.ou.pojo.ParkingSpot[ id=" + id + " ]";
     }
-    
+
 }

@@ -14,7 +14,7 @@ function Account() {
     const fetchUserData = async () => {
       try {
         const response = await authAPIs().get(endpoints['current-user']);
-        console.log("User Data from API:", response.data); // Log API response for debugging
+        console.log("User Data from API:", response.data);
 
         const { id, firstName, lastName, avatar, email, phone, address } = response.data;
         setUserData({
@@ -43,10 +43,9 @@ function Account() {
   };
 
   const handleSave = (updatedData) => {
-    console.log("Updated Data:", updatedData); // Log updated data for debugging
+    console.log("Updated Data:", updatedData);
     const { firstName, lastName, avatar, email, phone, address } = updatedData;
 
-    // Cập nhật `userData` với dữ liệu mới
     setUserData({
       id: userData.id,
       firstName,
@@ -55,7 +54,7 @@ function Account() {
       email,
       phone,
       address,
-      name: `${firstName} ${lastName}` // Cập nhật tên với dữ liệu mới
+      name: `${firstName} ${lastName}`
     });
 
     setIsEditing(false);

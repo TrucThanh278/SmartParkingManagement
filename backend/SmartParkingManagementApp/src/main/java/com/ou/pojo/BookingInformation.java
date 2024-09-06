@@ -8,6 +8,7 @@ package com.ou.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -50,10 +51,10 @@ public class BookingInformation implements Serializable {
     private Integer id;  
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "start_time")
-    private Date startTime;
+    private LocalDateTime startTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "end_time")
-    private Date endTime;
+    private LocalDateTime endTime;
     @Column(name = "payment_status")
     private Boolean paymentStatus;
     @JsonIgnore
@@ -83,19 +84,19 @@ public class BookingInformation implements Serializable {
         this.id = id;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -155,9 +156,9 @@ public class BookingInformation implements Serializable {
     
     public boolean isSpotOccupied(LocalDateTime now) {
         LocalDateTime x = now;
-        LocalDateTime a = this.endTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDateTime b = this.startTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        return !now.isAfter(this.endTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) && !now.isBefore(this.startTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+        LocalDateTime a = this.endTime;
+        LocalDateTime b = this.startTime;
+        return !now.isAfter(a) && !now.isBefore(b);
     }
 
     @Override

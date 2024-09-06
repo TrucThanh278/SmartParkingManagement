@@ -3,7 +3,9 @@ package com.ou.controllers;
 import com.ou.dto.response.ParkingLotResponseDTO;
 import com.ou.pojo.ParkingLot;
 import com.ou.services.ParkingLotService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +22,11 @@ public class ApiParkingLotController {
     private ParkingLotService parkingLotService;
 
     @GetMapping
-    public ResponseEntity<List<ParkingLot>> getAllParkingLots() {
-        List<ParkingLot> parkingLots = parkingLotService.getParkingLots();
+    public ResponseEntity<List<ParkingLot>> getAllParkingLots(@RequestParam(required = false, defaultValue = "1") int page) {
+        Map<String, String> params = new HashMap<>();
+        params.put("page", String.valueOf(page));
+
+        List<ParkingLot> parkingLots = parkingLotService.getParkingLots(params);
         return ResponseEntity.ok(parkingLots);
     }
 

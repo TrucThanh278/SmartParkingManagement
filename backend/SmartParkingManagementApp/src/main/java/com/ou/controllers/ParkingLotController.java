@@ -10,7 +10,9 @@ import com.ou.services.ParkingLotService;
 import com.ou.services.ParkingSpotService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +44,8 @@ public class ParkingLotController {
     
     @GetMapping("/")
     public String getParkingLot(Model model){
-        List<ParkingLot> parkingLots = this.parkingLotService.getParkingLots();
+        Map<String, String> params = new HashMap<>();
+        List<ParkingLot> parkingLots = this.parkingLotService.getParkingLots(params);
         model.addAttribute("parkingLots", parkingLots);
         return "showParkingLot";
     }

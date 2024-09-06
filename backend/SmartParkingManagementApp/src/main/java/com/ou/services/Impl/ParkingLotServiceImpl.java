@@ -29,8 +29,8 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     private ParkingLotMapper parkingLotMapper;
 
     @Override
-    public List<ParkingLot> getParkingLots() {
-        return this.parkingLotRepository.getParkingLots();
+    public List<ParkingLot> getParkingLots(Map<String, String> params) {
+        return this.parkingLotRepository.getParkingLots(params);
     }
 
     @Override

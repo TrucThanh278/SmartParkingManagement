@@ -28,21 +28,33 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class ParkingLotRepositoryImpl implements ParkingLotRepository {
+    
+    private static final int PAGE_SIZE = 6;
 
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<ParkingLot> getParkingLots() {
+    public List<ParkingLot> getParkingLots(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<ParkingLot> q = b.createQuery(ParkingLot.class);
         Root root = q.from(ParkingLot.class);
-
         q.select(root);
         Query query = s.createQuery(q);
-        return query.getResultList();
 
+        if (params != null) {
+            String page = params.get("page");
+            if (page != null && !page.isEmpty()) {
+                int p = Integer.parseInt(page);
+                int start = (p - 1) * PAGE_SIZE;
+
+                query.setFirstResult(start);
+                query.setMaxResults(PAGE_SIZE);
+            }
+        }
+
+        return query.getResultList();
     }
 
     @Override

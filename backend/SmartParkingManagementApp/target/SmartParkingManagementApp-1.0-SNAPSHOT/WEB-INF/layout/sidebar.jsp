@@ -20,7 +20,7 @@
                     Contact
                 </a>
 
-                <a class="nav-link" href="/admin/order">
+                <a class="nav-link" href="<c:url value="/buyticket"/>">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Bill
                 </a>

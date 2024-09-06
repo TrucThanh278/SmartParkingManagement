@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faHome, faPhone, faEnvelope, faLock, faImage } from '@fortawesome/free-solid-svg-icons';
 import { Alert, Spinner } from 'react-bootstrap';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import Swal from 'sweetalert2';
 import APIs, { endpoints } from "../../configs/APIs";
 import "./signup.css";
 
@@ -21,7 +21,7 @@ function SignUp() {
   });
 
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const register = async (e) => {
@@ -33,7 +33,7 @@ function SignUp() {
     }
 
     try {
-      setLoading(true); // Set loading to true when request starts
+      setLoading(true);
       let form = new FormData();
       Object.keys(formData).forEach(key => {
         if (formData[key] !== null) {
@@ -52,14 +52,12 @@ function SignUp() {
       if (res.status === 200) {
         console.log("Navigating to /signin");
 
-        // Show success alert using SweetAlert2
         Swal.fire({
           title: 'Success!',
           text: 'You have successfully registered!',
           icon: 'success',
           confirmButtonText: 'OK'
         }).then(() => {
-          // Navigate after user clicks "OK" on the alert
           navigate("/signin");
         });
 
@@ -72,7 +70,7 @@ function SignUp() {
       console.error("Registration error:", error.response || error);
       setError("An error occurred during registration. Please try again later.");
     } finally {
-      setLoading(false); // Set loading to false after the request is done
+      setLoading(false);
     }
   };
 

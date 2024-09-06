@@ -3,7 +3,7 @@ import Cookies from 'react-cookies';
 import { authAPIs, endpoints } from '../../configs/APIs';
 import "./BookTicket.css";
 import AddVehicleForm from './AddVehicleForm';
-import PaymentForm from './PaymentForm'; // Import PaymentForm
+import PaymentForm from './PaymentForm';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -77,14 +77,9 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
         }
     }, [userId, spotId]);
 
-    const formatDate = (date) => {
+    const formatDateTimeForInput = (date) => {
         const d = new Date(date);
-        const year = d.getFullYear();
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
-        const hours = String(d.getHours()).padStart(2, '0');
-        const minutes = String(d.getMinutes()).padStart(2, '0');
-        return `${year}-${month}-${day} ${hours}:${minutes}:00`;
+        return d.toISOString().slice(0, 16); // Format to YYYY-MM-DDTHH:MM
     };
 
     const checkForConflicts = (newStart, newEnd) => {
@@ -108,8 +103,8 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
             return;
         }
 
-        const start = formatDate(startDate);
-        const end = formatDate(endDate);
+        const start = new Date(startDate).toISOString();
+        const end = new Date(endDate).toISOString();
 
         if (isNaN(new Date(start)) || isNaN(new Date(end))) {
             setErrorMessage("Please enter valid start and end dates.");
@@ -134,7 +129,7 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
 
             if (response.status === 200) {
                 setLoading(false);
-                setShowPaymentForm(true); // Show payment form on success
+                setShowPaymentForm(true);
 
                 Swal.fire({
                     title: 'Booking Successful!',
@@ -204,7 +199,7 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
                             Start Date and Time:
                             <input
                                 type="datetime-local"
-                                value={startDate}
+                                value={startDate ? formatDateTimeForInput(startDate) : ''}
                                 onChange={(e) => setStartDate(e.target.value)}
                                 required
                             />
@@ -213,7 +208,7 @@ function BookTicket({ spotIndex, spotId, onClose, price }) {
                             End Date and Time:
                             <input
                                 type="datetime-local"
-                                value={endDate}
+                                value={endDate ? formatDateTimeForInput(endDate) : ''}
                                 onChange={(e) => setEndDate(e.target.value)}
                                 required
                             />

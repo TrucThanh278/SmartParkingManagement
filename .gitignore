@@ -215,7 +215,7 @@ sketch
 # and uncomment the following lines
 # .pnp.*
 
-/backend/SmartParkingManagementApp/target/
-/backend/SmartParkingManagementDemo/target/
+/backend/SmartParkingManagementApp/target/*
+/backend/SmartParkingManagementDemo/target/*
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,react,java,yarn,node

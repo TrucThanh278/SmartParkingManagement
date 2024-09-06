@@ -8,7 +8,6 @@ import com.ou.pojo.ParkingLot;
 import com.ou.pojo.ParkingSpot;
 import com.ou.services.ParkingLotService;
 import com.ou.services.ParkingSpotService;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,11 +40,11 @@ public class ParkingLotController {
     private ParkingSpotService parkingSpotService;
 
     @GetMapping("/")
-    public Map<String, Object> getParkingLots(
+    public String getParkingLots(Model model,
             @RequestParam Map<String, String> params) {
-         Map<String, String> params = new HashMap<>();
-        List<ParkingLot> parkingLots = this.parkingLotService.getParkingLots(params);
-        model.addAttribute("parkingLots", parkingLots);
+        Map<String, Object> parkingLots = new HashMap<>();
+        parkingLots = this.parkingLotService.getParkingLots(params);
+        model.addAttribute("parkingLots", parkingLots.get("data"));
         return "showParkingLot";
     }
 

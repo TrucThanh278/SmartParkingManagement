@@ -34,8 +34,6 @@ public class ParkingLotRepositoryImpl implements ParkingLotRepository {
     
     private static final int PAGE_SIZE = 6;
 
-    private static final int PAGE_SIZE = 6;
-
     @Autowired
     private LocalSessionFactoryBean factory;
 
@@ -62,18 +60,24 @@ public class ParkingLotRepositoryImpl implements ParkingLotRepository {
 
         List<ParkingLot> parkingLots = hqlQuery.getResultList();
 
-        CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
-        Root<ParkingLot> countRoot = countQuery.from(ParkingLot.class);
-        countQuery.select(builder.count(countRoot));
-        TypedQuery<Long> countQ = session.createQuery(countQuery);
-        long totalItems = countQ.getSingleResult();
+        if (params != null){
+            CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
+            Root<ParkingLot> countRoot = countQuery.from(ParkingLot.class);
+            countQuery.select(builder.count(countRoot));
+            TypedQuery<Long> countQ = session.createQuery(countQuery);
+            long totalItems = countQ.getSingleResult();
 
-        long totalPages = (totalItems + PAGE_SIZE - 1) / PAGE_SIZE;
+            long totalPages = (totalItems + PAGE_SIZE - 1) / PAGE_SIZE;
 
+            Map<String, Object> result = new HashMap<>();
+            result.put("data", parkingLots);
+            result.put("totalPages", totalPages);
+            result.put("totalItems", totalItems);
+            return result;
+        }
+        
         Map<String, Object> result = new HashMap<>();
         result.put("data", parkingLots);
-        result.put("totalPages", totalPages);
-        result.put("totalItems", totalItems);
 
         return result;
     }

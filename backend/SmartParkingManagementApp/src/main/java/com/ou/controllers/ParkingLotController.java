@@ -43,11 +43,11 @@ public class ParkingLotController {
     private ParkingSpotService parkingSpotService;
 
     @GetMapping("/")
-    public Map<String, Object> getParkingLots(
+    public String getParkingLots(Model model,
             @RequestParam Map<String, String> params) {
-         Map<String, String> params = new HashMap<>();
-        List<ParkingLot> parkingLots = this.parkingLotService.getParkingLots(params);
-        model.addAttribute("parkingLots", parkingLots);
+        Map<String, Object> parkingLots = new HashMap<>();
+        parkingLots = this.parkingLotService.getParkingLots(params);
+        model.addAttribute("parkingLots", parkingLots.get("data"));
         return "showParkingLot";
     }
 

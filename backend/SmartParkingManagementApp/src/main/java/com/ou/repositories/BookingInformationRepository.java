@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface BookingInformationRepository {
 
-    public List<BookingInformation> getBookingListWithParkingSpotId(Integer id);
+    List<BookingInformation> getBookingListWithParkingSpotId(Integer id);
 
-    public List<BookingInformation> getBookingListOfParkingLot(Integer id);
+    List<BookingInformation> getBookingListOfParkingLot(Integer id);
 
     BookingInformation saveBookingInfo(BookingInformation bookingInformation);
 
@@ -18,4 +18,6 @@ public interface BookingInformationRepository {
     void deleteBookingInfo(Integer id);
 
     List<BookingInformation> getBookingListByCurrentDateAndParkingSpotId(LocalDate currentDate, Integer parkingSpotId);
+    
+    List<BookingInformation> getBookingListWithUserId(int userId);
 }

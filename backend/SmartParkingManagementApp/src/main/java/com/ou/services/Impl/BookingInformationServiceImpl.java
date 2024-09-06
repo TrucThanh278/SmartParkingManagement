@@ -102,4 +102,9 @@ public class BookingInformationServiceImpl implements BookingInformationService 
     public List<BookingInformation> getBookingListByCurrentDateAndParkingSpotId(LocalDate currentDate,  Integer parkingSpotId) {
         return bookingInformationRepository.getBookingListByCurrentDateAndParkingSpotId(currentDate, parkingSpotId);
     }
+
+    @Override
+    public List<BookingInformation> getBookingListWithUserId(int userId) {
+        return this.bookingInformationRepository.getBookingListWithUserId(userId);
+    }
 }

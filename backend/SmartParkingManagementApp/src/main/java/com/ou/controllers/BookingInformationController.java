@@ -5,10 +5,8 @@ import com.ou.pojo.BookingInformation;
 import com.ou.services.BookingInformationService;
 import com.ou.services.MomoService;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +38,7 @@ public class BookingInformationController {
         model.addAttribute("bookingList", bookingList);
         return "detail";
     }
+    
     
     @GetMapping("/buyticket")
     public String buyTicket(){

@@ -31,6 +31,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -76,33 +78,6 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.getUserDetail(id);
     }
 
-//    @Override
-//    public void addOrUpdate(User u){
-//        if(!u.getFile().isEmpty()){
-//            try {
-//                Map res = this.cloundinary.uploader().upload(u.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
-//                u.setAvatar(res.get("secure_url").toString());
-//            } catch (IOException ex) {
-//                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        this.userRepository.addOrUpdateUser(u);
-//    }
-//    @Override
-//    @Transactional
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        User u = this.getUserByEmail(email);
-//        if (u == null) {
-//            throw new UsernameNotFoundException("Invalid email");
-//        }
-//
-//        Set<GrantedAuthority> authorities = new HashSet<>();
-//        authorities.add(new SimpleGrantedAuthority(u.getRoleId().getName().toString()));
-//        return new org.springframework.security.core.userdetails.User(
-//                u.getEmail(), u.getPassword(), authorities);
-//
-//    }
-
     @Override
     public User getUserByUsername(String email) {
         return this.userRepository.getUserByUsername(email);
@@ -118,33 +93,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository.deleteUser(id);
     }
 
-//    @Override
-//    public User addUser(Map<String, String> params, MultipartFile
-//            avatar) {
-//        User u = new User();
-//        u.setFirstName(params.get("firstName"));
-//        u.setLastName(params.get("lastName"));
-//        u.setPhone(params.getOrDefault("phone", "9999999999"));
-//        u.setEmail(params.getOrDefault("email", "a@gmail.com"));
-//        u.setPassword(this.passEncoder.encode(params.get("password")));
-//        Role userRole = this.roleRepository.getRoleByName("USER");
-//        u.setRoleId(userRole);
-//        if (!avatar.isEmpty()) {
-//            try {
-//                Map res = this.cloudinary.uploader().upload(avatar.getBytes(), 
-//                        ObjectUtils.asMap("resource_type", "auto"));
-//                u.setAvatar(res.get("secure_url").toString());
-//            } catch (IOException ex) {
-//                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        
-//        this.userRepository.addUser(u);
-//        return u;
-//    }
-    
-    
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getUserByUsername(username);
@@ -156,15 +104,6 @@ public class UserServiceImpl implements UserService {
                 user.getUsername(), user.getPassword(), authorities);
     }
 
-//    @Override
-//    public boolean authUser(String username, String password) {
-//        User user = getUserByUsername(username);
-//        if (user == null) {
-//            return false;
-//        }
-//        return passEncoder.matches(password, user.getPassword());
-//    }
-
     @Override
     public UserResponseDTO getDTOUserByUsername(String username) {
         User user = getUserByUsername(username);
@@ -172,7 +111,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public User addUser(UserRequestDTO dtoUserRequest, MultipartFile avatar) {
         try {
 
@@ -327,7 +265,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public void changePassword(Integer userId, ChangePasswordRequestDTO changePasswordRequest) {
         Optional<User> optionalUser = this.userRepository.findById(userId);
 
@@ -337,20 +274,26 @@ public class UserServiceImpl implements UserService {
 
         User user = optionalUser.get();
 
-        // Kiểm tra mật khẩu cũ
         if (!passEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
             throw new RuntimeException("Old password is incorrect");
         }
 
-        // Cập nhật mật khẩu mới
         user.setPassword(passEncoder.encode(changePasswordRequest.getNewPassword()));
 
-        // Lưu người dùng với mật khẩu và các trường khác đã được cập nhật
         this.userRepository.addUser(user);
     }
 
     @Override
     public User getUserByEmail(String email) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    @Override
+    public UserResponseDTO getMyInfo(){
+        SecurityContext context = SecurityContextHolder.getContext();
+        String username = context.getAuthentication().getName();
+        User user = this.userRepository.getUserByUsername(username);
+        
+        return this.userMapper.toUserResponse(user);
     }
 }

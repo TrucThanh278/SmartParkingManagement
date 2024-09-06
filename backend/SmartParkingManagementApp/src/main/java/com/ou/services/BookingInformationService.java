@@ -10,15 +10,17 @@ import java.util.List;
 
 public interface BookingInformationService {
 
-    public List<BookingInformation> getBookingListWithPakingSpotId(Integer id);
+    List<BookingInformation> getBookingListWithPakingSpotId(Integer id);
 
-    public List<BookingInformation> getBookingListOfParkingLot(Integer id);
+    List<BookingInformation> getBookingListOfParkingLot(Integer id);
 
-    public BookingInformation addBookingInfo(BookingInfoRequestDTO dtoBookingInfoRequest);
+    BookingInformation addBookingInfo(BookingInfoRequestDTO dtoBookingInfoRequest);
 
     BookingInformationResponseDTO updateBookingInfo(Integer id, BookingInfoUpdateRequestDTO dtoBookingInfoUpdateRequest);
 
     void deleteBookingInfo(Integer id);
 
     List<BookingInformation> getBookingListByCurrentDateAndParkingSpotId(LocalDate currentDate,  Integer parkingSpotId);
+    
+    List<BookingInformation> getBookingListWithUserId(int userId);
 }

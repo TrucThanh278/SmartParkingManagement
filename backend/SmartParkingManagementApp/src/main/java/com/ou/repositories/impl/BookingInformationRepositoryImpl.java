@@ -102,4 +102,15 @@ public class BookingInformationRepositoryImpl implements BookingInformationRepos
         return q.getResultList();
     }
 
+    @Override
+    public List<BookingInformation> getBookingListWithUserId(int userId) {
+        Session session = this.factory.getObject().getCurrentSession();
+        
+        String hql = "FROM BookingInformation b WHERE b.vehicleId.userId.id = :userId";
+        Query query = session.createQuery(hql);
+        query.setParameter("userId", userId);
+        
+        return query.getResultList();
+    }
+
 }

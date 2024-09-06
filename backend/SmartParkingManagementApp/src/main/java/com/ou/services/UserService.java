@@ -19,21 +19,21 @@ import org.springframework.web.multipart.MultipartFile;
  * @author trucn
  */
 public interface UserService extends UserDetailsService{
-    public List<User> getUsers();
-    public User getUserDetail(int id);
-    public User getUserByEmail(String email);
-    public User getUserByUsername(String username);
-    public boolean authUser(String username, String password);
-    public UserResponseDTO getDTOUserByUsername(String username);
-//    User addUser(Map<String, String> params, MultipartFile avatar);
+    
+    List<User> getUsers();
+    User getUserDetail(int id);
+    User getUserByEmail(String email);
+    User getUserByUsername(String username);
+    boolean authUser(String username, String password);
+    UserResponseDTO getDTOUserByUsername(String username);
     void deleteUser(Integer id);
-    public User addUser(UserRequestDTO dtoUserRequest, MultipartFile avatar);
-    public VerificationToken getVerificationToken(String token);
+    User addUser(UserRequestDTO dtoUserRequest, MultipartFile avatar);
+    VerificationToken getVerificationToken(String token);
     void saveUser(User user);
     boolean confirmUser(String token);
     void enableUser (User u);
     UserResponseDTO updateUser(Integer id, UserUpdateRequestDTO dtoUserUpdateRequest, MultipartFile avatar);
-    
     void changePassword(Integer userId, ChangePasswordRequestDTO changePasswordRequest);
-//    public void addOrUpdate(User u);
+    UserResponseDTO getMyInfo();
+    
 }

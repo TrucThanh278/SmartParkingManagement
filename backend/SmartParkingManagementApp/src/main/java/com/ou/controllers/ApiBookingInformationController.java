@@ -3,9 +3,11 @@ package com.ou.controllers;
 import com.ou.dto.request.BookingInfoRequestDTO;
 import com.ou.dto.request.BookingInfoUpdateRequestDTO;
 import com.ou.dto.response.BookingInformationResponseDTO;
+import com.ou.dto.response.UserResponseDTO;
 import com.ou.pojo.BookingInformation;
 import com.ou.pojo.Vehicle;
 import com.ou.services.BookingInformationService;
+import com.ou.services.UserService;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class ApiBookingInformationController {
 
     @Autowired
     private BookingInformationService bookingInformationService;
+    
+    @Autowired
+    private UserService userService;
 
     @PostMapping(path = "/booking", produces = "application/json")
     @CrossOrigin
@@ -52,4 +57,14 @@ public class ApiBookingInformationController {
         return ResponseEntity.ok(bookings);
     }
     
+    @GetMapping
+    public ResponseEntity<List<BookingInformation>> getBookingInforWithUserId(){
+        Integer currentUserId = this.userService.getMyInfo().getId();
+        List<BookingInformation> bookingList = this.bookingInformationService.getBookingListWithUserId(currentUserId);
+        return ResponseEntity.ok(bookingList);
+    }
+    
 }
+
+
+//UserResponseDTO u = this.userService.getMyInfo();

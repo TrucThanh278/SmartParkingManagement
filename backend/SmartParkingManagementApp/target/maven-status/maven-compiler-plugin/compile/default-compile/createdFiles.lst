@@ -50,6 +50,7 @@ com\ou\controllers\ApiVehicleCategoryController.class
 com\ou\services\RoleService.class
 com\ou\dto\request\UserUpdateRequestDTO$UserUpdateRequestDTOBuilder.class
 com\ou\repositories\BookingInformationRepository.class
+.netbeans_automatic_build
 com\ou\formatters\LocalDateTimeFormatters.class
 com\ou\pojo\Report.class
 com\ou\formatters\RoleFormatters.class

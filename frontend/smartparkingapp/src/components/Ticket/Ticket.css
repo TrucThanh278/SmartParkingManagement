@@ -1,161 +1,85 @@
-.ticket  {
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.ticket ::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("../../asset/images/wait.png");
-  background-size: cover;
-  background-position: center;
-  filter: blur(5px); /* Adjust the blur level as needed */
-  z-index: -1; /* Ensure the pseudo-element is behind the content */
-  opacity: 0.9; /* Optional: Adjust opacity if needed */
-}
-
-.ticket-content {
+/* Đặt toàn bộ phần tử của Ticket trong một container */
+.ticket-container {
+  max-width: 800px;
+  margin: 20px auto;
   padding: 20px;
   background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  width: 90%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.ticket-details {
-  margin-bottom: 20px;
-}
-
-.ticket-info p, .payment-info p {
-  margin: 5px 0;
-}
-
-.no-ticket {
+/* Tiêu đề */
+.ticket-container h2 {
   text-align: center;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-.ticket-details {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.ticket-info, .payment-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.ticket-info p, .payment-info p {
-  margin: 5px 10px;
-  flex: 1 1 calc(50% - 20px); /* Adjusting to two columns */
-}
-
-.ticket-info p strong, .payment-info p strong {
-  font-weight: bold;
-}
-
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.actions button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-}
-
-.actions button:hover {
-  background-color: #0056b3;
-}
-
-.no-ticket {
-  text-align: center;
-}
-
-/* Ticket.css */
-
-
-.ticket-content {
-  padding: 20px;
-  border-bottom: 1px solid #ddd;
-}
-
-.ticket h2 {
-  margin-bottom: 20px;
   color: #333;
+  margin-bottom: 20px;
 }
 
-.ticket p {
-  margin: 10px 0;
+/* Định dạng cho từng booking */
+.ticket-item {
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.ticket-item:hover {
+  transform: scale(1.02);
+}
+
+/* Các thông tin của booking */
+.ticket-item p {
+  margin: 8px 0;
+  font-size: 16px;
   color: #555;
 }
 
-.ticket-buttons {
-  justify-content: space-between;
-  margin-top: 20px;
+/* Định dạng cho trạng thái thanh toán */
+.payment-status {
+  font-weight: bold;
+  color: #d9534f;
+  /* Màu đỏ nếu chưa thanh toán */
 }
 
-.ticket-button {
-  flex: 1;
-  margin: 0 5px;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.payment-status.paid {
+  color: #5cb85c;
+  /* Màu xanh lá nếu đã thanh toán */
+}
+
+/* Định dạng danh sách */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.error {
+  color: red;
   text-align: center;
 }
 
-.ticket-button.pay {
-  background-color: #28a745; /* Green for payment */
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .ticket-container {
+    padding: 10px;
+    width: 90%;
+  }
+
+  .ticket-item {
+    font-size: 14px;
+  }
+
+  .ticket-container h2 {
+    font-size: 24px;
+  }
 }
 
-.ticket-button.pay:hover {
-  background-color: #218838;
+.ticket {
+  height: 800px !important;
 }
 
-.ticket-button.edit {
-  background-color: #007bff; /* Blue for edit */
-}
-
-.ticket-button.edit:hover {
-  background-color: #0056b3;
-}
-
-.ticket-button.delete {
-  background-color: #dc3545; /* Red for delete */
-}
-
-.ticket-button.delete:hover {
-  background-color: #c82333;
-}
-
-form {
-  display: flex;
+.ticket {
+  background-image: url("../../asset/images/wait.png");
+  height: 100%;
 }

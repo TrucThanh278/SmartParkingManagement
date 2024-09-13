@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../../configs/APIs';
 import { endpoints } from '../../configs/APIs';
-import "./ChangePasswordForm.css";
+import "../../styles/Account/ChangePasswordForm.css";
 import cookie from 'react-cookies';
 import Swal from 'sweetalert2';
 

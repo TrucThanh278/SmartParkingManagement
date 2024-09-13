@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Hero from '../../asset/images/hero.jpg';
-import './BookList.css';
+import '../../styles/Book/BookList.css';
 import BookForm from './BookForm';
 import BookSearch from './BookSearch';
 import { authAPIs, endpoints } from '../../configs/APIs';

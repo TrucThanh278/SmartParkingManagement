@@ -3,7 +3,7 @@ import Header from '../Layout/Header';
 import UpdateForm from './UpdateForm';
 import ChangePasswordForm from './ChangePasswordForm';
 import { authAPIs, endpoints } from "../../configs/APIs";
-import "./account.css";
+import "../../styles/Account/account.css";
 
 function Account() {
   const [userData, setUserData] = useState(null);

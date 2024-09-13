@@ -5,7 +5,7 @@ import { faUser, faHome, faPhone, faEnvelope, faLock, faImage } from '@fortaweso
 import { Alert, Spinner } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import APIs, { endpoints } from "../../configs/APIs";
-import "./signup.css";
+import "../../styles/Signup/signup.css";
 
 function SignUp() {
   const [formData, setFormData] = useState({

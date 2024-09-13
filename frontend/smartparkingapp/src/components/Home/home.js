@@ -1,5 +1,5 @@
 import React from 'react';
-import './home.css';
+import '../../styles/Home/home.css';
 import Header from '../Layout/Header';
 import UserEasy from '../../asset/images/use-easy.webp';
 import Secure from '../../asset/images/secure.jpg';

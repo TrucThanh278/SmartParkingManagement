@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookies from 'react-cookies';
 import { authAPIs, endpoints } from '../../configs/APIs';
 import Swal from 'sweetalert2';
-import "./AddVehicleForm.css";
+import "../../styles/Book/AddVehicleForm.css";
 
 function AddVehicleForm({ onClose, onVehicleAdded }) {
     const [vehiclePlate, setVehiclePlate] = useState('');

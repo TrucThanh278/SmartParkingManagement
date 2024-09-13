@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { authAPIs, endpoints } from '../../configs/APIs';
 import Swal from 'sweetalert2';
-import './UpdateBookingForm.css';
+import '../../styles/Ticket/UpdateBookingForm.css';
 
 const UpdateBookingForm = ({ bookingId, onClose, onUpdate }) => {
     const [startTime, setStartTime] = useState('');

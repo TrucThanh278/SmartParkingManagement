@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import "./PaymentForm.css";
+import "../../styles/Book/PaymentForm.css";
 import { PriceContext } from "./BookForm";
 
 import { authAPIs, endpoints } from "../../configs/APIs";

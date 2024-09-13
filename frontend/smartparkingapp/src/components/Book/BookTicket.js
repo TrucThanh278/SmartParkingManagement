@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Cookies from 'react-cookies';
 import { authAPIs, endpoints } from '../../configs/APIs';
-import "./BookTicket.css";
+import "../../styles/Book/BookTicket.css";
 import AddVehicleForm from './AddVehicleForm';
 import PaymentForm from './PaymentForm';
 import { useNavigate } from 'react-router-dom';

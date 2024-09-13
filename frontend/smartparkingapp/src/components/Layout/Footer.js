@@ -1,4 +1,4 @@
-import classes from './footer.css';
+import classes from '../../styles/Layout/footer.css';
 
 const Footer = () => {
 	const currentYear = new Date().getFullYear();

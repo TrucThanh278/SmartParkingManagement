@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './BookSearch.css';
+import '../../styles/Book/BookSearch.css';
 import { authAPIs, endpoints } from '../../configs/APIs';
 
 function BookSearch({ onSearchResults, setTotalPages, setPage }) {

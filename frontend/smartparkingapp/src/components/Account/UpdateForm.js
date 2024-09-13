@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { authAPIs, endpoints } from '../../configs/APIs';
-import "./UpdateForm.css";
+import "../../styles/Account/UpdateForm.css";
 import Swal from 'sweetalert2';
 
 function UpdateForm({ userData, onSave, onCancel }) {

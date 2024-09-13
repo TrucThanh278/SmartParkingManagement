@@ -1,7 +1,7 @@
 import SP from '../../SP.svg';
 import React from "react";
 // import logo from "./logo512.png";
-import "./contact.css";
+import "../../styles/Contact/contact.css";
 import Header from '../Layout/Header';
 
 function contact() {

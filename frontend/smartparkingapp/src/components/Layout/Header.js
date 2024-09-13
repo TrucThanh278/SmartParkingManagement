@@ -4,7 +4,7 @@ import { MyDispatchContext, MyUserContext } from '../../Routes';
 import { Button } from 'react-bootstrap';
 import { FaBars, FaTimes } from 'react-icons/fa'; // Import các icon
 import SP from '../../asset/images/logo.png';
-import './header.css'; 
+import '../../styles/Layout/header.css'; 
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);

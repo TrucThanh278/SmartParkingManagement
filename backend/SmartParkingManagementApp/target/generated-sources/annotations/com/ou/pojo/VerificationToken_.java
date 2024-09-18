@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2024-09-07T04:00:42")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2024-09-17T22:55:24")
 @StaticMetamodel(VerificationToken.class)
 public class VerificationToken_ { 
 
